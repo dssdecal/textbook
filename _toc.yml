@@ -27,3 +27,5 @@ sections:
     title: Call Expressions
   - file: chapters/02/4/data_types
     title: Data Types
+  - file: chapters/02/5/comparisons
+    title: Comparison Operators
