@@ -4,25 +4,6 @@ title: Introduction
 options:
   numbered: true
 sections:
-- file: chapters/01/what-is-data-science
-  title: What is Data Science?
-  sections:
-  - file: chapters/01/1/intro
-    title: Introduction
-    sections:
-    - file: chapters/01/1/1/computational-tools
-      title: Computational Tools
-    - file: chapters/01/1/2/statistical-techniques
-      title: Statistical Techniques
-  - file: chapters/01/2/why-data-science
-    title: Why Data Science?
-  - file: chapters/01/3/Plotting_the_Classics
-    title: Plotting the Classics
-    sections:
-    - file: chapters/01/3/1/Literary_Characters
-      title: Literary Characters
-    - file: chapters/01/3/2/Another_Kind_Of_Character
-      title: Another Kind of Character
 - file: chapters/02/intro_python
   title: Introduction to Python
   sections:
