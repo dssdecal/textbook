@@ -4,6 +4,18 @@ title: Introduction
 options:
   numbered: true
 sections:
+- file: chapters/01/what-is-data-science
+  title: What is a Data Science
+  sections:
+  - file: chapters/01/1/intro
+    title: Introduction
+    sections:
+    - file: chapters/01/1/1/computational-tools
+      title: Computational Tools
+    - file: chapters/01/1/2/statistical-techniques
+      title: Statistical Techniques
+  - file: chapters/01/2/why-data-science
+    title: Why Data Science?
 - file: chapters/02/intro_python
   title: Introduction to Python
   sections:
