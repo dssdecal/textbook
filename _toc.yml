@@ -32,5 +32,5 @@ sections:
 - file: chapters/03/sequences
   title: Sequences
   sections:
-  - file: chapters/02/1/lists
+  - file: chapters/03/1/lists
     title: Lists
