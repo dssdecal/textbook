@@ -29,3 +29,8 @@ sections:
     title: Data Types
   - file: chapters/02/5/comparisons
     title: Comparison Operators
+- file: chapters/03/intro_python
+  title: Sequences
+  sections:
+  - file: chapters/02/1/lists
+    title: Lists
