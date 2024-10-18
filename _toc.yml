@@ -29,8 +29,10 @@ sections:
     title: Data Types
   - file: chapters/02/5/comparisons
     title: Comparison Operators
-- file: chapters/03/sequences
-  title: Sequences
-  sections:
-  - file: chapters/03/1/lists
+  - file: chapters/02/6/lists
     title: Lists
+- file: chapters/03/sequences
+  title: Dataframes
+  sections:
+  - file: chapters/03/1/tabular
+    title: Tabular Data
