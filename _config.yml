@@ -1,7 +1,7 @@
 #######################################################################################
 # Book settings
 title: Introduction to Real World Data Science
-author: Brandon Concepcion, Lynn Chien, Ryan Stevenson
+author: Brandon Concepcion
 email: ''
 logo                        : "favicon.png"  # A path to the book logo
 exclude_patterns            : ["README.md"]  # Patterns to skip when building the book. Can be glob-style (e.g. "*skip.ipynb")
@@ -17,19 +17,19 @@ execute:
 html:
   favicon                   : "favicon.png"  # A path to a favicon image
   navbar_number_sections    : True  # Add a number to each section in your left navbar
-  google_analytics_id       : "UA-148221575-1"  # A GA id that can be used to track book views.
+  #google_analytics_id       : "UA-148221575-1"  # A GA id that can be used to track book views.
   home_page_in_navbar       : false  # Whether to include your home page in the left Navigation Bar
-  baseurl                   : "https://inferentialthinking.org"  # The base URL where your book will be hosted. Used for creating image previews and social links. e.g.: https://mypage.com/mybook/
+  #baseurl                   : "https://inferentialthinking.org"  # The base URL where your book will be hosted. Used for creating image previews and social links. e.g.: https://mypage.com/mybook/
   use_repository_button     : true
   use_edit_page_button      : false
   use_issues_button         : false
 
 #######################################################################################
 # Launch button settings
-launch_buttons:
-  jupyterhub_url            : https://datahub.berkeley.edu
-  binderhub_url             : https://mybinder.org  # The URL of the BinderHub (e.g., https://mybinder.org)
-  notebook_interface        : jupyterlab
+#launch_buttons:
+  #jupyterhub_url            : https://datahub.berkeley.edu
+  #binderhub_url             : https://mybinder.org  # The URL of the BinderHub (e.g., https://mybinder.org)
+  #notebook_interface        : jupyterlab
 
 repository:
   url                       : https://github.com/DSS-Data198/textbook  # The URL to your book's repository
