@@ -38,5 +38,5 @@ sections:
   sections:
   - file: chapters/03/1/tabular
     title: Tabular Data
-- file: chapters/03/machine_learning
+- file: chapters/07/machine_learning
   title: Machine Learning
