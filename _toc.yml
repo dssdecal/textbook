@@ -31,6 +31,8 @@ sections:
     title: Comparison Operators
   - file: chapters/02/6/lists
     title: Lists
+  - file: chapters/02/7/dictionaries
+    title: Dictionaries
 - file: chapters/03/sequences
   title: Dataframes
   sections:
