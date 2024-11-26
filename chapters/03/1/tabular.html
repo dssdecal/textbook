@@ -1,0 +1,1911 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>3.1. Tabular Data in Pandas &#8212; Introduction to Real World Data Science</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/03/1/tabular';</script>
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="4. Machine Learning" href="../../07/machine_learning.html" />
+    <link rel="prev" title="3. Sequences" href="../sequences.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/favicon.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../../_static/favicon.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01/what-is-data-science.html">1. What is a Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01/1/intro.html">1.1. Introduction</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01/1/1/computational-tools.html">1.1.1. Computational Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01/1/2/statistical-techniques.html">1.1.2. Statistical Techniques</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../01/2/why-data-science.html">1.2. Why Data Science?</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../02/intro_python.html">2. Introduction to Python</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../02/1/expressions.html">2.1. Simple Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02/2/variables.html">2.2. Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02/3/call_expressions.html">2.3. Call Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02/4/data_types.html">2.4. Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02/5/comparisons.html">2.5. Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02/6/lists.html">2.6. Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../sequences.html">3. Dataframes</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">3.1. Tabular Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/chapters/03/1/tabular.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Tabular Data in Pandas</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gotta-catch-em-all">3.1.1. Gotta Catch ‘Em All!</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-first-n-rows">3.1.1.1. The first n rows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-last-n-rows">3.1.1.2. The last n rows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structure">3.1.1.3. Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-statistics">3.1.1.4. Summary Statistics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#listing-the-columns">3.1.1.5. Listing the columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting">3.1.1.6. Sorting</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="tabular-data-in-pandas">
+<h1><span class="section-number">3.1. </span>Tabular Data in Pandas<a class="headerlink" href="#tabular-data-in-pandas" title="Permalink to this heading">#</a></h1>
+<p>Tabular data is one of the most common forms of data you’ll encounter in data analysis. It consists of rows and columns, much like a table in a spreadsheet or database. This structured format allows data to be easily organized and manipulated. Some key characteristics of tabular data include:</p>
+<ul class="simple">
+<li><p>Rows: Represent individual records or observations.</p></li>
+<li><p>Columns: Represent variables or features that describe the data.</p></li>
+</ul>
+<p>The most common way to represent tabular data in Python, comes from files called Comma Separated Values (CSV). CSVs are of plain text format where each row corresponds to a record, and the columns are separated by commas.</p>
+<section id="gotta-catch-em-all">
+<h2><span class="section-number">3.1.1. </span>Gotta Catch ‘Em All!<a class="headerlink" href="#gotta-catch-em-all" title="Permalink to this heading">#</a></h2>
+<p>Let’s consider some examples with a <a class="reference external" href="https://www.pokemon.com/us">Pokémon</a> dataset.</p>
+<p>The Pokémon franchise (short for “Pocket Monsters”) was created by Satoshi Tajiri and Ken Sugimori, and first introduced by Nintendo, Game Freak, and Creatures in 1996. It has since become one of the most popular and enduring multimedia franchises in the world, centering around fictional creatures that humans, known as Pokémon Trainers, catch and train to battle each other.</p>
+<p>The core of the franchise revolves around video games, where players explore various regions, capture wild Pokémon, and aim to complete a comprehensive database known as the <a class="reference external" href="https://www.pokemon.com/us/pokedex">Pokédex</a>.</p>
+<p>Let’s consider the following dataset, which we can load using the <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">pokedex</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;pokedex.csv&quot;</span><span class="p">)</span>
+<span class="n">pokedex</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Type 1</th>
+      <th>Type 2</th>
+      <th>Total</th>
+      <th>HP</th>
+      <th>Attack</th>
+      <th>Defense</th>
+      <th>SP. Atk.</th>
+      <th>SP. Def</th>
+      <th>Speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Bulbasaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>318</td>
+      <td>45</td>
+      <td>49</td>
+      <td>49</td>
+      <td>65</td>
+      <td>65</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Ivysaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>405</td>
+      <td>60</td>
+      <td>62</td>
+      <td>63</td>
+      <td>80</td>
+      <td>80</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Venusaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>525</td>
+      <td>80</td>
+      <td>82</td>
+      <td>83</td>
+      <td>100</td>
+      <td>100</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Venusaur Mega Venusaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>625</td>
+      <td>80</td>
+      <td>100</td>
+      <td>123</td>
+      <td>122</td>
+      <td>120</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Charmander</td>
+      <td>Fire</td>
+      <td>NaN</td>
+      <td>309</td>
+      <td>39</td>
+      <td>52</td>
+      <td>43</td>
+      <td>60</td>
+      <td>50</td>
+      <td>65</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1210</th>
+      <td>Iron Crown</td>
+      <td>Steel</td>
+      <td>Psychic</td>
+      <td>590</td>
+      <td>90</td>
+      <td>72</td>
+      <td>100</td>
+      <td>122</td>
+      <td>108</td>
+      <td>98</td>
+    </tr>
+    <tr>
+      <th>1211</th>
+      <td>Terapagos Normal Form</td>
+      <td>Normal</td>
+      <td>NaN</td>
+      <td>450</td>
+      <td>90</td>
+      <td>65</td>
+      <td>85</td>
+      <td>65</td>
+      <td>85</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>1212</th>
+      <td>Terapagos Terastal Form</td>
+      <td>Normal</td>
+      <td>NaN</td>
+      <td>600</td>
+      <td>95</td>
+      <td>95</td>
+      <td>110</td>
+      <td>105</td>
+      <td>110</td>
+      <td>85</td>
+    </tr>
+    <tr>
+      <th>1213</th>
+      <td>Terapagos Stellar Form</td>
+      <td>Normal</td>
+      <td>NaN</td>
+      <td>700</td>
+      <td>160</td>
+      <td>105</td>
+      <td>110</td>
+      <td>130</td>
+      <td>110</td>
+      <td>85</td>
+    </tr>
+    <tr>
+      <th>1214</th>
+      <td>Pecharunt</td>
+      <td>Poison</td>
+      <td>Ghost</td>
+      <td>600</td>
+      <td>88</td>
+      <td>88</td>
+      <td>160</td>
+      <td>88</td>
+      <td>88</td>
+      <td>88</td>
+    </tr>
+  </tbody>
+</table>
+<p>1215 rows × 10 columns</p>
+</div></div></div>
+</div>
+<p>A dataset in this form is referred to as a DataFrame. This dataset includes information about <strong>each</strong> Pokémon, from the first generation to the ninth generation</p>
+<p>Each row represents one Pokémon. The columns are:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Column Label</strong></p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Name</span></code></p></td>
+<td><p>Pokémon’s name</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">1</span></code></p></td>
+<td><p>The primary type of the Pokémon, which defines its elemental characteristic.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">2</span></code></p></td>
+<td><p>The secondary type of the Pokémon, if applicable. Some Pokémon have two types</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Total</span></code></p></td>
+<td><p>The sum of all base stats, indicating overall power.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HP</span></code></p></td>
+<td><p>Hit Points, representing how much damage a Pokémon can take.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Attack</span></code></p></td>
+<td><p>Physical attack power, affecting damage from physical moves.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Defense</span></code></p></td>
+<td><p>Ability to resist physical attacks.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SP.</span> <span class="pre">Atk.</span></code></p></td>
+<td><p>Special Attack power, for non-physical moves (e.g., energy-based)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SP.</span> <span class="pre">Def.</span></code></p></td>
+<td><p>Special Defense, resistance to special (non-physical) moves.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Speed</span></code></p></td>
+<td><p>Determines attack order in battle; higher Speed means attacking first.</p></td>
+</tr>
+</tbody>
+</table>
+<p>We can see that the first Pokémon in the dataset is Bulbasaur, who is a Grass/Poison-type Pokémon with a total stat of 318, including 45 HP, 49 Attack, 49 Defense, 65 Special Attack, 65 Special Defense, and 45 Speed.</p>
+<section id="the-first-n-rows">
+<h3><span class="section-number">3.1.1.1. </span>The first n rows<a class="headerlink" href="#the-first-n-rows" title="Permalink to this heading">#</a></h3>
+<p>We can see that our <code class="docutils literal notranslate"><span class="pre">pokedex</span></code> DataFrame has 1215 rows, and 10 unique columns. If we only want to see a specific amount of rows, we can do so using <code class="docutils literal notranslate"><span class="pre">df.head()</span></code>, where <code class="docutils literal notranslate"><span class="pre">df</span></code> corresponds to a generic dataframe.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pokedex</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1">#Show the first 5 rows</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Type 1</th>
+      <th>Type 2</th>
+      <th>Total</th>
+      <th>HP</th>
+      <th>Attack</th>
+      <th>Defense</th>
+      <th>SP. Atk.</th>
+      <th>SP. Def</th>
+      <th>Speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Bulbasaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>318</td>
+      <td>45</td>
+      <td>49</td>
+      <td>49</td>
+      <td>65</td>
+      <td>65</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Ivysaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>405</td>
+      <td>60</td>
+      <td>62</td>
+      <td>63</td>
+      <td>80</td>
+      <td>80</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Venusaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>525</td>
+      <td>80</td>
+      <td>82</td>
+      <td>83</td>
+      <td>100</td>
+      <td>100</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Venusaur Mega Venusaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>625</td>
+      <td>80</td>
+      <td>100</td>
+      <td>123</td>
+      <td>122</td>
+      <td>120</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Charmander</td>
+      <td>Fire</td>
+      <td>NaN</td>
+      <td>309</td>
+      <td>39</td>
+      <td>52</td>
+      <td>43</td>
+      <td>60</td>
+      <td>50</td>
+      <td>65</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>By default, if we don’t specify a specific value in <code class="docutils literal notranslate"><span class="pre">.head()</span></code>, the default is 5.</p>
+<p>Let’s try looking at the first 8 rows, corresponding to the first 8 Pokémon:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pokedex</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Type 1</th>
+      <th>Type 2</th>
+      <th>Total</th>
+      <th>HP</th>
+      <th>Attack</th>
+      <th>Defense</th>
+      <th>SP. Atk.</th>
+      <th>SP. Def</th>
+      <th>Speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Bulbasaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>318</td>
+      <td>45</td>
+      <td>49</td>
+      <td>49</td>
+      <td>65</td>
+      <td>65</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Ivysaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>405</td>
+      <td>60</td>
+      <td>62</td>
+      <td>63</td>
+      <td>80</td>
+      <td>80</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Venusaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>525</td>
+      <td>80</td>
+      <td>82</td>
+      <td>83</td>
+      <td>100</td>
+      <td>100</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Venusaur Mega Venusaur</td>
+      <td>Grass</td>
+      <td>Poison</td>
+      <td>625</td>
+      <td>80</td>
+      <td>100</td>
+      <td>123</td>
+      <td>122</td>
+      <td>120</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Charmander</td>
+      <td>Fire</td>
+      <td>NaN</td>
+      <td>309</td>
+      <td>39</td>
+      <td>52</td>
+      <td>43</td>
+      <td>60</td>
+      <td>50</td>
+      <td>65</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Charmeleon</td>
+      <td>Fire</td>
+      <td>NaN</td>
+      <td>405</td>
+      <td>58</td>
+      <td>64</td>
+      <td>58</td>
+      <td>80</td>
+      <td>65</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Charizard</td>
+      <td>Fire</td>
+      <td>Flying</td>
+      <td>534</td>
+      <td>78</td>
+      <td>84</td>
+      <td>78</td>
+      <td>109</td>
+      <td>85</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Charizard Mega Charizard X</td>
+      <td>Fire</td>
+      <td>Dragon</td>
+      <td>634</td>
+      <td>78</td>
+      <td>130</td>
+      <td>111</td>
+      <td>130</td>
+      <td>85</td>
+      <td>100</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Notice as well, that dataframe rows are considered <strong>zero-indexed</strong>, where the first row is at index 0, the second at index 1, and so on and so forth</p>
+</section>
+<section id="the-last-n-rows">
+<h3><span class="section-number">3.1.1.2. </span>The last n rows<a class="headerlink" href="#the-last-n-rows" title="Permalink to this heading">#</a></h3>
+<p>We can view the last few rows using <code class="docutils literal notranslate"><span class="pre">df.tail()</span></code>. Again, if we don’t specify an argument, the default number of rows is 5</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pokedex</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span> <span class="c1">#last 5 rows</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Type 1</th>
+      <th>Type 2</th>
+      <th>Total</th>
+      <th>HP</th>
+      <th>Attack</th>
+      <th>Defense</th>
+      <th>SP. Atk.</th>
+      <th>SP. Def</th>
+      <th>Speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1210</th>
+      <td>Iron Crown</td>
+      <td>Steel</td>
+      <td>Psychic</td>
+      <td>590</td>
+      <td>90</td>
+      <td>72</td>
+      <td>100</td>
+      <td>122</td>
+      <td>108</td>
+      <td>98</td>
+    </tr>
+    <tr>
+      <th>1211</th>
+      <td>Terapagos Normal Form</td>
+      <td>Normal</td>
+      <td>NaN</td>
+      <td>450</td>
+      <td>90</td>
+      <td>65</td>
+      <td>85</td>
+      <td>65</td>
+      <td>85</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>1212</th>
+      <td>Terapagos Terastal Form</td>
+      <td>Normal</td>
+      <td>NaN</td>
+      <td>600</td>
+      <td>95</td>
+      <td>95</td>
+      <td>110</td>
+      <td>105</td>
+      <td>110</td>
+      <td>85</td>
+    </tr>
+    <tr>
+      <th>1213</th>
+      <td>Terapagos Stellar Form</td>
+      <td>Normal</td>
+      <td>NaN</td>
+      <td>700</td>
+      <td>160</td>
+      <td>105</td>
+      <td>110</td>
+      <td>130</td>
+      <td>110</td>
+      <td>85</td>
+    </tr>
+    <tr>
+      <th>1214</th>
+      <td>Pecharunt</td>
+      <td>Poison</td>
+      <td>Ghost</td>
+      <td>600</td>
+      <td>88</td>
+      <td>88</td>
+      <td>160</td>
+      <td>88</td>
+      <td>88</td>
+      <td>88</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>If we want to see the last 11 rows, perhaps, we can do:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pokedex</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Type 1</th>
+      <th>Type 2</th>
+      <th>Total</th>
+      <th>HP</th>
+      <th>Attack</th>
+      <th>Defense</th>
+      <th>SP. Atk.</th>
+      <th>SP. Def</th>
+      <th>Speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1204</th>
+      <td>Ogerpon Cornerstone Mask</td>
+      <td>Grass</td>
+      <td>Rock</td>
+      <td>550</td>
+      <td>80</td>
+      <td>120</td>
+      <td>84</td>
+      <td>60</td>
+      <td>96</td>
+      <td>110</td>
+    </tr>
+    <tr>
+      <th>1205</th>
+      <td>Archaludon</td>
+      <td>Steel</td>
+      <td>Dragon</td>
+      <td>600</td>
+      <td>90</td>
+      <td>105</td>
+      <td>130</td>
+      <td>125</td>
+      <td>65</td>
+      <td>85</td>
+    </tr>
+    <tr>
+      <th>1206</th>
+      <td>Hydrapple</td>
+      <td>Grass</td>
+      <td>Dragon</td>
+      <td>540</td>
+      <td>106</td>
+      <td>80</td>
+      <td>110</td>
+      <td>120</td>
+      <td>80</td>
+      <td>44</td>
+    </tr>
+    <tr>
+      <th>1207</th>
+      <td>Gouging Fire</td>
+      <td>Fire</td>
+      <td>Dragon</td>
+      <td>590</td>
+      <td>105</td>
+      <td>115</td>
+      <td>121</td>
+      <td>65</td>
+      <td>93</td>
+      <td>91</td>
+    </tr>
+    <tr>
+      <th>1208</th>
+      <td>Raging Bolt</td>
+      <td>Electric</td>
+      <td>Dragon</td>
+      <td>590</td>
+      <td>125</td>
+      <td>73</td>
+      <td>91</td>
+      <td>137</td>
+      <td>89</td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <th>1209</th>
+      <td>Iron Boulder</td>
+      <td>Rock</td>
+      <td>Psychic</td>
+      <td>590</td>
+      <td>90</td>
+      <td>120</td>
+      <td>80</td>
+      <td>68</td>
+      <td>108</td>
+      <td>124</td>
+    </tr>
+    <tr>
+      <th>1210</th>
+      <td>Iron Crown</td>
+      <td>Steel</td>
+      <td>Psychic</td>
+      <td>590</td>
+      <td>90</td>
+      <td>72</td>
+      <td>100</td>
+      <td>122</td>
+      <td>108</td>
+      <td>98</td>
+    </tr>
+    <tr>
+      <th>1211</th>
+      <td>Terapagos Normal Form</td>
+      <td>Normal</td>
+      <td>NaN</td>
+      <td>450</td>
+      <td>90</td>
+      <td>65</td>
+      <td>85</td>
+      <td>65</td>
+      <td>85</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>1212</th>
+      <td>Terapagos Terastal Form</td>
+      <td>Normal</td>
+      <td>NaN</td>
+      <td>600</td>
+      <td>95</td>
+      <td>95</td>
+      <td>110</td>
+      <td>105</td>
+      <td>110</td>
+      <td>85</td>
+    </tr>
+    <tr>
+      <th>1213</th>
+      <td>Terapagos Stellar Form</td>
+      <td>Normal</td>
+      <td>NaN</td>
+      <td>700</td>
+      <td>160</td>
+      <td>105</td>
+      <td>110</td>
+      <td>130</td>
+      <td>110</td>
+      <td>85</td>
+    </tr>
+    <tr>
+      <th>1214</th>
+      <td>Pecharunt</td>
+      <td>Poison</td>
+      <td>Ghost</td>
+      <td>600</td>
+      <td>88</td>
+      <td>88</td>
+      <td>160</td>
+      <td>88</td>
+      <td>88</td>
+      <td>88</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="structure">
+<h3><span class="section-number">3.1.1.3. </span>Structure<a class="headerlink" href="#structure" title="Permalink to this heading">#</a></h3>
+<p>We can also use <code class="docutils literal notranslate"><span class="pre">df.info()</span></code> to give an overview of the dataset, including the number of entries, column names, data types, and non-null counts.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pokedex</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 1215 entries, 0 to 1214
+Data columns (total 10 columns):
+ #   Column    Non-Null Count  Dtype 
+---  ------    --------------  ----- 
+ 0   Name      1215 non-null   object
+ 1   Type 1    1215 non-null   object
+ 2   Type 2    669 non-null    object
+ 3   Total     1215 non-null   int64 
+ 4   HP        1215 non-null   int64 
+ 5   Attack    1215 non-null   int64 
+ 6   Defense   1215 non-null   int64 
+ 7   SP. Atk.  1215 non-null   int64 
+ 8   SP. Def   1215 non-null   int64 
+ 9   Speed     1215 non-null   int64 
+dtypes: int64(7), object(3)
+memory usage: 95.1+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that each of the columns, except the <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">2</span></code> column, have 0 null (empty) entries. We do see though, that only 669 of the Pokémon have an entry in the <code class="docutils literal notranslate"><span class="pre">Type</span> <span class="pre">2</span></code> column. This seems to indicate that around half of the Pokémon only have a single type associated with them</p>
+</section>
+<section id="summary-statistics">
+<h3><span class="section-number">3.1.1.4. </span>Summary Statistics<a class="headerlink" href="#summary-statistics" title="Permalink to this heading">#</a></h3>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">df.describe()</span></code> to get some summary statistics for each of our columns in our dataset</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pokedex</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Total</th>
+      <th>HP</th>
+      <th>Attack</th>
+      <th>Defense</th>
+      <th>SP. Atk.</th>
+      <th>SP. Def</th>
+      <th>Speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>1215.000000</td>
+      <td>1215.000000</td>
+      <td>1215.000000</td>
+      <td>1215.000000</td>
+      <td>1215.000000</td>
+      <td>1215.000000</td>
+      <td>1215.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>443.104527</td>
+      <td>71.244444</td>
+      <td>81.152263</td>
+      <td>75.007407</td>
+      <td>73.224691</td>
+      <td>72.441152</td>
+      <td>70.034568</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>121.193406</td>
+      <td>26.927819</td>
+      <td>32.037134</td>
+      <td>30.740999</td>
+      <td>32.757152</td>
+      <td>27.578188</td>
+      <td>30.161298</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>175.000000</td>
+      <td>1.000000</td>
+      <td>5.000000</td>
+      <td>5.000000</td>
+      <td>10.000000</td>
+      <td>20.000000</td>
+      <td>5.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>332.000000</td>
+      <td>52.000000</td>
+      <td>57.000000</td>
+      <td>52.000000</td>
+      <td>50.000000</td>
+      <td>51.000000</td>
+      <td>45.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>465.000000</td>
+      <td>70.000000</td>
+      <td>80.000000</td>
+      <td>70.000000</td>
+      <td>65.000000</td>
+      <td>70.000000</td>
+      <td>68.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>521.000000</td>
+      <td>85.000000</td>
+      <td>100.000000</td>
+      <td>91.000000</td>
+      <td>95.000000</td>
+      <td>90.000000</td>
+      <td>91.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1125.000000</td>
+      <td>255.000000</td>
+      <td>190.000000</td>
+      <td>250.000000</td>
+      <td>194.000000</td>
+      <td>250.000000</td>
+      <td>200.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Note that these summary statistics are only calculate for columns which have <strong>numeric</strong> values, where a categorical column like <code class="docutils literal notranslate"><span class="pre">&quot;Name&quot;</span></code> is not present</p>
+</section>
+<section id="listing-the-columns">
+<h3><span class="section-number">3.1.1.5. </span>Listing the columns<a class="headerlink" href="#listing-the-columns" title="Permalink to this heading">#</a></h3>
+<p>Suppose we had a dataset which had many many columns. If we wanted to see the different column names, we could do so using <code class="docutils literal notranslate"><span class="pre">df.columns</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pokedex</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;Name&#39;, &#39;Type 1&#39;, &#39;Type 2&#39;, &#39;Total&#39;, &#39;HP&#39;, &#39;Attack&#39;, &#39;Defense&#39;,
+       &#39;SP. Atk.&#39;, &#39;SP. Def&#39;, &#39;Speed&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sorting">
+<h3><span class="section-number">3.1.1.6. </span>Sorting<a class="headerlink" href="#sorting" title="Permalink to this heading">#</a></h3>
+<p>Sorting is a fundamental operation in data analysis that allows you to organize your data based on specific criteria. In Pandas, the <code class="docutils literal notranslate"><span class="pre">.sort_values()</span></code> function is used to sort a DataFrame by one or more columns.</p>
+<p>As an example, let’s sort the <code class="docutils literal notranslate"><span class="pre">pokedex</span></code> dataset by values in the <code class="docutils literal notranslate"><span class="pre">Total</span></code> column. In order to ensure that the row with the highest <code class="docutils literal notranslate"><span class="pre">&quot;Total&quot;</span></code> is at the top, we have to specify the <code class="docutils literal notranslate"><span class="pre">ascending</span> <span class="pre">=</span> <span class="pre">False</span></code> argument. Otherwise, we would have the Pokémon with the lowest <code class="docutils literal notranslate"><span class="pre">&quot;Total&quot;</span></code> at the top</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pokedex_sorted</span> <span class="o">=</span> <span class="n">pokedex</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Total&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1">#highest total at the top</span>
+<span class="n">pokedex_sorted</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Type 1</th>
+      <th>Type 2</th>
+      <th>Total</th>
+      <th>HP</th>
+      <th>Attack</th>
+      <th>Defense</th>
+      <th>SP. Atk.</th>
+      <th>SP. Def</th>
+      <th>Speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1058</th>
+      <td>Eternatus Eternamax</td>
+      <td>Poison</td>
+      <td>Dragon</td>
+      <td>1125</td>
+      <td>255</td>
+      <td>115</td>
+      <td>250</td>
+      <td>125</td>
+      <td>250</td>
+      <td>130</td>
+    </tr>
+    <tr>
+      <th>475</th>
+      <td>Rayquaza Mega Rayquaza</td>
+      <td>Dragon</td>
+      <td>Flying</td>
+      <td>780</td>
+      <td>105</td>
+      <td>180</td>
+      <td>100</td>
+      <td>180</td>
+      <td>100</td>
+      <td>115</td>
+    </tr>
+    <tr>
+      <th>201</th>
+      <td>Mewtwo Mega Mewtwo X</td>
+      <td>Psychic</td>
+      <td>Fighting</td>
+      <td>780</td>
+      <td>106</td>
+      <td>190</td>
+      <td>100</td>
+      <td>154</td>
+      <td>100</td>
+      <td>130</td>
+    </tr>
+    <tr>
+      <th>202</th>
+      <td>Mewtwo Mega Mewtwo Y</td>
+      <td>Psychic</td>
+      <td>NaN</td>
+      <td>780</td>
+      <td>106</td>
+      <td>150</td>
+      <td>70</td>
+      <td>194</td>
+      <td>120</td>
+      <td>140</td>
+    </tr>
+    <tr>
+      <th>473</th>
+      <td>Groudon Primal Groudon</td>
+      <td>Ground</td>
+      <td>Fire</td>
+      <td>770</td>
+      <td>100</td>
+      <td>180</td>
+      <td>160</td>
+      <td>150</td>
+      <td>90</td>
+      <td>90</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pokedex_sorted</span> <span class="o">=</span> <span class="n">pokedex</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Total&#39;</span><span class="p">)</span> <span class="c1">#lowest totals at the top</span>
+<span class="n">pokedex_sorted</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Type 1</th>
+      <th>Type 2</th>
+      <th>Total</th>
+      <th>HP</th>
+      <th>Attack</th>
+      <th>Defense</th>
+      <th>SP. Atk.</th>
+      <th>SP. Def</th>
+      <th>Speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>902</th>
+      <td>Wishiwashi Solo Form</td>
+      <td>Water</td>
+      <td>NaN</td>
+      <td>175</td>
+      <td>45</td>
+      <td>20</td>
+      <td>20</td>
+      <td>25</td>
+      <td>25</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>245</th>
+      <td>Sunkern</td>
+      <td>Grass</td>
+      <td>NaN</td>
+      <td>180</td>
+      <td>30</td>
+      <td>30</td>
+      <td>30</td>
+      <td>30</td>
+      <td>30</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>985</th>
+      <td>Blipbug</td>
+      <td>Bug</td>
+      <td>NaN</td>
+      <td>180</td>
+      <td>25</td>
+      <td>20</td>
+      <td>20</td>
+      <td>25</td>
+      <td>45</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <th>1034</th>
+      <td>Snom</td>
+      <td>Ice</td>
+      <td>Bug</td>
+      <td>185</td>
+      <td>30</td>
+      <td>25</td>
+      <td>35</td>
+      <td>45</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>368</th>
+      <td>Azurill</td>
+      <td>Normal</td>
+      <td>Fairy</td>
+      <td>190</td>
+      <td>50</td>
+      <td>20</td>
+      <td>40</td>
+      <td>20</td>
+      <td>40</td>
+      <td>20</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>If we want to sort the Pokémon alphabetically by their names, simply sort by the <code class="docutils literal notranslate"><span class="pre">&quot;Name&quot;</span></code> column:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pokedex_sorted</span> <span class="o">=</span> <span class="n">pokedex</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span>
+<span class="n">pokedex_sorted</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Type 1</th>
+      <th>Type 2</th>
+      <th>Total</th>
+      <th>HP</th>
+      <th>Attack</th>
+      <th>Defense</th>
+      <th>SP. Atk.</th>
+      <th>SP. Def</th>
+      <th>Speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>561</th>
+      <td>Abomasnow</td>
+      <td>Grass</td>
+      <td>Ice</td>
+      <td>494</td>
+      <td>90</td>
+      <td>92</td>
+      <td>75</td>
+      <td>92</td>
+      <td>85</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>562</th>
+      <td>Abomasnow Mega Abomasnow</td>
+      <td>Grass</td>
+      <td>Ice</td>
+      <td>594</td>
+      <td>90</td>
+      <td>132</td>
+      <td>105</td>
+      <td>132</td>
+      <td>105</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>83</th>
+      <td>Abra</td>
+      <td>Psychic</td>
+      <td>NaN</td>
+      <td>310</td>
+      <td>25</td>
+      <td>20</td>
+      <td>15</td>
+      <td>105</td>
+      <td>55</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th>441</th>
+      <td>Absol</td>
+      <td>Dark</td>
+      <td>NaN</td>
+      <td>465</td>
+      <td>65</td>
+      <td>130</td>
+      <td>60</td>
+      <td>75</td>
+      <td>60</td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <th>442</th>
+      <td>Absol Mega Absol</td>
+      <td>Dark</td>
+      <td>NaN</td>
+      <td>565</td>
+      <td>65</td>
+      <td>150</td>
+      <td>60</td>
+      <td>115</td>
+      <td>60</td>
+      <td>115</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Again, notice that when we use <code class="docutils literal notranslate"><span class="pre">.sort_values</span></code> without the <code class="docutils literal notranslate"><span class="pre">ascending</span> <span class="pre">=</span> <span class="pre">False</span></code> argument, our <code class="docutils literal notranslate"><span class="pre">&quot;Name&quot;</span></code> column is sorted by ascending order, where pokemon names that come earliest in the alphabet are at the top of the Dataframe</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pokedex_sorted</span> <span class="o">=</span> <span class="n">pokedex</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">pokedex_sorted</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Type 1</th>
+      <th>Type 2</th>
+      <th>Total</th>
+      <th>HP</th>
+      <th>Attack</th>
+      <th>Defense</th>
+      <th>SP. Atk.</th>
+      <th>SP. Def</th>
+      <th>Speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>865</th>
+      <td>Zygarde Complete Forme</td>
+      <td>Dragon</td>
+      <td>Ground</td>
+      <td>708</td>
+      <td>216</td>
+      <td>100</td>
+      <td>121</td>
+      <td>91</td>
+      <td>95</td>
+      <td>85</td>
+    </tr>
+    <tr>
+      <th>863</th>
+      <td>Zygarde 50% Forme</td>
+      <td>Dragon</td>
+      <td>Ground</td>
+      <td>600</td>
+      <td>108</td>
+      <td>100</td>
+      <td>121</td>
+      <td>81</td>
+      <td>95</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>864</th>
+      <td>Zygarde 10% Forme</td>
+      <td>Dragon</td>
+      <td>Ground</td>
+      <td>486</td>
+      <td>54</td>
+      <td>100</td>
+      <td>71</td>
+      <td>61</td>
+      <td>85</td>
+      <td>115</td>
+    </tr>
+    <tr>
+      <th>760</th>
+      <td>Zweilous</td>
+      <td>Dark</td>
+      <td>Dragon</td>
+      <td>420</td>
+      <td>72</td>
+      <td>85</td>
+      <td>70</td>
+      <td>65</td>
+      <td>70</td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>Zubat</td>
+      <td>Poison</td>
+      <td>Flying</td>
+      <td>245</td>
+      <td>40</td>
+      <td>45</td>
+      <td>35</td>
+      <td>30</td>
+      <td>40</td>
+      <td>55</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now, we can actually see the Pokémon which have names that come latest in the alphabet</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/03/1"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../sequences.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Sequences</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../07/machine_learning.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Machine Learning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gotta-catch-em-all">3.1.1. Gotta Catch ‘Em All!</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-first-n-rows">3.1.1.1. The first n rows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-last-n-rows">3.1.1.2. The last n rows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structure">3.1.1.3. Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-statistics">3.1.1.4. Summary Statistics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#listing-the-columns">3.1.1.5. Listing the columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting">3.1.1.6. Sorting</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brandon Concepcion
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

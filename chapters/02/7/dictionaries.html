@@ -1,0 +1,854 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>2.7. Dictionaries &#8212; Introduction to Real World Data Science</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/02/7/dictionaries';</script>
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="3. Sequences" href="../../03/sequences.html" />
+    <link rel="prev" title="2.6. Lists" href="../6/lists.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/favicon.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../../_static/favicon.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01/what-is-data-science.html">1. What is a Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01/1/intro.html">1.1. Introduction</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01/1/1/computational-tools.html">1.1.1. Computational Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01/1/2/statistical-techniques.html">1.1.2. Statistical Techniques</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../01/2/why-data-science.html">1.2. Why Data Science?</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../intro_python.html">2. Introduction to Python</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../1/expressions.html">2.1. Simple Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2/variables.html">2.2. Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../3/call_expressions.html">2.3. Call Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../4/data_types.html">2.4. Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../5/comparisons.html">2.5. Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../6/lists.html">2.6. Lists</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.7. Dictionaries</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/chapters/02/7/dictionaries.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Dictionaries</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-dictionaries">2.7.1. What are Dictionaries?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-values">2.7.1.1. Accessing Values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-analogy">2.7.1.2. An Analogy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#same-key-different-value">2.7.1.3. Same Key, Different Value?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-new-pairs-to-a-dictionary">2.7.2. Adding New Pairs to a Dictionary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keys">2.7.3. <code class="docutils literal notranslate"><span class="pre">.keys()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#values">2.7.4. <code class="docutils literal notranslate"><span class="pre">.values()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#items">2.7.5. <code class="docutils literal notranslate"><span class="pre">.items()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replacing-values-in-a-dictionary">2.7.6. Replacing Values in a Dictionary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deleting-values-using-del">2.7.7. Deleting Values using <code class="docutils literal notranslate"><span class="pre">del</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-values">2.7.8. Other Values</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-integers-for-enrollment">2.7.8.1. Using Integers for Enrollment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-lists-for-course-instructors">2.7.8.2. Using Lists for Course Instructors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-dictionaries-for-course-details">2.7.8.3. Using Dictionaries for Course Details</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-webster">2.7.9. Python 🤝 Webster</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="dictionaries">
+<h1><span class="section-number">2.7. </span>Dictionaries<a class="headerlink" href="#dictionaries" title="Permalink to this heading">#</a></h1>
+<p>Did you know that <a class="reference external" href="https://www.merriam-webster.com/about-us/americas-first-dictionary">Noah Webster</a> —- the creator of <em>An American Dictionary of the English Language</em> -— learned 26 languages, including Anglo-Saxon and Sanskrit, to research the origins of the English language? Talk about dedication! While Python dictionaries don’t require learning dozens of languages, they do have something in common with Webster’s work: bringing order to complexity.</p>
+<section id="what-are-dictionaries">
+<h2><span class="section-number">2.7.1. </span>What are Dictionaries?<a class="headerlink" href="#what-are-dictionaries" title="Permalink to this heading">#</a></h2>
+<p>Dictionaries are characterized by their curly braces {}, and you can think of them as data structures for storing data in key-value pairs. Each key in a dictionary acts as a <strong>unique</strong> identifier, or label, for its corresponding value. Values on the other hand, can be of any data type.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creating a dictionary</span>
+<span class="n">student_info</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Brandon&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">student_info</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;name&#39;: &#39;Brandon&#39;, &#39;age&#39;: 20}
+</pre></div>
+</div>
+</div>
+</div>
+<section id="accessing-values">
+<h3><span class="section-number">2.7.1.1. </span>Accessing Values<a class="headerlink" href="#accessing-values" title="Permalink to this heading">#</a></h3>
+<p>We can access a specific value at key by using bracket notation <code class="docutils literal notranslate"><span class="pre">[]</span></code>, or by using the <code class="docutils literal notranslate"><span class="pre">.get()</span></code> method of dictionaries</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Accessing a value</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">student_info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>  <span class="c1"># Output: Brandon</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">student_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">))</span>  <span class="c1"># Same Output: Brandon</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Brandon
+Brandon
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="an-analogy">
+<h3><span class="section-number">2.7.1.2. </span>An Analogy<a class="headerlink" href="#an-analogy" title="Permalink to this heading">#</a></h3>
+<p>Remember, dictionaries are composed of Key-Value Pairs: Each element in a dictionary has a key and a value. Put more simply, the key is like a label, and the value is the information it points to:</p>
+<p>The key <code class="docutils literal notranslate"><span class="pre">&quot;name&quot;</span></code> is like a tag that holds the value <code class="docutils literal notranslate"><span class="pre">&quot;Brandon&quot;</span></code>.
+The key <code class="docutils literal notranslate"><span class="pre">&quot;age&quot;</span></code> is like a tag that holds the value <code class="docutils literal notranslate"><span class="pre">20</span></code>.</p>
+<p>This is analagous to a specific word in the English language having a specific <em>meaning</em>, or <em>definition</em></p>
+</section>
+<section id="same-key-different-value">
+<h3><span class="section-number">2.7.1.3. </span>Same Key, Different Value?<a class="headerlink" href="#same-key-different-value" title="Permalink to this heading">#</a></h3>
+<p>Let’s consider the case where we input the same key twice:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creating a dictionary</span>
+<span class="n">student_info</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Brandon&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Lynn&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="s2">&quot;major&quot;</span><span class="p">:</span> <span class="s2">&quot;Data Science&quot;</span>
+<span class="p">}</span>
+
+<span class="c1"># Accessing a value</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">student_info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>  <span class="c1"># Output: Lynn</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Lynn
+</pre></div>
+</div>
+</div>
+</div>
+<p>Keys must be unique, so if the same key is repeated, Python keeps only the last value. In this case, <code class="docutils literal notranslate"><span class="pre">&quot;name&quot;</span> <span class="pre">:</span> <span class="pre">&quot;Lynn&quot;</span></code> replaces <code class="docutils literal notranslate"><span class="pre">&quot;name&quot;</span> <span class="pre">:</span> <span class="pre">&quot;Brandon&quot;</span></code>. When you access <code class="docutils literal notranslate"><span class="pre">student_info[&quot;name&quot;]</span></code>, it gives <code class="docutils literal notranslate"><span class="pre">&quot;Lynn&quot;</span></code> because that’s the final value assigned to <code class="docutils literal notranslate"><span class="pre">&quot;name&quot;</span></code>.</p>
+</section>
+</section>
+<section id="adding-new-pairs-to-a-dictionary">
+<h2><span class="section-number">2.7.2. </span>Adding New Pairs to a Dictionary<a class="headerlink" href="#adding-new-pairs-to-a-dictionary" title="Permalink to this heading">#</a></h2>
+<p>Let’s now make a dictionary using some of the most popular <a class="reference external" href="https://guide.berkeley.edu/courses/data/">DATA</a> courses at UC Berkeley:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dictionary mapping course codes to course titles</span>
+<span class="n">courses</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;DATA C8&quot;</span><span class="p">:</span> <span class="s2">&quot;Foundations of Data Science&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DATA C100&quot;</span><span class="p">:</span> <span class="s2">&quot;Principles and Techniques of Data Science&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DATA C101&quot;</span><span class="p">:</span> <span class="s2">&quot;Data Engineering&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DATA C140&quot;</span><span class="p">:</span> <span class="s2">&quot;Probability for Data Science&quot;</span>
+<span class="p">}</span>
+
+<span class="c1"># Access the title of Data 8</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Course Title for DATA 8: </span><span class="si">{</span><span class="n">courses</span><span class="p">[</span><span class="s1">&#39;DATA C8&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Course Title for DATA 8: Foundations of Data Science
+</pre></div>
+</div>
+</div>
+</div>
+<p>We notice that the dictionary doesn’t yet include all the DATA courses offered by UC Berkeley. Some key courses are missing, such as DATA C88C, DATA C104, DATA C102, and DATA 144. Let’s add these courses to our dictionary one at a time.</p>
+<p>To do this, we simply provide the key (the course code) and its corresponding value (the course title). For example, here’s how we can add DATA C102, which stands for “Data, Inference, and Decisions”:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">courses</span><span class="p">[</span><span class="s2">&quot;DATA C102&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Data, Inference, and Decisions&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Repeating this for each course, we will end up with the following dictionary!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Adding new courses to the dictionary</span>
+<span class="n">courses</span><span class="p">[</span><span class="s2">&quot;DATA C88C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Computational Structures in Data Science&quot;</span>
+<span class="n">courses</span><span class="p">[</span><span class="s2">&quot;DATA C104&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Human Contexts and Ethics of Data&quot;</span>
+<span class="n">courses</span><span class="p">[</span><span class="s2">&quot;DATA 144&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Data Mining&quot;</span>
+
+<span class="c1"># Print the updated dictionary</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">courses</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;DATA C8&#39;: &#39;Foundations of Data Science&#39;, &#39;DATA C100&#39;: &#39;Principles and Techniques of Data Science&#39;, &#39;DATA C101&#39;: &#39;Data Engineering&#39;, &#39;DATA C140&#39;: &#39;Probability for Data Science&#39;, &#39;DATA C102&#39;: &#39;Data, Inference, and Decisions&#39;, &#39;DATA C88C&#39;: &#39;Computational Structures in Data Science&#39;, &#39;DATA C104&#39;: &#39;Human Contexts and Ethics of Data&#39;, &#39;DATA 144&#39;: &#39;Data Mining&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="keys">
+<h2><span class="section-number">2.7.3. </span><code class="docutils literal notranslate"><span class="pre">.keys()</span></code><a class="headerlink" href="#keys" title="Permalink to this heading">#</a></h2>
+<p>Suppose we only wanted to see the course codes, and not exactly the specific course titles. To do this, we can use the <code class="docutils literal notranslate"><span class="pre">.keys()</span></code> method in Python.</p>
+<p>Essentially, <code class="docutils literal notranslate"><span class="pre">.keys()</span></code> allows you to retrieve all the keys from your dictionary. This is useful when you want to see or iterate through all the keys in your dictionary, without worrying about the associated values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">course_keys</span> <span class="o">=</span> <span class="n">courses</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="n">course_keys</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;DATA C8&#39;, &#39;DATA C100&#39;, &#39;DATA C101&#39;, &#39;DATA C140&#39;, &#39;DATA C102&#39;, &#39;DATA C88C&#39;, &#39;DATA C104&#39;, &#39;DATA 144&#39;])
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we wanted to convert this sequence of keys into a list, we can do so using the <code class="docutils literal notranslate"><span class="pre">list()</span></code> function!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert to a list</span>
+<span class="n">key_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">course_keys</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">key_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;DATA C8&#39;, &#39;DATA C100&#39;, &#39;DATA C101&#39;, &#39;DATA C140&#39;, &#39;DATA C102&#39;, &#39;DATA C88C&#39;, &#39;DATA C104&#39;, &#39;DATA 144&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="values">
+<h2><span class="section-number">2.7.4. </span><code class="docutils literal notranslate"><span class="pre">.values()</span></code><a class="headerlink" href="#values" title="Permalink to this heading">#</a></h2>
+<p>To get the course titles, we can make use of the <code class="docutils literal notranslate"><span class="pre">.values()</span></code> method! This is similar to <code class="docutils literal notranslate"><span class="pre">.keys()</span></code>, but instead grabs the <strong>value</strong> at each key-value pair.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">course_values</span> <span class="o">=</span> <span class="n">courses</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<span class="n">course_values</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_values([&#39;Foundations of Data Science&#39;, &#39;Principles and Techniques of Data Science&#39;, &#39;Data Engineering&#39;, &#39;Probability for Data Science&#39;, &#39;Data, Inference, and Decisions&#39;, &#39;Computational Structures in Data Science&#39;, &#39;Human Contexts and Ethics of Data&#39;, &#39;Data Mining&#39;])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="items">
+<h2><span class="section-number">2.7.5. </span><code class="docutils literal notranslate"><span class="pre">.items()</span></code><a class="headerlink" href="#items" title="Permalink to this heading">#</a></h2>
+<p>Suppose we wanted to look at <em>each</em> key-value pair in this dictionary. To do this, we can use the <code class="docutils literal notranslate"><span class="pre">.items()</span></code> method in Python. As a note, this will return each pair as a tuple.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">course_items</span> <span class="o">=</span> <span class="n">courses</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+<span class="n">course_items</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_items([(&#39;DATA C8&#39;, &#39;Foundations of Data Science&#39;), (&#39;DATA C100&#39;, &#39;Principles and Techniques of Data Science&#39;), (&#39;DATA C101&#39;, &#39;Data Engineering&#39;), (&#39;DATA C140&#39;, &#39;Probability for Data Science&#39;), (&#39;DATA C102&#39;, &#39;Data, Inference, and Decisions&#39;), (&#39;DATA C88C&#39;, &#39;Computational Structures in Data Science&#39;), (&#39;DATA C104&#39;, &#39;Human Contexts and Ethics of Data&#39;), (&#39;DATA 144&#39;, &#39;Data Mining&#39;)])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="replacing-values-in-a-dictionary">
+<h2><span class="section-number">2.7.6. </span>Replacing Values in a Dictionary<a class="headerlink" href="#replacing-values-in-a-dictionary" title="Permalink to this heading">#</a></h2>
+<p>Oops! It seems we made a mistake in the course title for DATA 144. We listed it as “Data Mining” when in reality, it should be “Data Mining and Analytics.” No worries—Python dictionaries make it easy to fix errors like this. We can update the value of this specific key by simply reassigning it with the correct value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The old title: &quot;</span> <span class="o">+</span> <span class="n">courses</span><span class="p">[</span><span class="s2">&quot;DATA 144&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The old title: Data Mining
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Correct the course title for Data 144</span>
+<span class="n">courses</span><span class="p">[</span><span class="s2">&quot;DATA 144&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Data Mining and Analytics&quot;</span> <span class="c1">#Reassignment</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The new title: &quot;</span> <span class="o">+</span> <span class="n">courses</span><span class="p">[</span><span class="s2">&quot;DATA 144&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The new title: Data Mining and Analytics
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="deleting-values-using-del">
+<h2><span class="section-number">2.7.7. </span>Deleting Values using <code class="docutils literal notranslate"><span class="pre">del</span></code><a class="headerlink" href="#deleting-values-using-del" title="Permalink to this heading">#</a></h2>
+<p>Following historical trends, DATA 144 is not usually offered in Spring semesters. How could we go about deleting it from our dictionary in this case? Well, we can make use of <code class="docutils literal notranslate"><span class="pre">del</span></code>!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">courses</span><span class="p">[</span><span class="s2">&quot;DATA 144&quot;</span><span class="p">]</span> <span class="c1">#Delete the pair of (&quot;DATA 144&quot;, &quot;Data Mining and Analytics&quot;)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">courses</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;DATA C8&#39;, &#39;Foundations of Data Science&#39;), (&#39;DATA C100&#39;, &#39;Principles and Techniques of Data Science&#39;), (&#39;DATA C101&#39;, &#39;Data Engineering&#39;), (&#39;DATA C140&#39;, &#39;Probability for Data Science&#39;), (&#39;DATA C102&#39;, &#39;Data, Inference, and Decisions&#39;), (&#39;DATA C88C&#39;, &#39;Computational Structures in Data Science&#39;), (&#39;DATA C104&#39;, &#39;Human Contexts and Ethics of Data&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="other-values">
+<h2><span class="section-number">2.7.8. </span>Other Values<a class="headerlink" href="#other-values" title="Permalink to this heading">#</a></h2>
+<p>Up to this point, we’ve only used strings as the data type for dictionary values. However, dictionaries aren’t limited to just strings! They can store numbers, lists, and much more. The best part? You can still use all the functions and methods we introduced earlier in this chapter with these different dictionaries. Take a look at the examples below for some inspiration!</p>
+<section id="using-integers-for-enrollment">
+<h3><span class="section-number">2.7.8.1. </span>Using Integers for Enrollment<a class="headerlink" href="#using-integers-for-enrollment" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dictionary with course codes as keys and enrollment numbers as values</span>
+<span class="n">course_enrollment</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;DATA C8&quot;</span><span class="p">:</span> <span class="mi">1200</span><span class="p">,</span>
+    <span class="s2">&quot;DATA C100&quot;</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span>
+    <span class="s2">&quot;DATA C101&quot;</span><span class="p">:</span> <span class="mi">450</span><span class="p">,</span>
+    <span class="s2">&quot;DATA C140&quot;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+    <span class="s2">&quot;DATA 144&quot;</span><span class="p">:</span> <span class="mi">300</span>
+<span class="p">}</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">course_enrollment</span><span class="p">[</span><span class="s1">&#39;DATA C140&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; students enrolled in DATA C140&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>500 students enrolled in DATA C140
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="using-lists-for-course-instructors">
+<h3><span class="section-number">2.7.8.2. </span>Using Lists for Course Instructors<a class="headerlink" href="#using-lists-for-course-instructors" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dictionary mapping course codes to a list of instructors</span>
+<span class="n">instructors</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;DATA C8&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;John DeNero&quot;</span><span class="p">,</span> <span class="s2">&quot;Swupnil Sahai&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;DATA C100&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Narges Narouzi&quot;</span><span class="p">,</span> <span class="s2">&quot;Joseph E. Gonzalez&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;DATA C101&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Lisa Yan&quot;</span><span class="p">,</span> <span class="s2">&quot;Michael Ball&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;DATA C140&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Ani Adhikari&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Access instructors for Data C100</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Instructors for DATA C100: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">instructors</span><span class="p">[</span><span class="s1">&#39;DATA C100&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Instructors for DATA C100: [&#39;Narges Narouzi&#39;, &#39;Joseph E. Gonzalez&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="using-dictionaries-for-course-details">
+<h3><span class="section-number">2.7.8.3. </span>Using Dictionaries for Course Details<a class="headerlink" href="#using-dictionaries-for-course-details" title="Permalink to this heading">#</a></h3>
+<p>Yup! You can use dictionaries as values inside a dictionary</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dictionary mapping course codes to detailed course information</span>
+<span class="n">course_details</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;DATA C8&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Foundations of Data Science&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;instructors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;John DeNero&quot;</span><span class="p">,</span> <span class="s2">&quot;Swupnil Sahai&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="mi">4</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;DATA C100&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Principles and Techniques of Data Science&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;instructors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Narges Narouzi&quot;</span><span class="p">,</span> <span class="s2">&quot;Joseph E. Gonzalez&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="mi">4</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;DATA 144&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Data Engineering&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;instructors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Zachary Pardos&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="mi">3</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># Access detailed information for Data 140</span>
+<span class="n">data_144_info</span> <span class="o">=</span> <span class="n">course_details</span><span class="p">[</span><span class="s2">&quot;DATA 144&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The value for the DATA 144 key: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">data_144_info</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The value for the DATA 144 key: {&#39;title&#39;: &#39;Data Engineering&#39;, &#39;instructors&#39;: [&#39;Zachary Pardos&#39;], &#39;units&#39;: 3}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="python-webster">
+<h2><span class="section-number">2.7.9. </span>Python 🤝 Webster<a class="headerlink" href="#python-webster" title="Permalink to this heading">#</a></h2>
+<p>Although Python dictionaries differ from traditional ones like Webster’s, they share a similar purpose: organizing information for quick and easy lookup. While a traditional dictionary pairs words with definitions, Python dictionaries pair keys (labels) with values (the associated data). You’ll encounter dictionaries again in the Pandas section of this textbook!</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/02/7"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../6/lists.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">2.6. </span>Lists</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../03/sequences.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Sequences</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-dictionaries">2.7.1. What are Dictionaries?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-values">2.7.1.1. Accessing Values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-analogy">2.7.1.2. An Analogy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#same-key-different-value">2.7.1.3. Same Key, Different Value?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-new-pairs-to-a-dictionary">2.7.2. Adding New Pairs to a Dictionary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keys">2.7.3. <code class="docutils literal notranslate"><span class="pre">.keys()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#values">2.7.4. <code class="docutils literal notranslate"><span class="pre">.values()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#items">2.7.5. <code class="docutils literal notranslate"><span class="pre">.items()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replacing-values-in-a-dictionary">2.7.6. Replacing Values in a Dictionary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deleting-values-using-del">2.7.7. Deleting Values using <code class="docutils literal notranslate"><span class="pre">del</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-values">2.7.8. Other Values</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-integers-for-enrollment">2.7.8.1. Using Integers for Enrollment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-lists-for-course-instructors">2.7.8.2. Using Lists for Course Instructors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-dictionaries-for-course-details">2.7.8.3. Using Dictionaries for Course Details</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-webster">2.7.9. Python 🤝 Webster</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brandon Concepcion
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
