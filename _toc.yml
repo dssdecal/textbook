@@ -40,3 +40,6 @@ sections:
     title: Tabular Data
 - file: chapters/07/machine_learning
   title: Machine Learning
+  sections:
+  - file: chapters/07/1/introductions
+    title: Introduction to Models
