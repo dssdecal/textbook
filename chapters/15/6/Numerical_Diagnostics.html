@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -170,12 +169,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -221,7 +232,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -372,7 +383,7 @@ document.write(`
 <p>You can see this in all the residual plots above. We can also calculate the correlation between the predictor variable and the residuals in each case.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlation</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="s1">&#39;MidParent&#39;</span><span class="p">,</span> <span class="s1">&#39;Residual&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlation</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="s1">'MidParent'</span><span class="p">,</span> <span class="s1">'Residual'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -385,7 +396,7 @@ document.write(`
 <p>That doesn’t look like zero, but it is a tiny number that is 0 apart from rounding error due to computation. Here it is again, correct to 10 decimal places. The minus sign is because of the rounding that above.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">round</span><span class="p">(</span><span class="n">correlation</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="s1">&#39;MidParent&#39;</span><span class="p">,</span> <span class="s1">&#39;Residual&#39;</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">round</span><span class="p">(</span><span class="n">correlation</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="s1">'MidParent'</span><span class="p">,</span> <span class="s1">'Residual'</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -398,10 +409,10 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dugong</span> <span class="o">=</span> <span class="n">dugong</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-       <span class="s1">&#39;Fitted Value&#39;</span><span class="p">,</span> <span class="n">fit</span><span class="p">(</span><span class="n">dugong</span><span class="p">,</span> <span class="s1">&#39;Length&#39;</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">),</span>
-       <span class="s1">&#39;Residual&#39;</span><span class="p">,</span> <span class="n">residual</span><span class="p">(</span><span class="n">dugong</span><span class="p">,</span> <span class="s1">&#39;Length&#39;</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">)</span>
+       <span class="s1">'Fitted Value'</span><span class="p">,</span> <span class="n">fit</span><span class="p">(</span><span class="n">dugong</span><span class="p">,</span> <span class="s1">'Length'</span><span class="p">,</span> <span class="s1">'Age'</span><span class="p">),</span>
+       <span class="s1">'Residual'</span><span class="p">,</span> <span class="n">residual</span><span class="p">(</span><span class="n">dugong</span><span class="p">,</span> <span class="s1">'Length'</span><span class="p">,</span> <span class="s1">'Age'</span><span class="p">)</span>
 <span class="p">)</span>
-<span class="nb">round</span><span class="p">(</span><span class="n">correlation</span><span class="p">(</span><span class="n">dugong</span><span class="p">,</span> <span class="s1">&#39;Length&#39;</span><span class="p">,</span> <span class="s1">&#39;Residual&#39;</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>
+<span class="nb">round</span><span class="p">(</span><span class="n">correlation</span><span class="p">(</span><span class="n">dugong</span><span class="p">,</span> <span class="s1">'Length'</span><span class="p">,</span> <span class="s1">'Residual'</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -420,7 +431,7 @@ document.write(`
 <p>As a numerical example, here is the average of the residuals in the regression of children’s heights based on midparent heights.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Residual&#39;</span><span class="p">)),</span> <span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">heights</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Residual'</span><span class="p">)),</span> <span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -433,7 +444,7 @@ document.write(`
 <p>The same is true of the average of the residuals in the regression of the age of dugongs on their length. The mean of the residuals is 0, apart from rounding error.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dugong</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Residual&#39;</span><span class="p">)),</span> <span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dugong</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Residual'</span><span class="p">)),</span> <span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -455,7 +466,7 @@ document.write(`
 <p>In the case of children’s heights and midparent heights, the SD of the residuals is about 3.39 inches.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Residual&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Residual'</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -468,8 +479,8 @@ document.write(`
 <p>That’s the same as <span class="math notranslate nohighlight">\(\sqrt{1-r^2}\)</span> times the SD of response variable:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">correlation</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="s1">&#39;MidParent&#39;</span><span class="p">,</span> <span class="s1">&#39;Child&#39;</span><span class="p">)</span>
-<span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Child&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">correlation</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="s1">'MidParent'</span><span class="p">,</span> <span class="s1">'Child'</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Child'</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -482,7 +493,7 @@ document.write(`
 <p>The same is true for the regression of mileage on acceleration of hybrid cars. The correlation <span class="math notranslate nohighlight">\(r\)</span> is negative (about -0.5), but <span class="math notranslate nohighlight">\(r^2\)</span> is positive and therefore <span class="math notranslate nohighlight">\(\sqrt{1-r^2}\)</span> is a fraction.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">correlation</span><span class="p">(</span><span class="n">hybrid</span><span class="p">,</span> <span class="s1">&#39;acceleration&#39;</span><span class="p">,</span> <span class="s1">&#39;mpg&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">correlation</span><span class="p">(</span><span class="n">hybrid</span><span class="p">,</span> <span class="s1">'acceleration'</span><span class="p">,</span> <span class="s1">'mpg'</span><span class="p">)</span>
 <span class="n">r</span>
 </pre></div>
 </div>
@@ -496,10 +507,10 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hybrid</span> <span class="o">=</span> <span class="n">hybrid</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-     <span class="s1">&#39;fitted mpg&#39;</span><span class="p">,</span> <span class="n">fit</span><span class="p">(</span><span class="n">hybrid</span><span class="p">,</span> <span class="s1">&#39;acceleration&#39;</span><span class="p">,</span> <span class="s1">&#39;mpg&#39;</span><span class="p">),</span>
-     <span class="s1">&#39;residual&#39;</span><span class="p">,</span> <span class="n">residual</span><span class="p">(</span><span class="n">hybrid</span><span class="p">,</span> <span class="s1">&#39;acceleration&#39;</span><span class="p">,</span> <span class="s1">&#39;mpg&#39;</span><span class="p">)</span>
+     <span class="s1">'fitted mpg'</span><span class="p">,</span> <span class="n">fit</span><span class="p">(</span><span class="n">hybrid</span><span class="p">,</span> <span class="s1">'acceleration'</span><span class="p">,</span> <span class="s1">'mpg'</span><span class="p">),</span>
+     <span class="s1">'residual'</span><span class="p">,</span> <span class="n">residual</span><span class="p">(</span><span class="n">hybrid</span><span class="p">,</span> <span class="s1">'acceleration'</span><span class="p">,</span> <span class="s1">'mpg'</span><span class="p">)</span>
 <span class="p">)</span>
-<span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">hybrid</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;residual&#39;</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">hybrid</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;mpg&#39;</span><span class="p">))</span>
+<span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">hybrid</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'residual'</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">hybrid</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'mpg'</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -529,7 +540,7 @@ document.write(`
 <p>To see where the fraction comes in, notice that the fitted values are all on the regression line whereas the observed values of <span class="math notranslate nohighlight">\(y\)</span> are the heights of all the points in the scatter plot and are more variable.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scatter_fit</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="s1">&#39;MidParent&#39;</span><span class="p">,</span> <span class="s1">&#39;Child&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scatter_fit</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="s1">'MidParent'</span><span class="p">,</span> <span class="s1">'Child'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -541,7 +552,7 @@ document.write(`
 <p>To verify the result numerically, we just have to calculate both sides of the identity.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlation</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="s1">&#39;MidParent&#39;</span><span class="p">,</span> <span class="s1">&#39;Child&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlation</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="s1">'MidParent'</span><span class="p">,</span> <span class="s1">'Child'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -554,7 +565,7 @@ document.write(`
 <p>Here is ratio of the SD of the fitted values and the SD of the observed values of birth weight:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Fitted Value&#39;</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Child&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Fitted Value'</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">heights</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Child'</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -568,7 +579,7 @@ document.write(`
 <p>Where does the absolute value come in? First note that as SDs can’t be negative, nor can a ratio of SDs. So what happens when <span class="math notranslate nohighlight">\(r\)</span> is negative? The example of fuel efficiency and acceleration will show us.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlation</span><span class="p">(</span><span class="n">hybrid</span><span class="p">,</span> <span class="s1">&#39;acceleration&#39;</span><span class="p">,</span> <span class="s1">&#39;mpg&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlation</span><span class="p">(</span><span class="n">hybrid</span><span class="p">,</span> <span class="s1">'acceleration'</span><span class="p">,</span> <span class="s1">'mpg'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -580,7 +591,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">hybrid</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;fitted mpg&#39;</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">hybrid</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;mpg&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">hybrid</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'fitted mpg'</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">hybrid</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'mpg'</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>

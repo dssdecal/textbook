@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -168,12 +167,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -219,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -357,14 +368,14 @@ document.write(`
 <p>Arrays can also contain strings or other types of values, but a single array can only contain a single kind of data. (It usually doesn’t make sense to group together unlike data anyway.)  For example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">english_parts_of_speech</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;noun&quot;</span><span class="p">,</span> <span class="s2">&quot;pronoun&quot;</span><span class="p">,</span> <span class="s2">&quot;verb&quot;</span><span class="p">,</span> <span class="s2">&quot;adverb&quot;</span><span class="p">,</span> <span class="s2">&quot;adjective&quot;</span><span class="p">,</span> <span class="s2">&quot;conjunction&quot;</span><span class="p">,</span> <span class="s2">&quot;preposition&quot;</span><span class="p">,</span> <span class="s2">&quot;interjection&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">english_parts_of_speech</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="s2">"noun"</span><span class="p">,</span> <span class="s2">"pronoun"</span><span class="p">,</span> <span class="s2">"verb"</span><span class="p">,</span> <span class="s2">"adverb"</span><span class="p">,</span> <span class="s2">"adjective"</span><span class="p">,</span> <span class="s2">"conjunction"</span><span class="p">,</span> <span class="s2">"preposition"</span><span class="p">,</span> <span class="s2">"interjection"</span><span class="p">)</span>
 <span class="n">english_parts_of_speech</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;noun&#39;, &#39;pronoun&#39;, &#39;verb&#39;, &#39;adverb&#39;, &#39;adjective&#39;, &#39;conjunction&#39;,
-       &#39;preposition&#39;, &#39;interjection&#39;], dtype=&#39;&lt;U12&#39;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array(['noun', 'pronoun', 'verb', 'adverb', 'adjective', 'conjunction',
+       'preposition', 'interjection'], dtype='&lt;U12')
 </pre></div>
 </div>
 </div>
@@ -443,7 +454,7 @@ document.write(`
 <p>The <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package, abbreviated <code class="docutils literal notranslate"><span class="pre">np</span></code> in programs, provides Python programmers with convenient and powerful functions for creating and manipulating arrays.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 </pre></div>
 </div>
 </div>

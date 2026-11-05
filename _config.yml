@@ -4,7 +4,7 @@ title: Introduction to Real World Data Science
 author: Brandon Concepcion
 email: ''
 logo                        : "favicon.png"  # A path to the book logo
-exclude_patterns            : ["README.md"]  # Patterns to skip when building the book. Can be glob-style (e.g. "*skip.ipynb")
+exclude_patterns            : ["README.md", "_sources/**", "_build/**"]  # Patterns to skip when building the book. Can be glob-style (e.g. "*skip.ipynb")
 
 #######################################################################################
 # Execution settings
@@ -32,7 +32,7 @@ html:
   #notebook_interface        : jupyterlab
 
 repository:
-  url                       : https://github.com/DSS-Data198/textbook  # The URL to your book's repository
+  url                       : https://github.com/dssdecal/textbook  # The URL to your book's repository
   branch                    : main  # Which branch of the repository should be used when creating links
 
 sphinx:

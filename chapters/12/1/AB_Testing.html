@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -170,12 +169,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -221,7 +232,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -368,7 +379,7 @@ document.write(`
 <p>The table <code class="docutils literal notranslate"><span class="pre">births</span></code> contains the following variables for 1,174 mother-baby pairs: the baby’s birth weight in ounces, the number of gestational days, the mother’s age in completed years, the mother’s height in inches, pregnancy weight in pounds, and whether or not the mother smoked during pregnancy.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">births</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">&#39;baby.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">births</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">'baby.csv'</span><span class="p">)</span>
 <span class="n">births</span>
 </pre></div>
 </div>
@@ -419,14 +430,14 @@ document.write(`
 <p>We’ll start by selecting just <code class="docutils literal notranslate"><span class="pre">Birth</span> <span class="pre">Weight</span></code> and <code class="docutils literal notranslate"><span class="pre">Maternal</span> <span class="pre">Smoker</span></code>. There are 715 non-smokers among the women in the sample, and 459 smokers.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoking_and_birthweight</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Maternal Smoker&#39;</span><span class="p">,</span> <span class="s1">&#39;Birth Weight&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoking_and_birthweight</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Maternal Smoker'</span><span class="p">,</span> <span class="s1">'Birth Weight'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoking_and_birthweight</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;Maternal Smoker&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoking_and_birthweight</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Maternal Smoker'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -450,7 +461,7 @@ document.write(`
 <p>Let’s look at the distribution of the birth weights of the babies of the non-smoking mothers compared to those of the smoking mothers. To generate two overlaid histograms, we will use <code class="docutils literal notranslate"><span class="pre">hist</span></code> with the optional <code class="docutils literal notranslate"><span class="pre">group</span></code> argument which is a column label or index. The rows of the table are first grouped by this column and then a histogram is drawn for each one.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoking_and_birthweight</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;Birth Weight&#39;</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="s1">&#39;Maternal Smoker&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoking_and_birthweight</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Birth Weight'</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="s1">'Maternal Smoker'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -475,7 +486,7 @@ document.write(`
 <p>The observed value of the test statistic is about <span class="math notranslate nohighlight">\(-9.27\)</span> ounces.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">means_table</span> <span class="o">=</span> <span class="n">smoking_and_birthweight</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;Maternal Smoker&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">means_table</span> <span class="o">=</span> <span class="n">smoking_and_birthweight</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Maternal Smoker'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">)</span>
 <span class="n">means_table</span>
 </pre></div>
 </div>
@@ -520,11 +531,11 @@ document.write(`
 <p>You will soon see why we are specifying the two arguments. For now, just check that the function returns what it should.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">difference_of_means</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">group_label</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Takes: name of table,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">difference_of_means</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">group_label</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Takes: name of table,</span>
 <span class="sd">    column label that indicates the group to which the row belongs</span>
-<span class="sd">    Returns: Difference of mean birth weights of the two groups&quot;&quot;&quot;</span>
-    <span class="n">reduced</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Birth Weight&#39;</span><span class="p">,</span> <span class="n">group_label</span><span class="p">)</span>
+<span class="sd">    Returns: Difference of mean birth weights of the two groups"""</span>
+    <span class="n">reduced</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Birth Weight'</span><span class="p">,</span> <span class="n">group_label</span><span class="p">)</span>
     <span class="n">means_table</span> <span class="o">=</span> <span class="n">reduced</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">group_label</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">)</span>
     <span class="n">means</span> <span class="o">=</span> <span class="n">means_table</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">means</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">means</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -535,7 +546,7 @@ document.write(`
 <p>To check that the function is working, let’s use it to calculate the observed difference between the mean birth weights of the two groups in the sample.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">difference_of_means</span><span class="p">(</span><span class="n">births</span><span class="p">,</span> <span class="s1">&#39;Maternal Smoker&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">difference_of_means</span><span class="p">(</span><span class="n">births</span><span class="p">,</span> <span class="s1">'Maternal Smoker'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -607,7 +618,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shuffled_labels</span> <span class="o">=</span> <span class="n">smoking_and_birthweight</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">with_replacement</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">original_and_shuffled</span> <span class="o">=</span> <span class="n">smoking_and_birthweight</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Shuffled Label&#39;</span><span class="p">,</span> <span class="n">shuffled_labels</span><span class="p">)</span>
+<span class="n">original_and_shuffled</span> <span class="o">=</span> <span class="n">smoking_and_birthweight</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'Shuffled Label'</span><span class="p">,</span> <span class="n">shuffled_labels</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -664,8 +675,8 @@ document.write(`
 <p>Let’s see how different the average weights are in the two randomly labeled groups.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shuffled_only</span> <span class="o">=</span> <span class="n">original_and_shuffled</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Birth Weight&#39;</span><span class="p">,</span><span class="s1">&#39;Shuffled Label&#39;</span><span class="p">)</span>
-<span class="n">shuffled_group_means</span> <span class="o">=</span> <span class="n">shuffled_only</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;Shuffled Label&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shuffled_only</span> <span class="o">=</span> <span class="n">original_and_shuffled</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Birth Weight'</span><span class="p">,</span><span class="s1">'Shuffled Label'</span><span class="p">)</span>
+<span class="n">shuffled_group_means</span> <span class="o">=</span> <span class="n">shuffled_only</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Shuffled Label'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">)</span>
 <span class="n">shuffled_group_means</span>
 </pre></div>
 </div>
@@ -690,7 +701,7 @@ document.write(`
 <p>The averages of the two randomly selected groups are quite a bit closer than the averages of the two original groups. We can use our function <code class="docutils literal notranslate"><span class="pre">difference_of_means</span></code> to find the two differences.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">difference_of_means</span><span class="p">(</span><span class="n">original_and_shuffled</span><span class="p">,</span> <span class="s1">&#39;Shuffled Label&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">difference_of_means</span><span class="p">(</span><span class="n">original_and_shuffled</span><span class="p">,</span> <span class="s1">'Shuffled Label'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -702,7 +713,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">difference_of_means</span><span class="p">(</span><span class="n">original_and_shuffled</span><span class="p">,</span> <span class="s1">&#39;Maternal Smoker&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">difference_of_means</span><span class="p">(</span><span class="n">original_and_shuffled</span><span class="p">,</span> <span class="s1">'Maternal Smoker'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -717,18 +728,18 @@ document.write(`
 <p>The function is called <code class="docutils literal notranslate"><span class="pre">one_simulated_difference_of_means</span></code>. It takes no arguments, and returns the difference between the mean birth weights of two groups formed by randomly shuffling all the labels.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">one_simulated_difference_of_means</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns: Difference between mean birthweights</span>
-<span class="sd">    of babies of smokers and non-smokers after shuffling labels&quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">one_simulated_difference_of_means</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Returns: Difference between mean birthweights</span>
+<span class="sd">    of babies of smokers and non-smokers after shuffling labels"""</span>
     
     <span class="c1"># array of shuffled labels</span>
-    <span class="n">shuffled_labels</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">with_replacement</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Maternal Smoker&#39;</span><span class="p">)</span>
+    <span class="n">shuffled_labels</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">with_replacement</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Maternal Smoker'</span><span class="p">)</span>
     
     <span class="c1"># table of birth weights and shuffled labels</span>
-    <span class="n">shuffled_table</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Birth Weight&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
-        <span class="s1">&#39;Shuffled Label&#39;</span><span class="p">,</span> <span class="n">shuffled_labels</span><span class="p">)</span>
+    <span class="n">shuffled_table</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Birth Weight'</span><span class="p">)</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
+        <span class="s1">'Shuffled Label'</span><span class="p">,</span> <span class="n">shuffled_labels</span><span class="p">)</span>
     
-    <span class="k">return</span> <span class="n">difference_of_means</span><span class="p">(</span><span class="n">shuffled_table</span><span class="p">,</span> <span class="s1">&#39;Shuffled Label&#39;</span><span class="p">)</span>   
+    <span class="k">return</span> <span class="n">difference_of_means</span><span class="p">(</span><span class="n">shuffled_table</span><span class="p">,</span> <span class="s1">'Shuffled Label'</span><span class="p">)</span>   
 </pre></div>
 </div>
 </div>
@@ -769,9 +780,9 @@ document.write(`
 <p>The histogram below shows the distribution of these 5,000 values. It is the empirical distribution of the test statistic simulated under the null hypothesis. This is a prediction about the test statistic, based on the null hypothesis.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Difference Between Group Means&#39;</span><span class="p">,</span> <span class="n">differences</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Observed Difference:&#39;</span><span class="p">,</span> <span class="n">observed_difference</span><span class="p">)</span>
-<span class="n">plots</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Prediction Under the Null Hypothesis&#39;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'Difference Between Group Means'</span><span class="p">,</span> <span class="n">differences</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Observed Difference:'</span><span class="p">,</span> <span class="n">observed_difference</span><span class="p">)</span>
+<span class="n">plots</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Prediction Under the Null Hypothesis'</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -806,8 +817,8 @@ document.write(`
 <p>We can use the same method to compare other attributes of the smokers and the non-smokers, such as their ages. Histograms of the ages of the two groups show that in the sample, the mothers who smoked tended to be younger.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoking_and_age</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Maternal Smoker&#39;</span><span class="p">,</span> <span class="s1">&#39;Maternal Age&#39;</span><span class="p">)</span>
-<span class="n">smoking_and_age</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;Maternal Age&#39;</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="s1">&#39;Maternal Smoker&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoking_and_age</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Maternal Smoker'</span><span class="p">,</span> <span class="s1">'Maternal Age'</span><span class="p">)</span>
+<span class="n">smoking_and_age</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Maternal Age'</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="s1">'Maternal Smoker'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -819,11 +830,11 @@ document.write(`
 <p>Let’s rewrite the code that compared the birth weights so that it now compares the ages of the smokers and non-smokers.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">difference_of_means</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">group_label</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Takes: name of table,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">difference_of_means</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">group_label</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Takes: name of table,</span>
 <span class="sd">    column label that indicates the group to which the row belongs</span>
-<span class="sd">    Returns: Difference of mean ages of the two groups&quot;&quot;&quot;</span>
-    <span class="n">reduced</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Maternal Age&#39;</span><span class="p">,</span> <span class="n">group_label</span><span class="p">)</span>
+<span class="sd">    Returns: Difference of mean ages of the two groups"""</span>
+    <span class="n">reduced</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Maternal Age'</span><span class="p">,</span> <span class="n">group_label</span><span class="p">)</span>
     <span class="n">means_table</span> <span class="o">=</span> <span class="n">reduced</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">group_label</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">)</span>
     <span class="n">means</span> <span class="o">=</span> <span class="n">means_table</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">means</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">means</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -833,7 +844,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">observed_age_difference</span> <span class="o">=</span> <span class="n">difference_of_means</span><span class="p">(</span><span class="n">births</span><span class="p">,</span> <span class="s1">&#39;Maternal Smoker&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">observed_age_difference</span> <span class="o">=</span> <span class="n">difference_of_means</span><span class="p">(</span><span class="n">births</span><span class="p">,</span> <span class="s1">'Maternal Smoker'</span><span class="p">)</span>
 <span class="n">observed_age_difference</span>
 </pre></div>
 </div>
@@ -850,18 +861,18 @@ document.write(`
 <p>We will follow the same process as in any simulation. We will start by writing a function that returns one simulated value of the difference between means, and then write a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to simulate numerous such values and collect them in an array.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">one_simulated_difference_of_means</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns: Difference between mean ages</span>
-<span class="sd">    of smokers and non-smokers after shuffling labels&quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">one_simulated_difference_of_means</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Returns: Difference between mean ages</span>
+<span class="sd">    of smokers and non-smokers after shuffling labels"""</span>
     
     <span class="c1"># array of shuffled labels</span>
-    <span class="n">shuffled_labels</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">with_replacement</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Maternal Smoker&#39;</span><span class="p">)</span>
+    <span class="n">shuffled_labels</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">with_replacement</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Maternal Smoker'</span><span class="p">)</span>
     
     <span class="c1"># table of ages and shuffled labels</span>
-    <span class="n">shuffled_table</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Maternal Age&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
-        <span class="s1">&#39;Shuffled Label&#39;</span><span class="p">,</span> <span class="n">shuffled_labels</span><span class="p">)</span>
+    <span class="n">shuffled_table</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Maternal Age'</span><span class="p">)</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
+        <span class="s1">'Shuffled Label'</span><span class="p">,</span> <span class="n">shuffled_labels</span><span class="p">)</span>
     
-    <span class="k">return</span> <span class="n">difference_of_means</span><span class="p">(</span><span class="n">shuffled_table</span><span class="p">,</span> <span class="s1">&#39;Shuffled Label&#39;</span><span class="p">)</span>   
+    <span class="k">return</span> <span class="n">difference_of_means</span><span class="p">(</span><span class="n">shuffled_table</span><span class="p">,</span> <span class="s1">'Shuffled Label'</span><span class="p">)</span>   
 </pre></div>
 </div>
 </div>
@@ -882,13 +893,13 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
-    <span class="s1">&#39;Difference Between Group Means&#39;</span><span class="p">,</span> <span class="n">age_differences</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+    <span class="s1">'Difference Between Group Means'</span><span class="p">,</span> <span class="n">age_differences</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
     <span class="n">right_end</span> <span class="o">=</span> <span class="n">observed_age_difference</span><span class="p">)</span>
 <span class="c1"># Plotting parameters; you can ignore the code below</span>
 <span class="n">plots</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">)</span>
-<span class="n">plots</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">observed_age_difference</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">plots</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Prediction Under the Null Hypothesis&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Observed Difference:&#39;</span><span class="p">,</span> <span class="n">observed_age_difference</span><span class="p">)</span>
+<span class="n">plots</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">observed_age_difference</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plots</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Prediction Under the Null Hypothesis'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Observed Difference:'</span><span class="p">,</span> <span class="n">observed_age_difference</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

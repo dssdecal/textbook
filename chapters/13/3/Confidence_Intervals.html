@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -170,12 +169,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -221,7 +232,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -373,7 +384,7 @@ document.write(`
 <p>The table <code class="docutils literal notranslate"><span class="pre">births</span></code> contains the following variables for mother-baby pairs: the baby’s birth weight in ounces, the number of gestational days (the number of days the mother was pregnant), the mother’s age in completed years, the mother’s height in inches, pregnancy weight in pounds, and whether or not the mother smoked during pregnancy.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">births</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">&#39;baby.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">births</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">'baby.csv'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -413,8 +424,8 @@ document.write(`
 \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratios</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Birth Weight&#39;</span><span class="p">,</span> <span class="s1">&#39;Gestational Days&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;Ratio BW:GD&#39;</span><span class="p">,</span> <span class="n">births</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Birth Weight&#39;</span><span class="p">)</span><span class="o">/</span><span class="n">births</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Gestational Days&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratios</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Birth Weight'</span><span class="p">,</span> <span class="s1">'Gestational Days'</span><span class="p">)</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+    <span class="s1">'Ratio BW:GD'</span><span class="p">,</span> <span class="n">births</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Birth Weight'</span><span class="p">)</span><span class="o">/</span><span class="n">births</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Gestational Days'</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -471,7 +482,7 @@ document.write(`
 <p>Here is a histogram of the ratios.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratios</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Ratio BW:GD&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratios</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Ratio BW:GD'</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -482,7 +493,7 @@ document.write(`
 <p>At first glance the histogram looks quite symmetric, with the density at its maximum over the interval 0.4 ounces per day to 0.45 ounces per day. But a closer look reveals that some of the ratios were quite large by comparison. The maximum value of the ratios was just over 0.78 ounces per day, almost double the typical value.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratios</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;Ratio BW:GD&#39;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratios</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'Ratio BW:GD'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -520,9 +531,9 @@ document.write(`
 <p>We will start by defining a function <code class="docutils literal notranslate"><span class="pre">one_bootstrap_median</span></code>. It will bootstrap the sample and return one the median ratio in the bootstrapped sample.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">one_bootstrap_median</span><span class="p">():</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">one_bootstrap_median</span><span class="p">():</span>
     <span class="n">resample</span> <span class="o">=</span> <span class="n">ratios</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">percentile</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">resample</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Ratio BW:GD&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">percentile</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">resample</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Ratio BW:GD'</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -574,10 +585,10 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resampled_medians</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;Bootstrap Sample Median&#39;</span><span class="p">,</span> <span class="n">bstrap_medians</span>
+    <span class="s1">'Bootstrap Sample Median'</span><span class="p">,</span> <span class="n">bstrap_medians</span>
 <span class="p">)</span>
 <span class="n">resampled_medians</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plots</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span>
+<span class="n">plots</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">'yellow'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -595,7 +606,7 @@ document.write(`
 <p>What we have done for medians can be done for averages as well. Suppose we want to estimate the average age of the mothers in the population. A natural estimate is the average age of the mothers in the sample. Here is the distribution of their ages, and their average age which was about 27.2 years.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">births</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Maternal Age&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">births</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Maternal Age'</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -605,7 +616,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">births</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Maternal Age&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">births</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Maternal Age'</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -619,9 +630,9 @@ document.write(`
 <p>Let’s estimate the unknown parameter by the bootstrap method. To do this, we will adapt the code for <code class="docutils literal notranslate"><span class="pre">bootstrap_median</span></code> to instead define the function <code class="docutils literal notranslate"><span class="pre">bootstrap_mean</span></code>. The code is the same except that the statistics are means (that is, averages) instead of medians, and are collected in an array called <code class="docutils literal notranslate"><span class="pre">bstrap_means</span></code> instead of <code class="docutils literal notranslate"><span class="pre">bstrap_medians</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">one_bootstrap_mean</span><span class="p">():</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">one_bootstrap_mean</span><span class="p">():</span>
     <span class="n">resample</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">resample</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Maternal Age&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">resample</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Maternal Age'</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -659,10 +670,10 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resampled_means</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;Bootstrap Sample Mean&#39;</span><span class="p">,</span> <span class="n">bstrap_means</span>
+    <span class="s1">'Bootstrap Sample Mean'</span><span class="p">,</span> <span class="n">bstrap_means</span>
 <span class="p">)</span>
 <span class="n">resampled_means</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plots</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span>
+<span class="n">plots</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">'yellow'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -674,7 +685,7 @@ document.write(`
 <p>Notice also that the empirical histogram of the resampled means has roughly a symmetric bell shape, even though the histogram of the sampled ages was not symmetric at all:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">births</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Maternal Age&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">births</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Maternal Age'</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -704,7 +715,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resampled_means</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plots</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">left_80</span><span class="p">,</span> <span class="n">right_80</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span>
+<span class="n">plots</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">left_80</span><span class="p">,</span> <span class="n">right_80</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">'yellow'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -721,7 +732,7 @@ document.write(`
 <p>In the sample, 39% of the mothers smoked during pregnancy.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">births</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;Maternal Smoker&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span><span class="o">.</span><span class="n">num_rows</span> <span class="o">/</span> <span class="n">births</span><span class="o">.</span><span class="n">num_rows</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">births</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'Maternal Smoker'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span><span class="o">.</span><span class="n">num_rows</span> <span class="o">/</span> <span class="n">births</span><span class="o">.</span><span class="n">num_rows</span>
 </pre></div>
 </div>
 </div>
@@ -734,7 +745,7 @@ document.write(`
 <p>Remember that a proportion is an average of zeros and ones. So the proportion of mothers who smoked could also be calculated using array operations as follows.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoking</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Maternal Smoker&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smoking</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Maternal Smoker'</span><span class="p">)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">smoking</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">smoking</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -749,9 +760,9 @@ document.write(`
 <p>In a process that is now familiar, will start by defining a function <code class="docutils literal notranslate"><span class="pre">one_bootstrap_proportion</span></code> that bootstraps the sample and returns the proportion of smokers in the bootstrapped sample. Then we will call the function multiple times using a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, and get the 2.5th perentile and 97.5th percentiles of the bootstrapped proportions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">one_bootstrap_proportion</span><span class="p">():</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">one_bootstrap_proportion</span><span class="p">():</span>
     <span class="n">resample</span> <span class="o">=</span> <span class="n">births</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
-    <span class="n">smoking</span> <span class="o">=</span> <span class="n">resample</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Maternal Smoker&#39;</span><span class="p">)</span>
+    <span class="n">smoking</span> <span class="o">=</span> <span class="n">resample</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Maternal Smoker'</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">smoking</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">smoking</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -788,10 +799,10 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resampled_proportions</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;Bootstrap Sample Proportion&#39;</span><span class="p">,</span> <span class="n">bstrap_proportions</span>
+    <span class="s1">'Bootstrap Sample Proportion'</span><span class="p">,</span> <span class="n">bstrap_proportions</span>
 <span class="p">)</span>
 <span class="n">resampled_proportions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plots</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span>
+<span class="n">plots</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">'yellow'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>

@@ -1,35 +1,42 @@
-# Computational and Inferential Thinking
+# Introduction to Real World Data Science
 
-This repository holds the Jupyter Book source for Computational and Inferential
-Thinking: The Foundations of Data Science.
+Jupyter Book source and previously published HTML for the Data Science Society at Berkeley DeCal. The original book credits remain in `chapters/intro.md` and `LICENSE.md`.
 
-## To make a change to the book and update `inferentialthinking.com`
+## Fall 2026 readings
 
-1. Get your copy of this repository:
+The eight course notebooks from the adjacent `updatedtextbook` repository are in [chapters/fa26](chapters/fa26/index.md). The supplemental Week 2 study-space example and its CSV are in [chapters/03/2](chapters/03/2/pandas-cleaning-eda.ipynb).
 
-   ```
-   git clone https://github.com/data-8/textbook
-   ```
-2. Change the file you wish and commit it to the repository.
-3. Push your change back to the `data-8/textbook` repository (ideally via a pull request).
-4. That's it a GitHub Action will build the book and deploy it to [inferentialthinking.com](https://inferentialthinking.com)
+## Build and preview locally
 
+Use Python 3.11 in a virtual environment:
 
-## How this repository is deployed to `inferentialthinking.com`
+```sh
+python3.11 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python scripts/build_book.py
+python -m http.server 8765 --bind 127.0.0.1 --directory _build/html
+```
 
-* The textbook at `inferentialthinking.com` is actually being served from this repository:
+Open `http://127.0.0.1:8765/chapters/fa26/index.html`.
+After editing content, rerun `python scripts/build_book.py` and refresh the page.
 
-  https://github.com/inferentialthinking/inferentialthinking.github.io
+Keep the original Jupyter Book styling. The pinned Sphinx Book Theme 1.0.1 and PyData theme 0.13.3 CSS match the repository's published theme files byte for byte. No custom CSS or theme extension is needed. Jupyter Book 0.15.1 builds with that theme generation. The upstream Data 8 repository has since migrated to Jupyter Book 2; merging upstream would be a separate migration, not a content-only update.
 
-  **You should not ever directly edit the inferentialthinking.github.io repository**
-* When you make a change to this repository and push it to the `data-8/textbook` `main`
-  branch, the book's HTML will automatically be pushed to https://github.com/inferentialthinking/inferentialthinking.github.io.
-* This process is handled by [this GitHub Action](.github/workflows/deploy.yml)
+Use the build script rather than building directly at the repository root. This repository contains both source content and old published HTML/assets; Jupyter Book otherwise mistakes the old `_static` files for custom styles and mixes them with its theme. The script stages only sources in a temporary directory and writes the preview to `_build/html`, leaving published files untouched. If switching from a different toolchain, move the old `_build` directory aside first and clear the browser's cached site assets.
 
-## Build and preview the text locally
+Notebook execution remains disabled during builds: execute changed notebooks and save their outputs before building. Their CSV files must remain alongside them.
 
-To build locally, `pip install -r requirements.txt` and then `jupyter-book build .`
+The existing book produces warnings about older chapters absent from the table of contents and some old heading levels. These chapters are retained. Check that no new warning refers to the page you edited, that its local links resolve, and that its displayed numerical results match execution.
 
-**Follow the build instructions on the Jupyter Book guide**. The guide has
-information for how to use the Jupyter Book CLI to build this book. You can find
-the [Jupyter Book build instructions here](https://jupyterbook.org/start/build.html).
+## Publishing after review
+
+**Ask for confirmation before pushing.** There are two repositories involved: `dssdecal/textbook` for the reading and `dssdecal/fa26` for the schedule link.
+
+This checkout contains previously generated HTML at the repository root and no build workflow. Editing notebook sources alone does not update those HTML pages. Before publishing, verify the repository's GitHub Pages configuration, then either prepare an overlay of `_build/html/` into the existing published tree or configure an approved build-and-deploy workflow. Preserve old published pages and assets; do not delete chapters or replace the repository with build output.
+
+Publish and verify the Fall 2026 chapter pages under `https://dssdecal.org/textbook/chapters/fa26/` before switching the course schedule links in `dssdecal/fa26`. The supplemental Week 2 example has its own URL:
+
+`https://dssdecal.org/textbook/chapters/03/2/pandas-cleaning-eda.html`
+
+The preview is local only. No deployment settings, branches, or remote content have been changed for this draft.

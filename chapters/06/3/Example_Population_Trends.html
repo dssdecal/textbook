@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -168,12 +167,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -219,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -358,10 +369,10 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># As of August 2021, this census file is online here: </span>
-<span class="n">data</span> <span class="o">=</span> <span class="s1">&#39;http://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2019/nc-est2019-agesex-res.csv&#39;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="s1">'http://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2019/nc-est2019-agesex-res.csv'</span>
 
 <span class="c1"># A local copy can be accessed here in case census.gov moves the file:</span>
-<span class="c1"># data = path_data + &#39;nc-est2019-agesex-res.csv&#39;</span>
+<span class="c1"># data = path_data + 'nc-est2019-agesex-res.csv'</span>
 
 <span class="n">full_census_table</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">full_census_table</span>
@@ -420,7 +431,7 @@ document.write(`
 <p>Suppose we are only interested in the population changes from 2014 to 2019. Let’s <code class="docutils literal notranslate"><span class="pre">select</span></code> the relevant columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">partial_census_table</span> <span class="o">=</span> <span class="n">full_census_table</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;SEX&#39;</span><span class="p">,</span> <span class="s1">&#39;AGE&#39;</span><span class="p">,</span> <span class="s1">&#39;POPESTIMATE2014&#39;</span><span class="p">,</span> <span class="s1">&#39;POPESTIMATE2019&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">partial_census_table</span> <span class="o">=</span> <span class="n">full_census_table</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'SEX'</span><span class="p">,</span> <span class="s1">'AGE'</span><span class="p">,</span> <span class="s1">'POPESTIMATE2014'</span><span class="p">,</span> <span class="s1">'POPESTIMATE2019'</span><span class="p">)</span>
 <span class="n">partial_census_table</span>
 </pre></div>
 </div>
@@ -470,7 +481,7 @@ document.write(`
 <p>We can simplify the labels of the selected columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_pop</span> <span class="o">=</span> <span class="n">partial_census_table</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="s1">&#39;POPESTIMATE2014&#39;</span><span class="p">,</span> <span class="s1">&#39;2014&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="s1">&#39;POPESTIMATE2019&#39;</span><span class="p">,</span> <span class="s1">&#39;2019&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_pop</span> <span class="o">=</span> <span class="n">partial_census_table</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="s1">'POPESTIMATE2014'</span><span class="p">,</span> <span class="s1">'2014'</span><span class="p">)</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="s1">'POPESTIMATE2019'</span><span class="p">,</span> <span class="s1">'2019'</span><span class="p">)</span>
 <span class="n">us_pop</span>
 </pre></div>
 </div>
@@ -522,7 +533,7 @@ document.write(`
 <p>As a warm-up, let’s examine the total population, labeled by <code class="docutils literal notranslate"><span class="pre">SEX</span></code> code 0. Since all these rows will have the same value 0 in the <code class="docutils literal notranslate"><span class="pre">SEX</span></code> column, we will drop that column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_pop_by_age</span> <span class="o">=</span> <span class="n">us_pop</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;SEX&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;SEX&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_pop_by_age</span> <span class="o">=</span> <span class="n">us_pop</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'SEX'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'SEX'</span><span class="p">)</span>
 <span class="n">us_pop_by_age</span>
 </pre></div>
 </div>
@@ -572,7 +583,7 @@ document.write(`
 <p>Now let’s look at the population in the highest ages.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_pop_by_age</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;AGE&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">97</span><span class="p">,</span> <span class="mi">101</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_pop_by_age</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'AGE'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">97</span><span class="p">,</span> <span class="mi">101</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -607,7 +618,7 @@ document.write(`
 <p>Each column of the table <code class="docutils literal notranslate"><span class="pre">us_pop_by_age</span></code> is an array of the same length, and so columns can be combined using arithmetic. The array below contains the change in population between 2014 and 2019. There is one entry corresponding to each row of <code class="docutils literal notranslate"><span class="pre">us_pop_by_age</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">change</span> <span class="o">=</span> <span class="n">us_pop_by_age</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;2019&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="n">us_pop_by_age</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;2014&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">change</span> <span class="o">=</span> <span class="n">us_pop_by_age</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'2019'</span><span class="p">)</span> <span class="o">-</span> <span class="n">us_pop_by_age</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'2014'</span><span class="p">)</span>
 <span class="n">change</span>
 </pre></div>
 </div>
@@ -622,10 +633,10 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_pop_change</span> <span class="o">=</span> <span class="n">us_pop_by_age</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;Change&#39;</span><span class="p">,</span> <span class="n">change</span><span class="p">,</span>
-    <span class="s1">&#39;Percent Change&#39;</span><span class="p">,</span> <span class="n">change</span><span class="o">/</span><span class="n">us_pop_by_age</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;2014&#39;</span><span class="p">)</span>
+    <span class="s1">'Change'</span><span class="p">,</span> <span class="n">change</span><span class="p">,</span>
+    <span class="s1">'Percent Change'</span><span class="p">,</span> <span class="n">change</span><span class="o">/</span><span class="n">us_pop_by_age</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'2014'</span><span class="p">)</span>
 <span class="p">)</span>
-<span class="n">us_pop_change</span><span class="o">.</span><span class="n">set_format</span><span class="p">(</span><span class="s1">&#39;Percent Change&#39;</span><span class="p">,</span> <span class="n">PercentFormatter</span><span class="p">)</span>
+<span class="n">us_pop_change</span><span class="o">.</span><span class="n">set_format</span><span class="p">(</span><span class="s1">'Percent Change'</span><span class="p">,</span> <span class="n">PercentFormatter</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -674,7 +685,7 @@ document.write(`
 <p>Almost all the entries displayed in the <code class="docutils literal notranslate"><span class="pre">Percent</span> <span class="pre">Change</span></code> column are negative, demonstrating a drop in population at the youngest ages. However, the overall population grew by about 9.9 million people, a percent change of just over 3%.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_pop_change</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;AGE&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="mi">999</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_pop_change</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'AGE'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="mi">999</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -696,8 +707,8 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_pop_change</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
-    <span class="s1">&#39;AGE&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">below</span><span class="p">(</span><span class="mi">999</span><span class="p">)</span>
-<span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;Change&#39;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="s1">'AGE'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">below</span><span class="p">(</span><span class="mi">999</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'Change'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

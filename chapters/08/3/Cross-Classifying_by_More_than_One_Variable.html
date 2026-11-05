@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -170,12 +169,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -221,7 +232,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -366,9 +377,9 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">more_cones</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;strawberry&#39;</span><span class="p">,</span> <span class="s1">&#39;chocolate&#39;</span><span class="p">,</span> <span class="s1">&#39;chocolate&#39;</span><span class="p">,</span> <span class="s1">&#39;strawberry&#39;</span><span class="p">,</span> <span class="s1">&#39;chocolate&#39;</span><span class="p">,</span> <span class="s1">&#39;bubblegum&#39;</span><span class="p">),</span>
-    <span class="s1">&#39;Color&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="s1">&#39;light brown&#39;</span><span class="p">,</span> <span class="s1">&#39;dark brown&#39;</span><span class="p">,</span> <span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="s1">&#39;dark brown&#39;</span><span class="p">,</span> <span class="s1">&#39;pink&#39;</span><span class="p">),</span>
-    <span class="s1">&#39;Price&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">3.55</span><span class="p">,</span> <span class="mf">4.75</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">4.75</span><span class="p">)</span>
+    <span class="s1">'Flavor'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'strawberry'</span><span class="p">,</span> <span class="s1">'chocolate'</span><span class="p">,</span> <span class="s1">'chocolate'</span><span class="p">,</span> <span class="s1">'strawberry'</span><span class="p">,</span> <span class="s1">'chocolate'</span><span class="p">,</span> <span class="s1">'bubblegum'</span><span class="p">),</span>
+    <span class="s1">'Color'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'pink'</span><span class="p">,</span> <span class="s1">'light brown'</span><span class="p">,</span> <span class="s1">'dark brown'</span><span class="p">,</span> <span class="s1">'pink'</span><span class="p">,</span> <span class="s1">'dark brown'</span><span class="p">,</span> <span class="s1">'pink'</span><span class="p">),</span>
+    <span class="s1">'Price'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">3.55</span><span class="p">,</span> <span class="mf">4.75</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">4.75</span><span class="p">)</span>
 <span class="p">)</span>
 
 <span class="n">more_cones</span>
@@ -407,7 +418,7 @@ document.write(`
 <p>We know how to use <code class="docutils literal notranslate"><span class="pre">group</span></code> to count the number of cones of each flavor:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">more_cones</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;Flavor&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">more_cones</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -435,7 +446,7 @@ document.write(`
 <p>Although there are six cones, there are only four unique combinations of flavor and color. Two of the cones were dark brown chocolate, and two pink strawberry.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">more_cones</span><span class="o">.</span><span class="n">group</span><span class="p">([</span><span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="s1">&#39;Color&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">more_cones</span><span class="o">.</span><span class="n">group</span><span class="p">([</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="s1">'Color'</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -468,7 +479,7 @@ document.write(`
 <p>A second argument aggregates all other columns that are not in the list of grouped columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">more_cones</span><span class="o">.</span><span class="n">group</span><span class="p">([</span><span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="s1">&#39;Color&#39;</span><span class="p">],</span> <span class="nb">sum</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">more_cones</span><span class="o">.</span><span class="n">group</span><span class="p">([</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="s1">'Color'</span><span class="p">],</span> <span class="nb">sum</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -503,7 +514,7 @@ document.write(`
 <p>Recall the use of <code class="docutils literal notranslate"><span class="pre">group</span></code> to count the number of cones in each paired category of flavor and color:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">more_cones</span><span class="o">.</span><span class="n">group</span><span class="p">([</span><span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="s1">&#39;Color&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">more_cones</span><span class="o">.</span><span class="n">group</span><span class="p">([</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="s1">'Color'</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -533,7 +544,7 @@ document.write(`
 <p>The same data can be displayed differenly using the Table method <code class="docutils literal notranslate"><span class="pre">pivot</span></code>. Ignore the code for a moment, and just examine the table of outcomes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">more_cones</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="s1">&#39;Color&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">more_cones</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="s1">'Color'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -565,7 +576,7 @@ document.write(`
 <p>An example will help clarify this. Here is <code class="docutils literal notranslate"><span class="pre">pivot</span></code> being used to find the total price of the cones in each cell.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">more_cones</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="s1">&#39;Color&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;Price&#39;</span><span class="p">,</span> <span class="n">collect</span><span class="o">=</span><span class="nb">sum</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">more_cones</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="s1">'Color'</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">'Price'</span><span class="p">,</span> <span class="n">collect</span><span class="o">=</span><span class="nb">sum</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -592,7 +603,7 @@ document.write(`
 <p>And here is <code class="docutils literal notranslate"><span class="pre">group</span></code> doing the same thing.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">more_cones</span><span class="o">.</span><span class="n">group</span><span class="p">([</span><span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="s1">&#39;Color&#39;</span><span class="p">],</span> <span class="nb">sum</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">more_cones</span><span class="o">.</span><span class="n">group</span><span class="p">([</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="s1">'Color'</span><span class="p">],</span> <span class="nb">sum</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -627,8 +638,8 @@ document.write(`
 <p>For each year, the table records the <code class="docutils literal notranslate"><span class="pre">Population</span> <span class="pre">Count</span></code> of Californians in many different combinations of age, gender, educational attainment, and personal income. We will study only the data for the year 2014.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">full_table</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">&#39;educ_inc.csv&#39;</span><span class="p">)</span>
-<span class="n">ca_2014</span> <span class="o">=</span> <span class="n">full_table</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">&#39;1/1/14 0:00&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">not_equal_to</span><span class="p">(</span><span class="s1">&#39;00 to 17&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">full_table</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">'educ_inc.csv'</span><span class="p">)</span>
+<span class="n">ca_2014</span> <span class="o">=</span> <span class="n">full_table</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">'1/1/14 0:00'</span><span class="p">))</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'Age'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">not_equal_to</span><span class="p">(</span><span class="s1">'00 to 17'</span><span class="p">))</span>
 <span class="n">ca_2014</span>
 </pre></div>
 </div>
@@ -679,7 +690,7 @@ document.write(`
 <p>As a first step it is a good idea to start with just one or two variables. We will focus on just one pair: educational attainment and personal income.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">educ_inc</span> <span class="o">=</span> <span class="n">ca_2014</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Educational Attainment&#39;</span><span class="p">,</span> <span class="s1">&#39;Personal Income&#39;</span><span class="p">,</span> <span class="s1">&#39;Population Count&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">educ_inc</span> <span class="o">=</span> <span class="n">ca_2014</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Educational Attainment'</span><span class="p">,</span> <span class="s1">'Personal Income'</span><span class="p">,</span> <span class="s1">'Population Count'</span><span class="p">)</span>
 <span class="n">educ_inc</span>
 </pre></div>
 </div>
@@ -729,8 +740,8 @@ document.write(`
 <p>Let’s start by looking at educational level alone. The categories of this variable have been subdivided by the different levels of income. So we will group the table by <code class="docutils literal notranslate"><span class="pre">Educational</span> <span class="pre">Attainment</span></code> and <code class="docutils literal notranslate"><span class="pre">sum</span></code> the <code class="docutils literal notranslate"><span class="pre">Population</span> <span class="pre">Count</span></code> in each category.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">education</span> <span class="o">=</span> <span class="n">educ_inc</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Educational Attainment&#39;</span><span class="p">,</span> <span class="s1">&#39;Population Count&#39;</span><span class="p">)</span>
-<span class="n">educ_totals</span> <span class="o">=</span> <span class="n">education</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;Educational Attainment&#39;</span><span class="p">,</span> <span class="nb">sum</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">education</span> <span class="o">=</span> <span class="n">educ_inc</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Educational Attainment'</span><span class="p">,</span> <span class="s1">'Population Count'</span><span class="p">)</span>
+<span class="n">educ_totals</span> <span class="o">=</span> <span class="n">education</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Educational Attainment'</span><span class="p">,</span> <span class="nb">sum</span><span class="p">)</span>
 <span class="n">educ_totals</span>
 </pre></div>
 </div>
@@ -761,7 +772,7 @@ document.write(`
 <p>There are only four categories of educational attainment. The counts are so large that is is more helpful to look at percents. For this, we will use the function <code class="docutils literal notranslate"><span class="pre">percents</span></code> that we defined in an earlier section. It converts an array of numbers to an array of percents out of the total in the input array.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">percents</span><span class="p">(</span><span class="n">array_x</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">percents</span><span class="p">(</span><span class="n">array_x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span> <span class="p">(</span><span class="n">array_x</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">array_x</span><span class="p">))</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -771,7 +782,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">educ_distribution</span> <span class="o">=</span> <span class="n">educ_totals</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
-    <span class="s1">&#39;Population Percent&#39;</span><span class="p">,</span> <span class="n">percents</span><span class="p">(</span><span class="n">educ_totals</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="s1">'Population Percent'</span><span class="p">,</span> <span class="n">percents</span><span class="p">(</span><span class="n">educ_totals</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
 <span class="p">)</span>
 <span class="n">educ_distribution</span>
 </pre></div>
@@ -803,7 +814,7 @@ document.write(`
 <p>By using <code class="docutils literal notranslate"><span class="pre">pivot</span></code>, we can get a contingency table (a table of counts) of adult Californians cross-classified by <code class="docutils literal notranslate"><span class="pre">Educational</span> <span class="pre">Attainment</span></code> and <code class="docutils literal notranslate"><span class="pre">Personal</span> <span class="pre">Income</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">totals</span> <span class="o">=</span> <span class="n">educ_inc</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">&#39;Educational Attainment&#39;</span><span class="p">,</span> <span class="s1">&#39;Personal Income&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;Population Count&#39;</span><span class="p">,</span> <span class="n">collect</span><span class="o">=</span><span class="nb">sum</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">totals</span> <span class="o">=</span> <span class="n">educ_inc</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">'Educational Attainment'</span><span class="p">,</span> <span class="s1">'Personal Income'</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">'Population Count'</span><span class="p">,</span> <span class="n">collect</span><span class="o">=</span><span class="nb">sum</span><span class="p">)</span>
 <span class="n">totals</span>
 </pre></div>
 </div>
@@ -847,10 +858,10 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distributions</span> <span class="o">=</span> <span class="n">totals</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s2">&quot;Bachelor&#39;s degree or higher&quot;</span><span class="p">,</span> <span class="n">percents</span><span class="p">(</span><span class="n">totals</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span>
-    <span class="s1">&#39;College, less than 4-yr degree&#39;</span><span class="p">,</span> <span class="n">percents</span><span class="p">(</span><span class="n">totals</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">2</span><span class="p">)),</span>
-    <span class="s1">&#39;High school or equivalent&#39;</span><span class="p">,</span> <span class="n">percents</span><span class="p">(</span><span class="n">totals</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">3</span><span class="p">)),</span>
-    <span class="s1">&#39;No high school diploma&#39;</span><span class="p">,</span> <span class="n">percents</span><span class="p">(</span><span class="n">totals</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>   
+    <span class="s2">"Bachelor's degree or higher"</span><span class="p">,</span> <span class="n">percents</span><span class="p">(</span><span class="n">totals</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span>
+    <span class="s1">'College, less than 4-yr degree'</span><span class="p">,</span> <span class="n">percents</span><span class="p">(</span><span class="n">totals</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">2</span><span class="p">)),</span>
+    <span class="s1">'High school or equivalent'</span><span class="p">,</span> <span class="n">percents</span><span class="p">(</span><span class="n">totals</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">3</span><span class="p">)),</span>
+    <span class="s1">'No high school diploma'</span><span class="p">,</span> <span class="n">percents</span><span class="p">(</span><span class="n">totals</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>   
     <span class="p">)</span>
 
 <span class="n">distributions</span>

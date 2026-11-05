@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -170,12 +169,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -221,7 +232,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -436,7 +447,7 @@ document.write(`
 <p>The method <code class="docutils literal notranslate"><span class="pre">select</span></code> creates a new table consisting of only the specified columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Flavor&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -508,7 +519,7 @@ document.write(`
 <p>You can select more than one column, by separating the column labels by commas.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="s1">&#39;Price&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="s1">'Price'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -544,7 +555,7 @@ document.write(`
 <p>You can also <em>drop</em> columns you don’t want. The table above can be created by dropping the <code class="docutils literal notranslate"><span class="pre">Color</span></code> column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Color&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'Color'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -580,7 +591,7 @@ document.write(`
 <p>You can name this new table and look at it again by just typing its name.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">no_colors</span> <span class="o">=</span> <span class="n">cones</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Color&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">no_colors</span> <span class="o">=</span> <span class="n">cones</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'Color'</span><span class="p">)</span>
 
 <span class="n">no_colors</span>
 </pre></div>
@@ -622,7 +633,7 @@ document.write(`
 <p>The <code class="docutils literal notranslate"><span class="pre">sort</span></code> method creates a new table by arranging the rows of the original table in ascending order of the values in the specified column. Here the <code class="docutils literal notranslate"><span class="pre">cones</span></code> table has been sorted in ascending order of the price of the cones.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;Price&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'Price'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -659,7 +670,7 @@ document.write(`
 <p>By default, <code class="docutils literal notranslate"><span class="pre">sort</span></code> sorts in increasing order of the values in the specified column. To sort in decreasing order, use the optional argument <code class="docutils literal notranslate"><span class="pre">descending=True</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;Price&#39;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'Price'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -700,7 +711,7 @@ document.write(`
 <p>The code in the cell below creates a table consisting only of the rows corresponding to chocolate cones.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="s1">&#39;chocolate&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="s1">'chocolate'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -728,7 +739,7 @@ document.write(`
 <p>It is important to provide the value exactly. For example, if we specify <code class="docutils literal notranslate"><span class="pre">Chocolate</span></code> instead of <code class="docutils literal notranslate"><span class="pre">chocolate</span></code>, then <code class="docutils literal notranslate"><span class="pre">where</span></code> correctly finds no rows where the flavor is <code class="docutils literal notranslate"><span class="pre">Chocolate</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="s1">&#39;Chocolate&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="s1">'Chocolate'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -823,7 +834,7 @@ document.write(`
 <p>Fans of Stephen Curry can find his row by using <code class="docutils literal notranslate"><span class="pre">where</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;PLAYER&#39;</span><span class="p">,</span> <span class="s1">&#39;Stephen Curry&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'PLAYER'</span><span class="p">,</span> <span class="s1">'Stephen Curry'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -844,7 +855,7 @@ document.write(`
 <p>We can also create a new table called <code class="docutils literal notranslate"><span class="pre">warriors</span></code> consisting of just the data for the Golden State Warriors.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">warriors</span> <span class="o">=</span> <span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;TEAM&#39;</span><span class="p">,</span> <span class="s1">&#39;Golden State Warriors&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">warriors</span> <span class="o">=</span> <span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'TEAM'</span><span class="p">,</span> <span class="s1">'Golden State Warriors'</span><span class="p">)</span>
 <span class="n">warriors</span>
 </pre></div>
 </div>
@@ -954,7 +965,7 @@ document.write(`
 <p>The <code class="docutils literal notranslate"><span class="pre">nba</span></code> table is sorted in alphabetical order of the team names. To see how the players were paid in 2015-2016, it is useful to sort the data by salary. Remember that by default, the sorting is in increasing order.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;SALARY&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'SALARY'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1004,7 +1015,7 @@ document.write(`
 <p>The CNN report is about the other end of the salary scale – the players who were among the highest paid in the world. To identify these players we can sort in descending order of salary and look at the top few rows.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;SALARY&#39;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'SALARY'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

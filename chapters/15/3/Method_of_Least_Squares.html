@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -170,12 +169,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -221,7 +232,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -369,8 +380,8 @@ document.write(`
 <p>Our first example is a dataset that has one row for every chapter of the novel “Little Women.” The goal is to estimate the number of characters (that is, letters, spaces punctuation marks, and so on) based on the number of periods. Recall that we attempted to do this in the very first lecture of this course.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">little_women</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">&#39;little_women.csv&#39;</span><span class="p">)</span>
-<span class="n">little_women</span> <span class="o">=</span> <span class="n">little_women</span><span class="o">.</span><span class="n">move_to_start</span><span class="p">(</span><span class="s1">&#39;Periods&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">little_women</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">'little_women.csv'</span><span class="p">)</span>
+<span class="n">little_women</span> <span class="o">=</span> <span class="n">little_women</span><span class="o">.</span><span class="n">move_to_start</span><span class="p">(</span><span class="s1">'Periods'</span><span class="p">)</span>
 <span class="n">little_women</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -398,7 +409,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">little_women</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">&#39;Periods&#39;</span><span class="p">,</span> <span class="s1">&#39;Characters&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">little_women</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">'Periods'</span><span class="p">,</span> <span class="s1">'Characters'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -409,7 +420,7 @@ document.write(`
 <p>To explore the data, we will need to use the functions <code class="docutils literal notranslate"><span class="pre">correlation</span></code>, <code class="docutils literal notranslate"><span class="pre">slope</span></code>, <code class="docutils literal notranslate"><span class="pre">intercept</span></code>, and <code class="docutils literal notranslate"><span class="pre">fit</span></code> defined in the previous section.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlation</span><span class="p">(</span><span class="n">little_women</span><span class="p">,</span> <span class="s1">&#39;Periods&#39;</span><span class="p">,</span> <span class="s1">&#39;Characters&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlation</span><span class="p">(</span><span class="n">little_women</span><span class="p">,</span> <span class="s1">'Periods'</span><span class="p">,</span> <span class="s1">'Characters'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -425,8 +436,8 @@ document.write(`
 <p>The graph below shows the scatter plot and line that we developed in the previous section. We don’t yet know if that’s the best among all lines. We first have to say precisely what “best” means.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lw_with_predictions</span> <span class="o">=</span> <span class="n">little_women</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Linear Prediction&#39;</span><span class="p">,</span> <span class="n">fit</span><span class="p">(</span><span class="n">little_women</span><span class="p">,</span> <span class="s1">&#39;Periods&#39;</span><span class="p">,</span> <span class="s1">&#39;Characters&#39;</span><span class="p">))</span>
-<span class="n">lw_with_predictions</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">&#39;Periods&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lw_with_predictions</span> <span class="o">=</span> <span class="n">little_women</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'Linear Prediction'</span><span class="p">,</span> <span class="n">fit</span><span class="p">(</span><span class="n">little_women</span><span class="p">,</span> <span class="s1">'Periods'</span><span class="p">,</span> <span class="s1">'Characters'</span><span class="p">))</span>
+<span class="n">lw_with_predictions</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">'Periods'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -437,8 +448,8 @@ document.write(`
 <p>Corresponding to each point on the scatter plot, there is an error of prediction calculated as the actual value minus the predicted value. It is the vertical distance between the point and the line, with a negative sign if the point is below the line.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">actual</span> <span class="o">=</span> <span class="n">lw_with_predictions</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Characters&#39;</span><span class="p">)</span>
-<span class="n">predicted</span> <span class="o">=</span> <span class="n">lw_with_predictions</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Linear Prediction&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">actual</span> <span class="o">=</span> <span class="n">lw_with_predictions</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Characters'</span><span class="p">)</span>
+<span class="n">predicted</span> <span class="o">=</span> <span class="n">lw_with_predictions</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Linear Prediction'</span><span class="p">)</span>
 <span class="n">errors</span> <span class="o">=</span> <span class="n">actual</span> <span class="o">-</span> <span class="n">predicted</span>
 </pre></div>
 </div>
@@ -446,7 +457,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lw_with_predictions</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lw_with_predictions</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'Error'</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -495,8 +506,8 @@ document.write(`
 <p>We can use <code class="docutils literal notranslate"><span class="pre">slope</span></code> and <code class="docutils literal notranslate"><span class="pre">intercept</span></code> to calculate the slope and intercept of the fitted line. The graph below shows the line (in light blue). The errors corresponding to four of the points are shown in red. There is nothing special about those four points. They were just chosen for clarity of the display. The function <code class="docutils literal notranslate"><span class="pre">lw_errors</span></code> takes a slope and an intercept (in that order) as its arguments and draws the figure.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lw_reg_slope</span> <span class="o">=</span> <span class="n">slope</span><span class="p">(</span><span class="n">little_women</span><span class="p">,</span> <span class="s1">&#39;Periods&#39;</span><span class="p">,</span> <span class="s1">&#39;Characters&#39;</span><span class="p">)</span>
-<span class="n">lw_reg_intercept</span> <span class="o">=</span> <span class="n">intercept</span><span class="p">(</span><span class="n">little_women</span><span class="p">,</span> <span class="s1">&#39;Periods&#39;</span><span class="p">,</span> <span class="s1">&#39;Characters&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lw_reg_slope</span> <span class="o">=</span> <span class="n">slope</span><span class="p">(</span><span class="n">little_women</span><span class="p">,</span> <span class="s1">'Periods'</span><span class="p">,</span> <span class="s1">'Characters'</span><span class="p">)</span>
+<span class="n">lw_reg_intercept</span> <span class="o">=</span> <span class="n">intercept</span><span class="p">(</span><span class="n">little_women</span><span class="p">,</span> <span class="s1">'Periods'</span><span class="p">,</span> <span class="s1">'Characters'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -505,8 +516,8 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Slope of Regression Line:    &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">lw_reg_slope</span><span class="p">),</span> <span class="s1">&#39;characters per period&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Intercept of Regression Line:&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">lw_reg_intercept</span><span class="p">),</span> <span class="s1">&#39;characters&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">'Slope of Regression Line:    '</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">lw_reg_slope</span><span class="p">),</span> <span class="s1">'characters per period'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Intercept of Regression Line:'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">lw_reg_intercept</span><span class="p">),</span> <span class="s1">'characters'</span><span class="p">)</span>
 <span class="n">lw_errors</span><span class="p">(</span><span class="n">lw_reg_slope</span><span class="p">,</span> <span class="n">lw_reg_intercept</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -559,13 +570,13 @@ Intercept of Regression Line: 4745.0 characters
 <p>To answer this question, we will start by defining a function <code class="docutils literal notranslate"><span class="pre">lw_rmse</span></code> to compute the root mean squared error of any line through the Little Women scatter diagram. The function takes the slope and the intercept (in that order) as its arguments.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">lw_rmse</span><span class="p">(</span><span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">lw_rmse</span><span class="p">(</span><span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="p">):</span>
     <span class="n">lw_errors</span><span class="p">(</span><span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="p">)</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">little_women</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Periods&#39;</span><span class="p">)</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">little_women</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Characters&#39;</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">little_women</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Periods'</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">little_women</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Characters'</span><span class="p">)</span>
     <span class="n">fitted</span> <span class="o">=</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">intercept</span>
     <span class="n">mse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">fitted</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Root mean squared error:&quot;</span><span class="p">,</span> <span class="n">mse</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Root mean squared error:"</span><span class="p">,</span> <span class="n">mse</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -639,9 +650,9 @@ Intercept of Regression Line: 4745.0 characters
 <p>it will have an mse that depends on the slope <span class="math notranslate nohighlight">\(a\)</span> and the intercept <span class="math notranslate nohighlight">\(b\)</span>. The function <code class="docutils literal notranslate"><span class="pre">lw_mse</span></code> takes the slope and intercept as its arguments and returns the corresponding mse.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">lw_mse</span><span class="p">(</span><span class="n">any_slope</span><span class="p">,</span> <span class="n">any_intercept</span><span class="p">):</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">little_women</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Periods&#39;</span><span class="p">)</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">little_women</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Characters&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">lw_mse</span><span class="p">(</span><span class="n">any_slope</span><span class="p">,</span> <span class="n">any_intercept</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">little_women</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Periods'</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">little_women</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Characters'</span><span class="p">)</span>
     <span class="n">fitted</span> <span class="o">=</span> <span class="n">any_slope</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">any_intercept</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">fitted</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
@@ -721,10 +732,10 @@ Intercept of Regression Line: 4745.0 characters
 <p>These values are the same as the values we calculated earlier by using the <code class="docutils literal notranslate"><span class="pre">slope</span></code> and <code class="docutils literal notranslate"><span class="pre">intercept</span></code> functions. We see small deviations due to the inexact nature of <code class="docutils literal notranslate"><span class="pre">minimize</span></code>, but the values are essentially the same.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;slope from formula:        &quot;</span><span class="p">,</span> <span class="n">lw_reg_slope</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;slope from minimize:       &quot;</span><span class="p">,</span> <span class="n">best</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;intercept from formula:    &quot;</span><span class="p">,</span> <span class="n">lw_reg_intercept</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;intercept from minimize:   &quot;</span><span class="p">,</span> <span class="n">best</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"slope from formula:        "</span><span class="p">,</span> <span class="n">lw_reg_slope</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"slope from minimize:       "</span><span class="p">,</span> <span class="n">best</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"intercept from formula:    "</span><span class="p">,</span> <span class="n">lw_reg_intercept</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"intercept from minimize:   "</span><span class="p">,</span> <span class="n">best</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>

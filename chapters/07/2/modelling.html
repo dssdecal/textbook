@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -170,12 +169,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -221,7 +232,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -371,7 +382,7 @@ document.write(`
 <p>There are 200 movies on the list. Here are the top ten according to the unadjusted gross receipts in the column <code class="docutils literal notranslate"><span class="pre">Gross</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">top</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">&#39;top_movies_2017.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">top</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">'top_movies_2017.csv'</span><span class="p">)</span>
 <span class="c1"># Make the numbers in the Gross and Gross (Adjusted) columns look nicer:</span>
 <span class="n">top</span><span class="o">.</span><span class="n">set_format</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">NumberFormatter</span><span class="p">)</span>
 </pre></div>
@@ -422,7 +433,7 @@ document.write(`
 <p>In this section we will draw graphs of the distribution of the numerical variable in the column <code class="docutils literal notranslate"><span class="pre">Gross</span> <span class="pre">(Adjusted)</span></code>. For simplicity, let’s create a smaller table that has the information that we need. And since three-digit numbers are easier to work with than nine-digit numbers, let’s measure the <code class="docutils literal notranslate"><span class="pre">Adjusted</span> <span class="pre">Gross</span></code> receipts in millions of dollars. Note how <code class="docutils literal notranslate"><span class="pre">np.round</span></code> is used to retain only two decimal places in each entry of the column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">&#39;Adjusted Gross&#39;</span><span class="p">,</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> 
                                      <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mf">1e6</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="n">millions</span>
 </pre></div>
@@ -478,7 +489,7 @@ document.write(`
 <p>Let’s try out the method and examine the details of the output. To choose some bins, we will start by looking at the smallest and largest values of <code class="docutils literal notranslate"><span class="pre">Adjusted</span> <span class="pre">Gross</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adj_gross</span> <span class="o">=</span> <span class="n">millions</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Adjusted Gross&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adj_gross</span> <span class="o">=</span> <span class="n">millions</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">)</span>
 <span class="nb">min</span><span class="p">(</span><span class="n">adj_gross</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">adj_gross</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -492,7 +503,7 @@ document.write(`
 <p>Let’s try bins of width 100, starting at 300 and going to 2000. You are welcome to make other choices. It is common to start with something that seems reasonable and then adjust based on the results.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bin_counts</span> <span class="o">=</span> <span class="n">millions</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="s1">&#39;Adjusted Gross&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span><span class="mi">2001</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bin_counts</span> <span class="o">=</span> <span class="n">millions</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span><span class="mi">2001</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
 <span class="n">bin_counts</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -571,7 +582,7 @@ document.write(`
 <p>There are other ways to use the <code class="docutils literal notranslate"><span class="pre">bin</span></code> method. If you don’t specify any bins, the default is to produce 10 equally wide bins between the minimum and maximum values of the data. This is often useful for getting a quick sense of the distribution, but the endpoints of the bins tend to be alarming.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="s1">&#39;Adjusted Gross&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -622,7 +633,7 @@ document.write(`
 <p>You can specify a number of equally wide bins. For example, the option <code class="docutils literal notranslate"><span class="pre">bins=4</span></code> leads to 4 equally spaced bins.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="s1">&#39;Adjusted Gross&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -660,7 +671,7 @@ document.write(`
 <p>The <code class="docutils literal notranslate"><span class="pre">hist</span></code> method generates a histogram of the values in a column. The optional <code class="docutils literal notranslate"><span class="pre">unit</span></code> argument is used in the labels on the two axes. The histogram below shows the distribution of the adjusted gross amounts, in millions of 2016 dollars. We have not specified the bins, so <code class="docutils literal notranslate"><span class="pre">hist</span></code> creates 10 equally wide bins between the minimum and maximum values of the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;Adjusted Gross&#39;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;Million Dollars&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"Million Dollars"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -678,7 +689,7 @@ document.write(`
 <p>The optional argument <code class="docutils literal notranslate"><span class="pre">bins</span></code> can be used with <code class="docutils literal notranslate"><span class="pre">hist</span></code> to specify the endpoints of the bins exactly as with the <code class="docutils literal notranslate"><span class="pre">bin</span></code> method. We will start by setting the numbers in <code class="docutils literal notranslate"><span class="pre">bins</span></code> to be 300, 400, 500, and so on, ending with 2000.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;Adjusted Gross&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span><span class="mi">2001</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;Million Dollars&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span><span class="mi">2001</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"Million Dollars"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -734,7 +745,7 @@ document.write(`
 <p>Here is the histogram again for ease of reference.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;Adjusted Gross&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span><span class="mi">2001</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;Million Dollars&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span><span class="mi">2001</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"Million Dollars"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -794,7 +805,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uneven</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1800</span><span class="p">)</span>
-<span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;Adjusted Gross&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;Million Dollars&quot;</span><span class="p">)</span>
+<span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"Million Dollars"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -806,7 +817,7 @@ document.write(`
 <p>The areas of the other bars represent the percents in the bins, as usual. The <code class="docutils literal notranslate"><span class="pre">bin</span></code> method allows us to see the counts in each bin.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="s1">&#39;Adjusted Gross&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -840,7 +851,7 @@ document.write(`
 <p>If instead you just plot the counts using the <code class="docutils literal notranslate"><span class="pre">normed=False</span></code> option as shown below, the figure looks completely different and misrepresents the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;Adjusted Gross&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">,</span> <span class="n">normed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">,</span> <span class="n">normed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -856,7 +867,7 @@ document.write(`
 <p>Take another look at the [400, 500) bin in the figure below. The flat top of the bar, at the level 0.3% per million dollars, hides the fact that the movies are somewhat unevenly distributed across that bin.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;Adjusted Gross&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;Million Dollars&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"Million Dollars"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -869,7 +880,7 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">some_tiny_bins</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span>
     <span class="mi">300</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">410</span><span class="p">,</span> <span class="mi">420</span><span class="p">,</span> <span class="mi">430</span><span class="p">,</span> <span class="mi">440</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="mi">460</span><span class="p">,</span> <span class="mi">470</span><span class="p">,</span> <span class="mi">480</span><span class="p">,</span> <span class="mi">490</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1800</span><span class="p">)</span>
-<span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;Adjusted Gross&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">some_tiny_bins</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;Million Dollars&#39;</span><span class="p">)</span>
+<span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">some_tiny_bins</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'Million Dollars'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -890,7 +901,7 @@ Look again at the [400, 500) bin in the earlier histograms. As we have seen, the
 <p>We will use the histogram below as our example. The bins are specified in the array <code class="docutils literal notranslate"><span class="pre">uneven</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;Adjusted Gross&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;Million Dollars&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"Million Dollars"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -901,7 +912,7 @@ Look again at the [400, 500) bin in the earlier histograms. As we have seen, the
 <p>We will start by getting the counts in the bins.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">histogram_elements</span> <span class="o">=</span> <span class="n">millions</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="s1">&#39;Adjusted Gross&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">)</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">histogram_elements</span> <span class="o">=</span> <span class="n">millions</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">)</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'count'</span><span class="p">)</span>
 <span class="n">histogram_elements</span>
 </pre></div>
 </div>
@@ -935,9 +946,9 @@ Look again at the [400, 500) bin in the earlier histograms. As we have seen, the
 <p>We can now add a column containing the percent in each bin.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">total_count</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">histogram_elements</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">))</span>
-<span class="n">percents</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">histogram_elements</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">)</span><span class="o">/</span><span class="n">total_count</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">histogram_elements</span> <span class="o">=</span> <span class="n">histogram_elements</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">&#39;percent&#39;</span><span class="p">,</span> <span class="n">percents</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">total_count</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">histogram_elements</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'count'</span><span class="p">))</span>
+<span class="n">percents</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">histogram_elements</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'count'</span><span class="p">)</span><span class="o">/</span><span class="n">total_count</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">histogram_elements</span> <span class="o">=</span> <span class="n">histogram_elements</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">'percent'</span><span class="p">,</span> <span class="n">percents</span><span class="p">)</span>
 <span class="n">histogram_elements</span>
 </pre></div>
 </div>
@@ -971,11 +982,11 @@ Look again at the [400, 500) bin in the earlier histograms. As we have seen, the
 <p>Column 0 contains the left ends of all the bins, except for its last element which is the right end of the last bin. So we can use <code class="docutils literal notranslate"><span class="pre">np.diff</span></code> to find the widths of all the bins. Then we will add the widths to the <code class="docutils literal notranslate"><span class="pre">histogram_elements</span></code> table, by first removing the last row.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bin_widths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">histogram_elements</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bin_widths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">histogram_elements</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'bin'</span><span class="p">))</span>
 <span class="n">num_bins</span> <span class="o">=</span> <span class="n">histogram_elements</span><span class="o">.</span><span class="n">num_rows</span> <span class="o">-</span> <span class="mi">1</span>    <span class="c1"># the number of bins</span>
 <span class="n">histogram_elements</span> <span class="o">=</span> <span class="n">histogram_elements</span><span class="o">.</span><span class="n">take</span><span class="p">(</span>
     <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_bins</span><span class="p">))</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="n">bin_widths</span>
+    <span class="s1">'width'</span><span class="p">,</span> <span class="n">bin_widths</span>
 <span class="p">)</span>
 <span class="n">histogram_elements</span>
 </pre></div>
@@ -1008,8 +1019,8 @@ Look again at the [400, 500) bin in the earlier histograms. As we have seen, the
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">heights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span>
-    <span class="n">histogram_elements</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;percent&#39;</span><span class="p">)</span><span class="o">/</span><span class="n">histogram_elements</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">histogram_elements</span> <span class="o">=</span> <span class="n">histogram_elements</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">,</span> <span class="n">heights</span><span class="p">)</span>
+    <span class="n">histogram_elements</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'percent'</span><span class="p">)</span><span class="o">/</span><span class="n">histogram_elements</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'width'</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">histogram_elements</span> <span class="o">=</span> <span class="n">histogram_elements</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">'height'</span><span class="p">,</span> <span class="n">heights</span><span class="p">)</span>
 <span class="n">histogram_elements</span>
 </pre></div>
 </div>
@@ -1040,7 +1051,7 @@ Look again at the [400, 500) bin in the earlier histograms. As we have seen, the
 <p>Here is the histogram again for convenience. Compare it with the table above to confirm that the calculation of heights looks good.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;Adjusted Gross&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

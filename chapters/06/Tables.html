@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -168,12 +167,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -219,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -351,7 +362,7 @@ document.write(`
 <p>In order to use tables, import all of the module called <code class="docutils literal notranslate"><span class="pre">datascience</span></code>, a module created for this text.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datascience</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datascience</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 </div>
 </div>
@@ -378,7 +389,7 @@ document.write(`
 <p>Below, we begin each example with an empty table that has no columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">&#39;Number of petals&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">'Number of petals'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -406,8 +417,8 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;Number of petals&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
-    <span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;lotus&#39;</span><span class="p">,</span> <span class="s1">&#39;sunflower&#39;</span><span class="p">,</span> <span class="s1">&#39;rose&#39;</span><span class="p">)</span>
+    <span class="s1">'Number of petals'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="s1">'Name'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'lotus'</span><span class="p">,</span> <span class="s1">'sunflower'</span><span class="p">,</span> <span class="s1">'rose'</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -436,12 +447,12 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flowers</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;Number of petals&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
-    <span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;lotus&#39;</span><span class="p">,</span> <span class="s1">&#39;sunflower&#39;</span><span class="p">,</span> <span class="s1">&#39;rose&#39;</span><span class="p">)</span>
+    <span class="s1">'Number of petals'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="s1">'Name'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'lotus'</span><span class="p">,</span> <span class="s1">'sunflower'</span><span class="p">,</span> <span class="s1">'rose'</span><span class="p">)</span>
 <span class="p">)</span>
 
 <span class="n">flowers</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;Color&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+    <span class="s1">'Color'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'pink'</span><span class="p">,</span> <span class="s1">'yellow'</span><span class="p">,</span> <span class="s1">'red'</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -498,7 +509,7 @@ document.write(`
 <p>Below, we use the Table method <code class="docutils literal notranslate"><span class="pre">read_table</span></code> to read a CSV file that contains some of the data used by Minard in his graphic about Napoleon’s Russian campaign. The data are placed in a table named <code class="docutils literal notranslate"><span class="pre">minard</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">&#39;minard.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">'minard.csv'</span><span class="p">)</span>
 <span class="n">minard</span>
 </pre></div>
 </div>
@@ -574,7 +585,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;Longitude&#39;, &#39;Latitude&#39;, &#39;City&#39;, &#39;Direction&#39;, &#39;Survivors&#39;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>('Longitude', 'Latitude', 'City', 'Direction', 'Survivors')
 </pre></div>
 </div>
 </div>
@@ -582,7 +593,7 @@ document.write(`
 <p>We can change column labels using the <code class="docutils literal notranslate"><span class="pre">relabeled</span></code> method. This creates a new table and leaves <code class="docutils literal notranslate"><span class="pre">minard</span></code> unchanged.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="s1">&#39;City&#39;</span><span class="p">,</span> <span class="s1">&#39;City Name&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="s1">'City'</span><span class="p">,</span> <span class="s1">'City Name'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -666,7 +677,7 @@ document.write(`
 <p>A common pattern is to assign the original name <code class="docutils literal notranslate"><span class="pre">minard</span></code> to the new table, so that all future uses of <code class="docutils literal notranslate"><span class="pre">minard</span></code> will refer to the relabeled table.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span> <span class="o">=</span> <span class="n">minard</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="s1">&#39;City&#39;</span><span class="p">,</span> <span class="s1">&#39;City Name&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span> <span class="o">=</span> <span class="n">minard</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="s1">'City'</span><span class="p">,</span> <span class="s1">'City Name'</span><span class="p">)</span>
 <span class="n">minard</span>
 </pre></div>
 </div>
@@ -710,7 +721,7 @@ document.write(`
 <p>We can use a column’s label to access the array of data in the column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Survivors&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Survivors'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -762,9 +773,9 @@ document.write(`
 <p>Because columns are arrays, we can use array operations on them to discover new information. For example, we can create a new column that contains the percent of all survivors at each city after Smolensk.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">initial</span> <span class="o">=</span> <span class="n">minard</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Survivors&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">initial</span> <span class="o">=</span> <span class="n">minard</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Survivors'</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">minard</span> <span class="o">=</span> <span class="n">minard</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;Percent Surviving&#39;</span><span class="p">,</span> <span class="n">minard</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Survivors&#39;</span><span class="p">)</span><span class="o">/</span><span class="n">initial</span>
+    <span class="s1">'Percent Surviving'</span><span class="p">,</span> <span class="n">minard</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Survivors'</span><span class="p">)</span><span class="o">/</span><span class="n">initial</span>
 <span class="p">)</span>
 <span class="n">minard</span>
 </pre></div>
@@ -808,7 +819,7 @@ document.write(`
 <p>To make the proportions in the new columns appear as percents, we can use the method <code class="docutils literal notranslate"><span class="pre">set_format</span></code> with the option <code class="docutils literal notranslate"><span class="pre">PercentFormatter</span></code>. The <code class="docutils literal notranslate"><span class="pre">set_format</span></code> method takes <code class="docutils literal notranslate"><span class="pre">Formatter</span></code> objects, which exist for dates (<code class="docutils literal notranslate"><span class="pre">DateFormatter</span></code>), currencies (<code class="docutils literal notranslate"><span class="pre">CurrencyFormatter</span></code>), numbers, and percentages.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span><span class="o">.</span><span class="n">set_format</span><span class="p">(</span><span class="s1">&#39;Percent Surviving&#39;</span><span class="p">,</span> <span class="n">PercentFormatter</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span><span class="o">.</span><span class="n">set_format</span><span class="p">(</span><span class="s1">'Percent Surviving'</span><span class="p">,</span> <span class="n">PercentFormatter</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -851,7 +862,7 @@ document.write(`
 <p>The method <code class="docutils literal notranslate"><span class="pre">select</span></code> creates a new table that contains only the specified columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Latitude&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Longitude'</span><span class="p">,</span> <span class="s1">'Latitude'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -935,7 +946,7 @@ document.write(`
 <p>The result of using <code class="docutils literal notranslate"><span class="pre">select</span></code> is a new table, even when you select just one column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Survivors&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Survivors'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -977,7 +988,7 @@ document.write(`
 <p>Notice that the result is a table, unlike the result of <code class="docutils literal notranslate"><span class="pre">column</span></code>, which is an array.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Survivors&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Survivors'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -990,7 +1001,7 @@ document.write(`
 <p>Another way to create a new table consisting of a set of columns is to <code class="docutils literal notranslate"><span class="pre">drop</span></code> the columns you don’t want.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Direction&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minard</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'Longitude'</span><span class="p">,</span> <span class="s1">'Latitude'</span><span class="p">,</span> <span class="s1">'Direction'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

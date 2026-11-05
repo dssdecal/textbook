@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -170,12 +169,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -221,7 +232,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -465,7 +476,7 @@ document.write(`
 <p>If we want a table of the top 5 highest paid players, we can first sort the list by salary and then <code class="docutils literal notranslate"><span class="pre">take</span></code> the first five rows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;SALARY&#39;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'SALARY'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -505,7 +516,7 @@ document.write(`
 <p>In the first example, we extract the data for all those who earned more than <span class="math notranslate nohighlight">\(\$10\)</span> million.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;SALARY&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">above</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'SALARY'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">above</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -555,7 +566,7 @@ document.write(`
 <p>There are 69 rows in the new table, corresponding to the 69 players who made more than <span class="math notranslate nohighlight">\(10\)</span> million dollars. Arranging these rows in order makes the data easier to analyze. DeMar DeRozan of the Toronto Raptors was the “poorest” of this group, at a salary of just over <span class="math notranslate nohighlight">\(10\)</span> million dollars.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;SALARY&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">above</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;SALARY&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'SALARY'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">above</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'SALARY'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -604,7 +615,7 @@ document.write(`
 <p>How much did Stephen Curry make? For the answer, we have to access the row where the value of <code class="docutils literal notranslate"><span class="pre">PLAYER</span></code> is equal to <code class="docutils literal notranslate"><span class="pre">Stephen</span> <span class="pre">Curry</span></code>. That is placed a table consisting of just one line:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;PLAYER&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">&#39;Stephen Curry&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'PLAYER'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">'Stephen Curry'</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -626,7 +637,7 @@ document.write(`
 <p>In the code, <code class="docutils literal notranslate"><span class="pre">are</span></code> is used again, but this time with the <em>predicate</em> <code class="docutils literal notranslate"><span class="pre">equal_to</span></code> instead of <code class="docutils literal notranslate"><span class="pre">above</span></code>. Thus for example you can get a table of all the Warriors:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;TEAM&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">&#39;Golden State Warriors&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'TEAM'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">'Golden State Warriors'</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -687,7 +698,7 @@ document.write(`
 <p>It is so common to ask for the rows for which some column is equal to some value that the <code class="docutils literal notranslate"><span class="pre">are.equal_to</span></code> call is optional. Instead, the <code class="docutils literal notranslate"><span class="pre">where</span></code> method can be called with only a column name and a value to achieve the same effect.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;TEAM&#39;</span><span class="p">,</span> <span class="s1">&#39;Denver Nuggets&#39;</span><span class="p">)</span> <span class="c1"># equivalent to nba.where(&#39;TEAM&#39;, are.equal_to(&#39;Denver Nuggets&#39;))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'TEAM'</span><span class="p">,</span> <span class="s1">'Denver Nuggets'</span><span class="p">)</span> <span class="c1"># equivalent to nba.where('TEAM', are.equal_to('Denver Nuggets'))</span>
 </pre></div>
 </div>
 </div>
@@ -739,7 +750,7 @@ document.write(`
 <p>You can access rows that have multiple specified features, by using <code class="docutils literal notranslate"><span class="pre">where</span></code> repeatedly. For example, here is a way to extract all the Point Guards whose salaries were over <span class="math notranslate nohighlight">\(\$15\)</span> million.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;POSITION&#39;</span><span class="p">,</span> <span class="s1">&#39;PG&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;SALARY&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">above</span><span class="p">(</span><span class="mi">15</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'POSITION'</span><span class="p">,</span> <span class="s1">'PG'</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'SALARY'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">above</span><span class="p">(</span><span class="mi">15</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -776,7 +787,7 @@ document.write(`
 <p><code class="docutils literal notranslate"><span class="pre">original_table_name.where(column_label_string,</span> <span class="pre">are.condition)</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;SALARY&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">10.3</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'SALARY'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">10.3</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -807,7 +818,7 @@ document.write(`
 <p>If we specify a condition that isn’t satisfied by any row, we get a table with column labels but no rows.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;PLAYER&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">&#39;Barack Obama&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'PLAYER'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">'Barack Obama'</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -883,7 +894,7 @@ document.write(`
 <p>The use of <code class="docutils literal notranslate"><span class="pre">are.containing</span></code> can help save some typing. For example, you can just specify <code class="docutils literal notranslate"><span class="pre">Warriors</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Golden</span> <span class="pre">State</span> <span class="pre">Warriors</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;TEAM&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">containing</span><span class="p">(</span><span class="s1">&#39;Warriors&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'TEAM'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">containing</span><span class="p">(</span><span class="s1">'Warriors'</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -943,7 +954,7 @@ document.write(`
 <p>You can extract data for all the guards, both Point Guards and Shooting Guards:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;POSITION&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">containing</span><span class="p">(</span><span class="s1">&#39;G&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'POSITION'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">containing</span><span class="p">(</span><span class="s1">'G'</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -992,8 +1003,8 @@ document.write(`
 <p>You can get all the players who were not Cleveland Cavaliers and had a salary of no less than <span class="math notranslate nohighlight">\(\$20\)</span> million:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">other_than_Cavs</span> <span class="o">=</span> <span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;TEAM&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">not_equal_to</span><span class="p">(</span><span class="s1">&#39;Cleveland Cavaliers&#39;</span><span class="p">))</span>
-<span class="n">other_than_Cavs</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;SALARY&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">not_below</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">other_than_Cavs</span> <span class="o">=</span> <span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'TEAM'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">not_equal_to</span><span class="p">(</span><span class="s1">'Cleveland Cavaliers'</span><span class="p">))</span>
+<span class="n">other_than_Cavs</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'SALARY'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">not_below</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1038,7 +1049,7 @@ document.write(`
 <p>The same table can be created in many ways. Here is another, and no doubt you can think of more.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">other_than_Cavs</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;SALARY&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">above_or_equal_to</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">other_than_Cavs</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'SALARY'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">above_or_equal_to</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>

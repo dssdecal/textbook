@@ -1,0 +1,1708 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>3.2. Pandas, Data Cleaning, and Introductory EDA &#8212; Introduction to Real World Data Science</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/03/2/pandas-cleaning-eda';</script>
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="4. Machine Learning" href="../../07/machine_learning.html" />
+    <link rel="prev" title="3.1. Tabular Data in Pandas" href="../1/tabular.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/favicon.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../../_static/favicon.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01/what-is-data-science.html">1. What is a Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01/1/intro.html">1.1. Introduction</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01/1/1/computational-tools.html">1.1.1. Computational Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01/1/2/statistical-techniques.html">1.1.2. Statistical Techniques</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../01/2/why-data-science.html">1.2. Why Data Science?</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../02/intro_python.html">2. Introduction to Python</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../02/1/expressions.html">2.1. Simple Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02/2/variables.html">2.2. Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02/3/call_expressions.html">2.3. Call Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02/4/data_types.html">2.4. Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02/5/comparisons.html">2.5. Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02/6/lists.html">2.6. Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../sequences.html">3. DataFrames</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/dssdecal/textbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/chapters/03/2/pandas-cleaning-eda.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Pandas, Data Cleaning, and Introductory EDA</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-a-csv-file-to-a-dataframe">3.2.1. From a CSV file to a DataFrame</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-the-data-you-need">3.2.2. Select the data you need</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-column-or-several">3.2.2.1. One column or several?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#labels-with-loc-positions-with-iloc">3.2.2.2. Labels with <code class="docutils literal notranslate"><span class="pre">.loc</span></code>, positions with <code class="docutils literal notranslate"><span class="pre">.iloc</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-rows-with-boolean-conditions">3.2.2.3. Filter rows with Boolean conditions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eda-starts-with-questions-and-a-data-audit">3.2.3. EDA starts with questions and a data audit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clean-carefully-and-preserve-the-raw-data">3.2.4. Clean carefully, and preserve the raw data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standardize-categories">3.2.4.1. Standardize categories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-confirmed-duplicate-records">3.2.4.2. Remove confirmed duplicate records</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-types-then-apply-validity-rules">3.2.4.3. Convert types, then apply validity rules</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-values-require-a-choice">3.2.5. Missing values require a choice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manipulate-the-cleaned-table">3.2.6. Manipulate the cleaned table</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-column-using-a-calculation">3.2.6.1. Add a column using a calculation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarize-distributions-and-compare-groups">3.2.7. Summarize distributions and compare groups</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#describe-numeric-variables">3.2.7.1. Describe numeric variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#group-summarize-compare">3.2.7.2. Group, summarize, compare</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#turn-the-output-into-a-careful-finding">3.2.8. Turn the output into a careful finding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-reference-for-lab-01">3.2.8.1. Quick reference for Lab 01</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading-and-source-notes">3.2.8.2. Further reading and source notes</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="pandas-data-cleaning-and-introductory-eda">
+<h1><span class="section-number">3.2. </span>Pandas, Data Cleaning, and Introductory EDA<a class="headerlink" href="#pandas-data-cleaning-and-introductory-eda" title="Permalink to this heading">#</a></h1>
+<p><strong>Week 2 reading · About 20–25 minutes</strong></p>
+<p>Suppose you’re helping a campus club choose a place for its next study session.
+You have feedback about a few study spaces. Which spaces did people like? How long
+did they stay? Before answering, you need to understand what the table represents
+and decide what to do with its messy entries.</p>
+<p>This chapter walks through that process with <strong>complete examples and their outputs</strong>.
+There is nothing to submit here. Read it before Lab 01, or use it as a reference while
+working on the lab. The study-space data is fictional and different from the lab’s
+event survey, so you can practice the same ideas on your own.</p>
+<p>By the end, you should be able to load a table, select and change data, explain a
+cleaning decision, and support an observation with a summary and a limitation.
+We focus on tables this week; plotting and feature engineering come next week.</p>
+<section id="from-a-csv-file-to-a-dataframe">
+<h2><span class="section-number">3.2.1. </span>From a CSV file to a DataFrame<a class="headerlink" href="#from-a-csv-file-to-a-dataframe" title="Permalink to this heading">#</a></h2>
+<p><strong>Pandas</strong> is a Python library for working with labeled data. A <strong>DataFrame</strong> is a
+two-dimensional table: rows represent observations, and columns represent variables.
+A <strong>Series</strong> is a one-dimensional collection with an index, such as a single column.
+Different columns can have different data types.</p>
+<p>Our CSV contains one response about one visit per row. <code class="docutils literal notranslate"><span class="pre">visit_id</span></code> identifies a visit,
+not necessarily a unique person: the same person could have visited more than once.
+This distinction matters when deciding what counts as a duplicate and what our
+results can say about students.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">visit_id</span></code></p></td>
+<td><p>Identifier that should occur once per recorded visit</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">location</span></code></p></td>
+<td><p>Study space visited</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">minutes</span></code></p></td>
+<td><p>Reported duration in minutes; must be positive</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rating</span></code></p></td>
+<td><p>Satisfaction from 1 (lowest) to 5 (highest)</p></td>
+</tr>
+</tbody>
+</table>
+<p>A <strong>CSV</strong> stores a table as comma-separated text. <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> reads that file
+into a DataFrame and infers types. The alias <code class="docutils literal notranslate"><span class="pre">pd</span></code> is a convention, not a special
+Python keyword. The CSV sits next to this notebook; relative paths are interpreted
+from the running notebook’s working directory.</p>
+<p>If you run this reading yourself, keep the <a class="reference download internal" download="" href="../../../_downloads/687181647ba796d7fe94c9485810a0d3/study_space_visits.csv"><span class="xref download myst">example CSV</span></a>
+next to the notebook. On the website, all example outputs are already shown.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">visits</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"study_space_visits.csv"</span><span class="p">)</span>
+<span class="n">visits</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>visit_id</th>
+      <th>location</th>
+      <th>minutes</th>
+      <th>rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>201</td>
+      <td>North Library</td>
+      <td>60</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>202</td>
+      <td>student union</td>
+      <td>30</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>203</td>
+      <td>Quiet Room</td>
+      <td>90</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>204</td>
+      <td>north library</td>
+      <td>unknown</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>205</td>
+      <td>Student Union</td>
+      <td>45</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">head()</span></code> shows the first five rows by default. <code class="docutils literal notranslate"><span class="pre">visits.head(3)</span></code> would show three;
+<code class="docutils literal notranslate"><span class="pre">visits.tail(3)</span></code> would show the last three. A preview is useful, but it cannot tell
+us everything about a dataset. A problem may be hiding in a later row.</p>
+<p>Pandas also assigns <strong>row index labels</strong>. Here the index starts at 0, while
+<code class="docutils literal notranslate"><span class="pre">visit_id</span></code> is an ordinary column. An index need not be consecutive integers, and
+sorting a table does not automatically renumber its labels.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Rows and columns:"</span><span class="p">,</span> <span class="n">visits</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Column names:"</span><span class="p">,</span> <span class="n">visits</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="n">visits</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rows and columns: (11, 4)
+Column names: ['visit_id', 'location', 'minutes', 'rating']
+&lt;class 'pandas.DataFrame'&gt;
+RangeIndex: 11 entries, 0 to 10
+Data columns (total 4 columns):
+ #   Column    Non-Null Count  Dtype  
+---  ------    --------------  -----  
+ 0   visit_id  11 non-null     int64  
+ 1   location  11 non-null     str    
+ 2   minutes   11 non-null     str    
+ 3   rating    10 non-null     float64
+dtypes: float64(1), int64(1), str(2)
+memory usage: 484.0 bytes
+</pre></div>
+</div>
+</div>
+</div>
+<p>The table has 11 rows and 4 columns. <code class="docutils literal notranslate"><span class="pre">info()</span></code> reports each column’s type and number
+of non-missing entries. <code class="docutils literal notranslate"><span class="pre">minutes</span></code> is stored as text because one entry says <code class="docutils literal notranslate"><span class="pre">unknown</span></code>.
+Being able to read a file does not mean its values have the types we want!
+Depending on the pandas version, text columns may display as <code class="docutils literal notranslate"><span class="pre">object</span></code>, <code class="docutils literal notranslate"><span class="pre">str</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">string</span></code>. Inspect actual values before deciding how to convert them.</p>
+<p>Notice <code class="docutils literal notranslate"><span class="pre">shape</span></code> has no parentheses: it is an <strong>attribute</strong> containing information.
+<code class="docutils literal notranslate"><span class="pre">head()</span></code> and <code class="docutils literal notranslate"><span class="pre">info()</span></code> are <strong>methods</strong> that perform an operation. Calling
+<code class="docutils literal notranslate"><span class="pre">visits.shape()</span></code> causes an error because the stored tuple is not a function.</p>
+</section>
+<section id="select-the-data-you-need">
+<h2><span class="section-number">3.2.2. </span>Select the data you need<a class="headerlink" href="#select-the-data-you-need" title="Permalink to this heading">#</a></h2>
+<section id="one-column-or-several">
+<h3><span class="section-number">3.2.2.1. </span>One column or several?<a class="headerlink" href="#one-column-or-several" title="Permalink to this heading">#</a></h3>
+<p>Use a column name in brackets to select a Series. Put a <strong>list of names</strong> inside
+those brackets to select a DataFrame, even if the list contains only one name.
+The distinction matters because some operations return different shapes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratings</span> <span class="o">=</span> <span class="n">visits</span><span class="p">[</span><span class="s2">"rating"</span><span class="p">]</span>             <span class="c1"># Series</span>
+<span class="n">selected</span> <span class="o">=</span> <span class="n">visits</span><span class="p">[[</span><span class="s2">"location"</span><span class="p">,</span> <span class="s2">"rating"</span><span class="p">]]</span>  <span class="c1"># DataFrame</span>
+<span class="n">selected</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>location</th>
+      <th>rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>North Library</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>student union</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Quiet Room</td>
+      <td>5.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="labels-with-loc-positions-with-iloc">
+<h3><span class="section-number">3.2.2.2. </span>Labels with <code class="docutils literal notranslate"><span class="pre">.loc</span></code>, positions with <code class="docutils literal notranslate"><span class="pre">.iloc</span></code><a class="headerlink" href="#labels-with-loc-positions-with-iloc" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">.loc[rows,</span> <span class="pre">columns]</span></code> selects by label or by a condition. <code class="docutils literal notranslate"><span class="pre">.iloc[rows,</span> <span class="pre">columns]</span></code>
+selects by integer position. To make the difference visible, temporarily use
+<code class="docutils literal notranslate"><span class="pre">visit_id</span></code> as the index. This creates another table; it does not change <code class="docutils literal notranslate"><span class="pre">visits</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">by_visit</span> <span class="o">=</span> <span class="n">visits</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"visit_id"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Visit labeled 203:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">by_visit</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">203</span><span class="p">,</span> <span class="p">[</span><span class="s2">"location"</span><span class="p">,</span> <span class="s2">"rating"</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">First row by position:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">by_visit</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Visit labeled 203:
+location    Quiet Room
+rating             5.0
+Name: 203, dtype: object
+
+First row by position:
+location    North Library
+minutes                60
+rating                4.0
+Name: 201, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">by_visit.loc[203]</span></code> refers to the label 203, not the 204th row. <code class="docutils literal notranslate"><span class="pre">by_visit.iloc[0]</span></code>
+refers to whichever row is first. For slices, <code class="docutils literal notranslate"><span class="pre">.iloc[0:3]</span></code> includes positions
+0, 1, and 2; label slices with <code class="docutils literal notranslate"><span class="pre">.loc</span></code> include the ending label when present.</p>
+</section>
+<section id="filter-rows-with-boolean-conditions">
+<h3><span class="section-number">3.2.2.3. </span>Filter rows with Boolean conditions<a class="headerlink" href="#filter-rows-with-boolean-conditions" title="Permalink to this heading">#</a></h3>
+<p>A comparison such as <code class="docutils literal notranslate"><span class="pre">visits[&quot;rating&quot;]</span> <span class="pre">&gt;=</span> <span class="pre">4</span></code> produces one Boolean value per row.
+This is often called a <strong>mask</strong>. Supply the mask to <code class="docutils literal notranslate"><span class="pre">.loc</span></code> to keep matching rows.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">high_ratings_raw</span> <span class="o">=</span> <span class="n">visits</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+    <span class="n">visits</span><span class="p">[</span><span class="s2">"rating"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="p">[</span><span class="s2">"visit_id"</span><span class="p">,</span> <span class="s2">"location"</span><span class="p">,</span> <span class="s2">"rating"</span><span class="p">]</span>
+<span class="p">]</span>
+<span class="n">high_ratings_raw</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>visit_id</th>
+      <th>location</th>
+      <th>rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>201</td>
+      <td>North Library</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>203</td>
+      <td>Quiet Room</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>204</td>
+      <td>north library</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>206</td>
+      <td>quiet room</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>207</td>
+      <td>NORTH LIBRARY</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>209</td>
+      <td>Quiet Room</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>210</td>
+      <td>North Library</td>
+      <td>4.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Look closely: this includes a rating of <strong>6</strong>. The code correctly applied our
+condition, but the result contains an invalid observation. Correct syntax does
+not guarantee a meaningful answer. We’ll fix the data before interpreting it.</p>
+<p>To combine conditions, use <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> for <strong>and</strong>, <code class="docutils literal notranslate"><span class="pre">|</span></code> for <strong>or</strong>, and <code class="docutils literal notranslate"><span class="pre">~</span></code> for <strong>not</strong>.
+Put each comparison in parentheses. Python’s <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> do not perform these
+row-by-row operations on a Series.</p>
+</section>
+</section>
+<section id="eda-starts-with-questions-and-a-data-audit">
+<h2><span class="section-number">3.2.3. </span>EDA starts with questions and a data audit<a class="headerlink" href="#eda-starts-with-questions-and-a-data-audit" title="Permalink to this heading">#</a></h2>
+<p><strong>Exploratory data analysis (EDA)</strong> is the process of investigating a dataset’s
+structure, quality, distributions, and relationships. It helps us decide which
+questions the data can answer. Cleaning and EDA are iterative: a summary may
+reveal a problem, and fixing the problem may change the summary.</p>
+<p>Start by asking: What does one row represent? Who or what is missing? Which
+values are plausible? Are categories recorded consistently? Then use pandas
+to look for evidence.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Missing values per column:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">visits</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Exact repeated rows after their first appearance:"</span><span class="p">,</span> <span class="n">visits</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Recorded location labels:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">visits</span><span class="p">[</span><span class="s2">"location"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Missing values per column:
+visit_id    0
+location    0
+minutes     0
+rating      1
+dtype: int64
+
+Exact repeated rows after their first appearance: 1
+
+Recorded location labels:
+location
+student union      3
+North Library      2
+Quiet Room         2
+ north library     1
+Student Union      1
+quiet room         1
+NORTH LIBRARY      1
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">.isna()</span></code> marks missing entries; summing those Booleans counts them. It detects
+blank ratings, but the literal text <code class="docutils literal notranslate"><span class="pre">unknown</span></code> in <code class="docutils literal notranslate"><span class="pre">minutes</span></code> is not automatically
+missing here. Likewise, inconsistent capitalization creates separate categories.
+The duplicate count says one entire row is repeated.</p>
+<p>A zero missing-value count is therefore <strong>not</strong> proof that a column is clean.
+Inspect unusual values, types, and the meaning of the variable as well.</p>
+</section>
+<section id="clean-carefully-and-preserve-the-raw-data">
+<h2><span class="section-number">3.2.4. </span>Clean carefully, and preserve the raw data<a class="headerlink" href="#clean-carefully-and-preserve-the-raw-data" title="Permalink to this heading">#</a></h2>
+<p>Keep an unchanged source table so you can revisit your decisions. Most methods
+below return a new result; assigning that result is how we keep a change.</p>
+<section id="standardize-categories">
+<h3><span class="section-number">3.2.4.1. </span>Standardize categories<a class="headerlink" href="#standardize-categories" title="Permalink to this heading">#</a></h3>
+<p>Surrounding spaces and capitalization distinguish strings in Python even when
+they refer to the same place. <code class="docutils literal notranslate"><span class="pre">.str</span></code> gives access to string operations across a
+Series. Here we strip whitespace and lowercase the location names.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clean</span> <span class="o">=</span> <span class="n">visits</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">clean</span><span class="p">[</span><span class="s2">"location"</span><span class="p">]</span> <span class="o">=</span> <span class="n">clean</span><span class="p">[</span><span class="s2">"location"</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="n">clean</span><span class="p">[</span><span class="s2">"location"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>location
+north library    4
+student union    4
+quiet room       3
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Standardization is a decision about meaning. Lowercasing works for these names,
+but it does not fix misspellings or tell us whether two differently named buildings
+are actually the same place. If needed, a documented <code class="docutils literal notranslate"><span class="pre">.replace()</span></code> mapping can
+handle known synonyms. Don’t merge categories just because they look similar.</p>
+</section>
+<section id="remove-confirmed-duplicate-records">
+<h3><span class="section-number">3.2.4.2. </span>Remove confirmed duplicate records<a class="headerlink" href="#remove-confirmed-duplicate-records" title="Permalink to this heading">#</a></h3>
+<p>The repeated row is an accidental copy of the same visit, so keeping it would
+count that visit twice. Remove exact duplicate rows, then inspect any remaining
+repeated IDs for conflicting records.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clean</span> <span class="o">=</span> <span class="n">clean</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Unique visit records:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">clean</span><span class="p">))</span>
+<span class="n">clean</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">clean</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">"visit_id"</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Unique visit records: 10
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>visit_id</th>
+      <th>location</th>
+      <th>minutes</th>
+      <th>rating</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>There are now 10 records; the empty table confirms no repeated visit IDs remain.
+Using <code class="docutils literal notranslate"><span class="pre">.drop_duplicates(subset=&quot;visit_id&quot;)</span></code> immediately could silently discard
+conflicting feedback. Also, different visits can legitimately have identical
+ratings and durations. Deduplication depends on what makes a record unique.</p>
+</section>
+<section id="convert-types-then-apply-validity-rules">
+<h3><span class="section-number">3.2.4.3. </span>Convert types, then apply validity rules<a class="headerlink" href="#convert-types-then-apply-validity-rules" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pd.to_numeric()</span></code> converts numeric-looking text into numbers. With
+<code class="docutils literal notranslate"><span class="pre">errors=&quot;coerce&quot;</span></code>, entries it cannot parse become missing. Inspect the entries
+that failed conversion so a typo or unexpected format does not disappear unnoticed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">numeric_minutes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">clean</span><span class="p">[</span><span class="s2">"minutes"</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">"coerce"</span><span class="p">)</span>
+<span class="n">conversion_failed</span> <span class="o">=</span> <span class="n">clean</span><span class="p">[</span><span class="s2">"minutes"</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">numeric_minutes</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+<span class="n">clean</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">conversion_failed</span><span class="p">,</span> <span class="p">[</span><span class="s2">"visit_id"</span><span class="p">,</span> <span class="s2">"minutes"</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>visit_id</th>
+      <th>minutes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>204</td>
+      <td>unknown</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clean</span><span class="p">[</span><span class="s2">"minutes"</span><span class="p">]</span> <span class="o">=</span> <span class="n">numeric_minutes</span>
+<span class="n">invalid_duration</span> <span class="o">=</span> <span class="n">clean</span><span class="p">[</span><span class="s2">"minutes"</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span>
+<span class="n">invalid_rating</span> <span class="o">=</span> <span class="p">(</span><span class="n">clean</span><span class="p">[</span><span class="s2">"rating"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">clean</span><span class="p">[</span><span class="s2">"rating"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="n">clean</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">invalid_duration</span><span class="p">,</span> <span class="s2">"minutes"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"nan"</span><span class="p">)</span>
+<span class="n">clean</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">invalid_rating</span><span class="p">,</span> <span class="s2">"rating"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"nan"</span><span class="p">)</span>
+<span class="n">clean</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>visit_id    0
+location    0
+minutes     2
+rating      2
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>We now have two missing durations and two missing ratings. The invalid values
+became missing because we cannot infer their intended values. We kept the rows:
+their other information can still be useful.</p>
+<p>This is different from automatically removing <strong>outliers</strong>. A 120-minute study
+visit is long but plausible; a negative duration violates our definition.
+Unusual observations deserve investigation, not automatic deletion.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">.isna()</span></code> or <code class="docutils literal notranslate"><span class="pre">.notna()</span></code> to detect missingness rather than comparing with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.
+Pandas uses different missing-value representations depending on the type, and
+equality comparisons do not reliably identify them.</p>
+</section>
+</section>
+<section id="missing-values-require-a-choice">
+<h2><span class="section-number">3.2.5. </span>Missing values require a choice<a class="headerlink" href="#missing-values-require-a-choice" title="Permalink to this heading">#</a></h2>
+<p>There are three common responses, each with tradeoffs:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Approach</p></th>
+<th class="head"><p>When it can help</p></th>
+<th class="head"><p>What to watch for</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Leave missing values as missing</p></td>
+<td><p>A summary can use the available observations</p></td>
+<td><p>Different summaries may have different denominators</p></td>
+</tr>
+<tr class="row-odd"><td><p>Drop rows for a particular analysis</p></td>
+<td><p>That analysis needs a specific observed value</p></td>
+<td><p>Missingness may be systematic; dropping rows can bias results</p></td>
+</tr>
+<tr class="row-even"><td><p>Fill with an assumed value</p></td>
+<td><p>You have a justified strategy for the task</p></td>
+<td><p>Filled values are estimates, not observations</p></td>
+</tr>
+</tbody>
+</table>
+<p>A missing rating is not a zero rating. Our example will leave ratings missing.
+Means skip missing values by default, so we must report counts alongside means.
+If we needed a table containing only observed ratings, we could create one explicitly:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rated_visits</span> <span class="o">=</span> <span class="n">clean</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"rating"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"All visits:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">clean</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Visits with a valid rating:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">rated_visits</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>All visits: 10
+Visits with a valid rating: 8
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using <code class="docutils literal notranslate"><span class="pre">clean.dropna()</span></code> without <code class="docutils literal notranslate"><span class="pre">subset</span></code> would discard rows missing <em>any</em> column,
+including duration—even for a question concerned only with ratings.</p>
+<p>To see how filling works, make a separate example copy and replace missing durations
+with the median observed duration. Record which values were missing <strong>before</strong> filling.
+The median is less sensitive to extreme values than the mean, but that does not
+make this a universally appropriate method.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filled_example</span> <span class="o">=</span> <span class="n">clean</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">filled_example</span><span class="p">[</span><span class="s2">"minutes_were_missing"</span><span class="p">]</span> <span class="o">=</span> <span class="n">filled_example</span><span class="p">[</span><span class="s2">"minutes"</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+<span class="n">median_minutes</span> <span class="o">=</span> <span class="n">filled_example</span><span class="p">[</span><span class="s2">"minutes"</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">filled_example</span><span class="p">[</span><span class="s2">"minutes"</span><span class="p">]</span> <span class="o">=</span> <span class="n">filled_example</span><span class="p">[</span><span class="s2">"minutes"</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">median_minutes</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Median used:"</span><span class="p">,</span> <span class="n">median_minutes</span><span class="p">)</span>
+<span class="n">filled_example</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+    <span class="n">filled_example</span><span class="p">[</span><span class="s2">"minutes_were_missing"</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">"visit_id"</span><span class="p">,</span> <span class="s2">"minutes"</span><span class="p">,</span> <span class="s2">"minutes_were_missing"</span><span class="p">]</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Median used: 52.5
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>visit_id</th>
+      <th>minutes</th>
+      <th>minutes_were_missing</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>204</td>
+      <td>52.5</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>209</td>
+      <td>52.5</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The filled durations are 52.5 minutes. They should not be described as times
+students actually reported. Filling also changes the distribution, potentially
+making it look less variable. We will continue exploring <code class="docutils literal notranslate"><span class="pre">clean</span></code>, which retains
+missing durations, rather than silently substituting <code class="docutils literal notranslate"><span class="pre">filled_example</span></code>.</p>
+<p><strong>Pause and think:</strong> If people who disliked a space are less likely to leave a
+rating, would dropping missing ratings solve that problem? No—the observed ratings
+could still overrepresent happy visitors. Cleaning cannot recover feedback we never collected.</p>
+</section>
+<section id="manipulate-the-cleaned-table">
+<h2><span class="section-number">3.2.6. </span>Manipulate the cleaned table<a class="headerlink" href="#manipulate-the-cleaned-table" title="Permalink to this heading">#</a></h2>
+<section id="add-a-column-using-a-calculation">
+<h3><span class="section-number">3.2.6.1. </span>Add a column using a calculation<a class="headerlink" href="#add-a-column-using-a-calculation" title="Permalink to this heading">#</a></h3>
+<p>Assigning to a new column name adds it to the DataFrame. Arithmetic acts on all
+rows at once; there is no need to write a loop for this conversion.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clean</span><span class="p">[</span><span class="s2">"hours"</span><span class="p">]</span> <span class="o">=</span> <span class="n">clean</span><span class="p">[</span><span class="s2">"minutes"</span><span class="p">]</span> <span class="o">/</span> <span class="mi">60</span>
+<span class="n">clean</span><span class="p">[[</span><span class="s2">"visit_id"</span><span class="p">,</span> <span class="s2">"minutes"</span><span class="p">,</span> <span class="s2">"hours"</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>visit_id</th>
+      <th>minutes</th>
+      <th>hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>201</td>
+      <td>60.0</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>202</td>
+      <td>30.0</td>
+      <td>0.50</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>203</td>
+      <td>90.0</td>
+      <td>1.50</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>204</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>205</td>
+      <td>45.0</td>
+      <td>0.75</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Missing durations remain missing after conversion. We can now ask for recorded
+visits lasting at least an hour with ratings of at least 4. The <code class="docutils literal notranslate"><span class="pre">.notna()</span></code> check
+makes our intended treatment of missing duration explicit.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">long_and_positive</span> <span class="o">=</span> <span class="n">clean</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+    <span class="n">clean</span><span class="p">[</span><span class="s2">"minutes"</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">clean</span><span class="p">[</span><span class="s2">"minutes"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">clean</span><span class="p">[</span><span class="s2">"rating"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="p">[</span><span class="s2">"visit_id"</span><span class="p">,</span> <span class="s2">"location"</span><span class="p">,</span> <span class="s2">"minutes"</span><span class="p">,</span> <span class="s2">"rating"</span><span class="p">]</span>
+<span class="p">]</span>
+<span class="n">long_and_positive</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"minutes"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>visit_id</th>
+      <th>location</th>
+      <th>minutes</th>
+      <th>rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>203</td>
+      <td>quiet room</td>
+      <td>90.0</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>207</td>
+      <td>north library</td>
+      <td>75.0</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>201</td>
+      <td>north library</td>
+      <td>60.0</td>
+      <td>4.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">.sort_values()</span></code> reorders rows; <code class="docutils literal notranslate"><span class="pre">ascending=False</span></code> puts larger values first.
+It doesn’t modify <code class="docutils literal notranslate"><span class="pre">long_and_positive</span></code> unless we assign the returned table.
+An omitted visit might have a low rating, a short duration, or missing information:
+not appearing here doesn’t mean a visitor was unhappy.</p>
+<p>For changing selected cells, use a single <code class="docutils literal notranslate"><span class="pre">.loc</span></code> assignment, as we did when
+marking invalid values. Avoid chained assignments such as
+<code class="docutils literal notranslate"><span class="pre">clean[&quot;rating&quot;][some_mask]</span> <span class="pre">=</span> <span class="pre">value</span></code>, which are unreliable across pandas versions.</p>
+</section>
+</section>
+<section id="summarize-distributions-and-compare-groups">
+<h2><span class="section-number">3.2.7. </span>Summarize distributions and compare groups<a class="headerlink" href="#summarize-distributions-and-compare-groups" title="Permalink to this heading">#</a></h2>
+<section id="describe-numeric-variables">
+<h3><span class="section-number">3.2.7.1. </span>Describe numeric variables<a class="headerlink" href="#describe-numeric-variables" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">.describe()</span></code> reports non-missing count, mean, standard deviation, minimum,
+quartiles, and maximum. The 50% value is the median. Counts tell you how many
+observations support each column’s statistics.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clean</span><span class="p">[[</span><span class="s2">"minutes"</span><span class="p">,</span> <span class="s2">"rating"</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>minutes</th>
+      <th>rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>8.000000</td>
+      <td>8.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>60.625000</td>
+      <td>3.875000</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>33.105621</td>
+      <td>0.991031</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>20.000000</td>
+      <td>2.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>41.250000</td>
+      <td>3.750000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>52.500000</td>
+      <td>4.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>78.750000</td>
+      <td>4.250000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>120.000000</td>
+      <td>5.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Only eight visits have valid durations, and only eight have valid ratings.
+These are not necessarily the same eight visits. Also, numeric storage alone
+doesn’t make a variable suitable for averaging: the mean <code class="docutils literal notranslate"><span class="pre">visit_id</span></code> would tell
+us nothing useful about study spaces.</p>
+<p>For categories, use counts. <code class="docutils literal notranslate"><span class="pre">value_counts()</span></code> answers how often each category
+appears, not how many people used the space across campus.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clean</span><span class="p">[</span><span class="s2">"location"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>location
+north library    4
+student union    3
+quiet room       3
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="group-summarize-compare">
+<h3><span class="section-number">3.2.7.2. </span>Group, summarize, compare<a class="headerlink" href="#group-summarize-compare" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">groupby(&quot;location&quot;)</span></code> splits rows into groups. Select a variable and apply a
+summary such as <code class="docutils literal notranslate"><span class="pre">.mean()</span></code> or <code class="docutils literal notranslate"><span class="pre">.median()</span></code> to each group. <code class="docutils literal notranslate"><span class="pre">.agg()</span></code> computes multiple
+summaries. Here <code class="docutils literal notranslate"><span class="pre">count</span></code> counts <strong>non-missing ratings</strong>, not all rows.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rating_summary</span> <span class="o">=</span> <span class="n">clean</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"location"</span><span class="p">)[</span><span class="s2">"rating"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"count"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">])</span>
+<span class="n">rating_summary</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"mean"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+    </tr>
+    <tr>
+      <th>location</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>quiet room</th>
+      <td>2</td>
+      <td>4.50</td>
+    </tr>
+    <tr>
+      <th>north library</th>
+      <td>4</td>
+      <td>4.25</td>
+    </tr>
+    <tr>
+      <th>student union</th>
+      <td>2</td>
+      <td>2.50</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Quiet Room has the highest observed mean rating, 4.5, but that mean comes from
+only <strong>two valid ratings</strong>. North Library’s mean of 4.25 comes from four.
+This is an observation about these records, not a confident ranking for all students.
+Ratings are ordered categories; a mean is a convenient summary here, but it
+assumes the steps between ratings can be treated as equally spaced.</p>
+<p>To keep the denominator visible, compare <strong>total records</strong> (<code class="docutils literal notranslate"><span class="pre">size</span></code>) with
+<strong>non-missing values</strong> (<code class="docutils literal notranslate"><span class="pre">count</span></code>). Named aggregation gives readable column names.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">location_summary</span> <span class="o">=</span> <span class="n">clean</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"location"</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="n">total_visits</span><span class="o">=</span><span class="p">(</span><span class="s2">"visit_id"</span><span class="p">,</span> <span class="s2">"size"</span><span class="p">),</span>
+    <span class="n">rated_visits</span><span class="o">=</span><span class="p">(</span><span class="s2">"rating"</span><span class="p">,</span> <span class="s2">"count"</span><span class="p">),</span>
+    <span class="n">mean_rating</span><span class="o">=</span><span class="p">(</span><span class="s2">"rating"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">),</span>
+    <span class="n">median_minutes</span><span class="o">=</span><span class="p">(</span><span class="s2">"minutes"</span><span class="p">,</span> <span class="s2">"median"</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">location_summary</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>total_visits</th>
+      <th>rated_visits</th>
+      <th>mean_rating</th>
+      <th>median_minutes</th>
+    </tr>
+    <tr>
+      <th>location</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>north library</th>
+      <td>4</td>
+      <td>4</td>
+      <td>4.25</td>
+      <td>60.0</td>
+    </tr>
+    <tr>
+      <th>quiet room</th>
+      <td>3</td>
+      <td>2</td>
+      <td>4.50</td>
+      <td>105.0</td>
+    </tr>
+    <tr>
+      <th>student union</th>
+      <td>3</td>
+      <td>2</td>
+      <td>2.50</td>
+      <td>30.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Student Union and Quiet Room each have three recorded visits but only two valid
+ratings. Their average ratings exclude missing feedback. The median duration may
+be based on a different set of visits. Include these details when communicating
+results rather than presenting a number without its context.</p>
+</section>
+</section>
+<section id="turn-the-output-into-a-careful-finding">
+<h2><span class="section-number">3.2.8. </span>Turn the output into a careful finding<a class="headerlink" href="#turn-the-output-into-a-careful-finding" title="Permalink to this heading">#</a></h2>
+<p>A useful EDA finding combines a question, evidence, and a limitation:</p>
+<blockquote>
+<div><p>In these fictional responses, Quiet Room had the highest mean rating (4.5),
+based on two valid ratings from three visits. This small set of visits was not
+sampled to represent all students, and missing feedback could affect the comparison.
+We would collect more responses before using it to choose a study space for everyone.</p>
+</div></blockquote>
+<p>We also cannot conclude that staying longer <strong>causes</strong> higher satisfaction. People
+might stay longer because they already like a space; other factors might affect
+both duration and rating. EDA helps generate questions and hypotheses, not automatically
+establish causal explanations.</p>
+<p>The workflow is repeatable: <strong>understand the rows → inspect → clean with reasons →
+summarize → interpret</strong>. In a real project, keep your cleaning code and note the
+rules you applied so another person can reproduce the analysis.</p>
+<section id="quick-reference-for-lab-01">
+<h3><span class="section-number">3.2.8.1. </span>Quick reference for Lab 01<a class="headerlink" href="#quick-reference-for-lab-01" title="Permalink to this heading">#</a></h3>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Goal</p></th>
+<th class="head"><p>Pattern</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Read a CSV</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pd.read_csv(&quot;file.csv&quot;)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Preview / inspect</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df.head()</span></code>, <code class="docutils literal notranslate"><span class="pre">df.shape</span></code>, <code class="docutils literal notranslate"><span class="pre">df.info()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Select a column / table</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df[&quot;column&quot;]</span></code>, <code class="docutils literal notranslate"><span class="pre">df[[&quot;column_a&quot;,</span> <span class="pre">&quot;column_b&quot;]]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Select by label / position</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df.loc[label]</span></code>, <code class="docutils literal notranslate"><span class="pre">df.iloc[position]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Filter</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df.loc[df[&quot;value&quot;]</span> <span class="pre">&gt;=</span> <span class="pre">cutoff,</span> <span class="pre">[&quot;column&quot;]]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Combine conditions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(condition_a)</span> <span class="pre">&amp;</span> <span class="pre">(condition_b)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Find missing entries</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df.isna().sum()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Standardize text</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df[&quot;category&quot;].str.strip().str.lower()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Convert numeric text</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pd.to_numeric(df[&quot;value&quot;],</span> <span class="pre">errors=&quot;coerce&quot;)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Remove exact duplicates</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df.drop_duplicates()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Drop for one required column</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df.dropna(subset=[&quot;column&quot;])</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Fill with an assumed value</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df[&quot;column&quot;].fillna(value)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Sort descending</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df.sort_values(&quot;column&quot;,</span> <span class="pre">ascending=False)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Summarize</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df.describe()</span></code>, <code class="docutils literal notranslate"><span class="pre">df[&quot;category&quot;].value_counts()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Compare groups</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df.groupby(&quot;category&quot;)[&quot;value&quot;].agg([&quot;count&quot;,</span> <span class="pre">&quot;mean&quot;])</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Return to <a class="reference external" href="https://dssdecal.org/fa26/#week-2">the Week 2 course schedule</a> for the lab.
+For another worked introduction, see the existing
+<a class="reference internal" href="../1/tabular.html"><span class="doc std std-doc">Tabular Data in Pandas</span></a> reading.</p>
+</section>
+<section id="further-reading-and-source-notes">
+<h3><span class="section-number">3.2.8.2. </span>Further reading and source notes<a class="headerlink" href="#further-reading-and-source-notes" title="Permalink to this heading">#</a></h3>
+<p>This chapter adapts the topics in the course’s Spring 2026 <strong>Intro to Pandas</strong> and
+<strong>EDA &amp; Data Visualization</strong> reading notebooks into one Week 2 walkthrough, with a
+new fictional dataset. Those original notebooks and the existing textbook chapters
+remain available in their repositories.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pandas.pydata.org/docs/user_guide/10min.html">pandas: 10 minutes to pandas</a></p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/docs/user_guide/indexing.html">pandas: indexing and selecting data</a></p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/docs/user_guide/missing_data.html">pandas: working with missing data</a></p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/docs/user_guide/groupby.html">pandas: grouped summaries</a></p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/03/2"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../1/tabular.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">3.1. </span>Tabular Data in Pandas</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../07/machine_learning.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Machine Learning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-a-csv-file-to-a-dataframe">3.2.1. From a CSV file to a DataFrame</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-the-data-you-need">3.2.2. Select the data you need</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-column-or-several">3.2.2.1. One column or several?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#labels-with-loc-positions-with-iloc">3.2.2.2. Labels with <code class="docutils literal notranslate"><span class="pre">.loc</span></code>, positions with <code class="docutils literal notranslate"><span class="pre">.iloc</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-rows-with-boolean-conditions">3.2.2.3. Filter rows with Boolean conditions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eda-starts-with-questions-and-a-data-audit">3.2.3. EDA starts with questions and a data audit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clean-carefully-and-preserve-the-raw-data">3.2.4. Clean carefully, and preserve the raw data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standardize-categories">3.2.4.1. Standardize categories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-confirmed-duplicate-records">3.2.4.2. Remove confirmed duplicate records</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-types-then-apply-validity-rules">3.2.4.3. Convert types, then apply validity rules</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-values-require-a-choice">3.2.5. Missing values require a choice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manipulate-the-cleaned-table">3.2.6. Manipulate the cleaned table</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-column-using-a-calculation">3.2.6.1. Add a column using a calculation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarize-distributions-and-compare-groups">3.2.7. Summarize distributions and compare groups</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#describe-numeric-variables">3.2.7.1. Describe numeric variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#group-summarize-compare">3.2.7.2. Group, summarize, compare</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#turn-the-output-into-a-careful-finding">3.2.8. Turn the output into a careful finding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-reference-for-lab-01">3.2.8.1. Quick reference for Lab 01</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading-and-source-notes">3.2.8.2. Further reading and source notes</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brandon Concepcion
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

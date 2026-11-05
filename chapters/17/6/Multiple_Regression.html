@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -168,12 +167,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -219,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -373,13 +384,13 @@ document.write(`
 <p>The following dataset of house prices and attributes was collected over several years for the city of Ames, Iowa. A <a class="reference external" href="http://ww2.amstat.org/publications/jse/v19n3/decock.pdf">description of the dataset appears online</a>. We will focus only a subset of the columns. We will try to predict the sale price column from the other columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_sales</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">&#39;house.csv&#39;</span><span class="p">)</span>
-<span class="n">sales</span> <span class="o">=</span> <span class="n">all_sales</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;Bldg Type&#39;</span><span class="p">,</span> <span class="s1">&#39;1Fam&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;Sale Condition&#39;</span><span class="p">,</span> <span class="s1">&#39;Normal&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
-    <span class="s1">&#39;SalePrice&#39;</span><span class="p">,</span> <span class="s1">&#39;1st Flr SF&#39;</span><span class="p">,</span> <span class="s1">&#39;2nd Flr SF&#39;</span><span class="p">,</span> 
-    <span class="s1">&#39;Total Bsmt SF&#39;</span><span class="p">,</span> <span class="s1">&#39;Garage Area&#39;</span><span class="p">,</span> 
-    <span class="s1">&#39;Wood Deck SF&#39;</span><span class="p">,</span> <span class="s1">&#39;Open Porch SF&#39;</span><span class="p">,</span> <span class="s1">&#39;Lot Area&#39;</span><span class="p">,</span> 
-    <span class="s1">&#39;Year Built&#39;</span><span class="p">,</span> <span class="s1">&#39;Yr Sold&#39;</span><span class="p">)</span>
-<span class="n">sales</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_sales</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">'house.csv'</span><span class="p">)</span>
+<span class="n">sales</span> <span class="o">=</span> <span class="n">all_sales</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'Bldg Type'</span><span class="p">,</span> <span class="s1">'1Fam'</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'Sale Condition'</span><span class="p">,</span> <span class="s1">'Normal'</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+    <span class="s1">'SalePrice'</span><span class="p">,</span> <span class="s1">'1st Flr SF'</span><span class="p">,</span> <span class="s1">'2nd Flr SF'</span><span class="p">,</span> 
+    <span class="s1">'Total Bsmt SF'</span><span class="p">,</span> <span class="s1">'Garage Area'</span><span class="p">,</span> 
+    <span class="s1">'Wood Deck SF'</span><span class="p">,</span> <span class="s1">'Open Porch SF'</span><span class="p">,</span> <span class="s1">'Lot Area'</span><span class="p">,</span> 
+    <span class="s1">'Year Built'</span><span class="p">,</span> <span class="s1">'Yr Sold'</span><span class="p">)</span>
+<span class="n">sales</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'SalePrice'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -428,7 +439,7 @@ document.write(`
 <p>A histogram of sale prices shows a large amount of variability and a distribution that is clearly not normal. A long tail to the right contains a few houses that had very high prices. The short left tail does not contain any houses that sold for less than $35,000.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sales</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;$&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sales</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'SalePrice'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'$'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -441,7 +452,7 @@ document.write(`
 <p>No single attribute is sufficient to predict the sale price. For example, the area of first floor, measured in square feet, correlates with sale price but only explains some of its variability.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sales</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">&#39;1st Flr SF&#39;</span><span class="p">,</span> <span class="s1">&#39;SalePrice&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sales</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">'1st Flr SF'</span><span class="p">,</span> <span class="s1">'SalePrice'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -451,7 +462,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlation</span><span class="p">(</span><span class="n">sales</span><span class="p">,</span> <span class="s1">&#39;SalePrice&#39;</span><span class="p">,</span> <span class="s1">&#39;1st Flr SF&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlation</span><span class="p">(</span><span class="n">sales</span><span class="p">,</span> <span class="s1">'SalePrice'</span><span class="p">,</span> <span class="s1">'1st Flr SF'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -465,7 +476,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">sales</span><span class="o">.</span><span class="n">labels</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Correlation of&#39;</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="s1">&#39;and SalePrice:</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">correlation</span><span class="p">(</span><span class="n">sales</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="s1">&#39;SalePrice&#39;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'Correlation of'</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="s1">'and SalePrice:</span><span class="se">\t</span><span class="s1">'</span><span class="p">,</span> <span class="n">correlation</span><span class="p">(</span><span class="n">sales</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="s1">'SalePrice'</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -488,7 +499,7 @@ Correlation of Yr Sold and SalePrice:	 0.02594857908072111
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">both_floors</span> <span class="o">=</span> <span class="n">sales</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">sales</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">correlation</span><span class="p">(</span><span class="n">sales</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Both Floors&#39;</span><span class="p">,</span> <span class="n">both_floors</span><span class="p">),</span> <span class="s1">&#39;SalePrice&#39;</span><span class="p">,</span> <span class="s1">&#39;Both Floors&#39;</span><span class="p">)</span>
+<span class="n">correlation</span><span class="p">(</span><span class="n">sales</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'Both Floors'</span><span class="p">,</span> <span class="n">both_floors</span><span class="p">),</span> <span class="s1">'SalePrice'</span><span class="p">,</span> <span class="s1">'Both Floors'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -508,7 +519,7 @@ Correlation of Yr Sold and SalePrice:	 0.02594857908072111
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">sales</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="mi">1001</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">num_rows</span><span class="p">,</span> <span class="s1">&#39;training and&#39;</span><span class="p">,</span> <span class="n">test</span><span class="o">.</span><span class="n">num_rows</span><span class="p">,</span> <span class="s1">&#39;test instances.&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">num_rows</span><span class="p">,</span> <span class="s1">'training and'</span><span class="p">,</span> <span class="n">test</span><span class="o">.</span><span class="n">num_rows</span><span class="p">,</span> <span class="s1">'test instances.'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -521,14 +532,14 @@ Correlation of Yr Sold and SalePrice:	 0.02594857908072111
 <p>The slopes in multiple regression is an array that has one slope value for each attribute in an example. Predicting the sale price involves multiplying each attribute by the slope and summing the result.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">slopes</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="n">slopes</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">slopes</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
 
-<span class="n">example_row</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Predicting sale price for:&#39;</span><span class="p">,</span> <span class="n">example_row</span><span class="p">)</span>
+<span class="n">example_row</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'SalePrice'</span><span class="p">)</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Predicting sale price for:'</span><span class="p">,</span> <span class="n">example_row</span><span class="p">)</span>
 <span class="n">example_slopes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">example_row</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Using slopes:&#39;</span><span class="p">,</span> <span class="n">example_slopes</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Result:&#39;</span><span class="p">,</span> <span class="n">predict</span><span class="p">(</span><span class="n">example_slopes</span><span class="p">,</span> <span class="n">example_row</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Using slopes:'</span><span class="p">,</span> <span class="n">example_slopes</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Result:'</span><span class="p">,</span> <span class="n">predict</span><span class="p">(</span><span class="n">example_slopes</span><span class="p">,</span> <span class="n">example_row</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -544,8 +555,8 @@ Result: 169429.7032316262
 <p>The result is an estimated sale price, which can be compared to the actual sale price to assess whether the slopes provide accurate predictions. Since the <code class="docutils literal notranslate"><span class="pre">example_slopes</span></code> above were chosen at random, we should not expect them to provide accurate predictions at all.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Actual sale price:&#39;</span><span class="p">,</span> <span class="n">test</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Predicted sale price using random slopes:&#39;</span><span class="p">,</span> <span class="n">predict</span><span class="p">(</span><span class="n">example_slopes</span><span class="p">,</span> <span class="n">example_row</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">'Actual sale price:'</span><span class="p">,</span> <span class="n">test</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'SalePrice'</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Predicted sale price using random slopes:'</span><span class="p">,</span> <span class="n">predict</span><span class="p">(</span><span class="n">example_slopes</span><span class="p">,</span> <span class="n">example_row</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -564,7 +575,7 @@ Predicted sale price using random slopes: 169429.7032316262
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_prices</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">train_attributes</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">rmse</span><span class="p">(</span><span class="n">slopes</span><span class="p">,</span> <span class="n">attributes</span><span class="p">,</span> <span class="n">prices</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rmse</span><span class="p">(</span><span class="n">slopes</span><span class="p">,</span> <span class="n">attributes</span><span class="p">,</span> <span class="n">prices</span><span class="p">):</span>
     <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)):</span>
         <span class="n">predicted</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">slopes</span><span class="p">,</span> <span class="n">attributes</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
@@ -572,10 +583,10 @@ Predicted sale price using random slopes: 169429.7032316262
         <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">predicted</span> <span class="o">-</span> <span class="n">actual</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
 
-<span class="k">def</span> <span class="nf">rmse_train</span><span class="p">(</span><span class="n">slopes</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rmse_train</span><span class="p">(</span><span class="n">slopes</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">rmse</span><span class="p">(</span><span class="n">slopes</span><span class="p">,</span> <span class="n">train_attributes</span><span class="p">,</span> <span class="n">train_prices</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RMSE of all training examples using random slopes:&#39;</span><span class="p">,</span> <span class="n">rmse_train</span><span class="p">(</span><span class="n">example_slopes</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'RMSE of all training examples using random slopes:'</span><span class="p">,</span> <span class="n">rmse_train</span><span class="p">(</span><span class="n">example_slopes</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -589,9 +600,9 @@ Predicted sale price using random slopes: 169429.7032316262
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">best_slopes</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">rmse_train</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">example_slopes</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">array</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The best slopes for the training set:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'The best slopes for the training set:'</span><span class="p">)</span>
 <span class="n">Table</span><span class="p">(</span><span class="n">train_attributes</span><span class="o">.</span><span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">with_row</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">best_slopes</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RMSE of all training examples using the best slopes:&#39;</span><span class="p">,</span> <span class="n">rmse_train</span><span class="p">(</span><span class="n">best_slopes</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'RMSE of all training examples using the best slopes:'</span><span class="p">,</span> <span class="n">rmse_train</span><span class="p">(</span><span class="n">best_slopes</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -625,11 +636,11 @@ Predicted sale price using random slopes: 169429.7032316262
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_prices</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">test_attributes</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">rmse_test</span><span class="p">(</span><span class="n">slopes</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rmse_test</span><span class="p">(</span><span class="n">slopes</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">rmse</span><span class="p">(</span><span class="n">slopes</span><span class="p">,</span> <span class="n">test_attributes</span><span class="p">,</span> <span class="n">test_prices</span><span class="p">)</span>
 
 <span class="n">rmse_linear</span> <span class="o">=</span> <span class="n">rmse_test</span><span class="p">(</span><span class="n">best_slopes</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test set RMSE for multiple linear regression:&#39;</span><span class="p">,</span> <span class="n">rmse_linear</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Test set RMSE for multiple linear regression:'</span><span class="p">,</span> <span class="n">rmse_linear</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -642,10 +653,10 @@ Predicted sale price using random slopes: 169429.7032316262
 <p>If the predictions were perfect, then a scatter plot of the predicted and actual values would be a straight line with slope 1. We see that most dots fall near that line, but there is some error in the predictions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">best_slopes</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
 
-<span class="n">test</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Fitted&#39;</span><span class="p">,</span> <span class="n">test</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">fit</span><span class="p">))</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">&#39;Fitted&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">test</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'Fitted'</span><span class="p">,</span> <span class="n">test</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">fit</span><span class="p">))</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">'Fitted'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">plots</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">5e5</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">5e5</span><span class="p">]);</span>
 </pre></div>
 </div>
@@ -657,7 +668,7 @@ Predicted sale price using random slopes: 169429.7032316262
 <p>A residual plot for multiple regression typically compares the errors (residuals) to the actual values of the predicted variable. We see in the residual plot below that we have systematically underestimated the value of expensive houses, shown by the many positive residual values on the right side of the graph.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Residual&#39;</span><span class="p">,</span> <span class="n">test_prices</span><span class="o">-</span><span class="n">test</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">fit</span><span class="p">))</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Residual&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'Residual'</span><span class="p">,</span> <span class="n">test_prices</span><span class="o">-</span><span class="n">test</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">fit</span><span class="p">))</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Residual'</span><span class="p">)</span>
 <span class="n">plots</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">7e5</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]);</span>
 </pre></div>
 </div>
@@ -704,28 +715,28 @@ Predicted sale price using random slopes: 169429.7032316262
 <p>The computation of closest neighbors is identical to a nearest-neighbor classifier. In this case, we will exclude the <code class="docutils literal notranslate"><span class="pre">'SalePrice'</span></code> rather than the <code class="docutils literal notranslate"><span class="pre">'Class'</span></code> column from the distance computation. The five nearest neighbors of the first test row are shown below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The distance between two points, represented as arrays.&quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">distance</span><span class="p">(</span><span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""The distance between two points, represented as arrays."""</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">((</span><span class="n">pt1</span> <span class="o">-</span> <span class="n">pt2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
 
-<span class="k">def</span> <span class="nf">row_distance</span><span class="p">(</span><span class="n">row1</span><span class="p">,</span> <span class="n">row2</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The distance between two rows of a table.&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">row_distance</span><span class="p">(</span><span class="n">row1</span><span class="p">,</span> <span class="n">row2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""The distance between two rows of a table."""</span>
     <span class="k">return</span> <span class="n">distance</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">row1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">row2</span><span class="p">))</span>
 
-<span class="k">def</span> <span class="nf">distances</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">example</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the distance from example for each row in training.&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">distances</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">example</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Compute the distance from example for each row in training."""</span>
     <span class="n">dists</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">attributes</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">attributes</span><span class="o">.</span><span class="n">rows</span><span class="p">:</span>
         <span class="n">dists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row_distance</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">example</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">training</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Distance&#39;</span><span class="p">,</span> <span class="n">dists</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">training</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'Distance'</span><span class="p">,</span> <span class="n">dists</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">closest</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">example</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a table of the k closest neighbors to example.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">distances</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">example</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;Distance&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">closest</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">example</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return a table of the k closest neighbors to example."""</span>
+    <span class="k">return</span> <span class="n">distances</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">example</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'Distance'</span><span class="p">)</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
 
 <span class="n">example_nn_row</span> <span class="o">=</span> <span class="n">test_nn</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">closest</span><span class="p">(</span><span class="n">train_nn</span><span class="p">,</span> <span class="n">example_nn_row</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;SalePrice&#39;</span><span class="p">)</span>
+<span class="n">closest</span><span class="p">(</span><span class="n">train_nn</span><span class="p">,</span> <span class="n">example_nn_row</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">'SalePrice'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -758,9 +769,9 @@ Predicted sale price using random slopes: 169429.7032316262
 <p>One simple method for predicting the price is to average the prices of the nearest neighbors.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">predict_nn</span><span class="p">(</span><span class="n">example</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the majority class among the k nearest neighbors.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">closest</span><span class="p">(</span><span class="n">train_nn</span><span class="p">,</span> <span class="n">example</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;SalePrice&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">predict_nn</span><span class="p">(</span><span class="n">example</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return the majority class among the k nearest neighbors."""</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">closest</span><span class="p">(</span><span class="n">train_nn</span><span class="p">,</span> <span class="n">example</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">'SalePrice'</span><span class="p">)</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'SalePrice'</span><span class="p">))</span>
 
 <span class="n">predict_nn</span><span class="p">(</span><span class="n">example_nn_row</span><span class="p">)</span>
 </pre></div>
@@ -775,8 +786,8 @@ Predicted sale price using random slopes: 169429.7032316262
 <p>Finally, we can inspect whether our prediction is close to the true sale price for our one test example. Looks reasonable!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Actual sale price:&#39;</span><span class="p">,</span> <span class="n">test_nn</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Predicted sale price using nearest neighbors:&#39;</span><span class="p">,</span> <span class="n">predict_nn</span><span class="p">(</span><span class="n">example_nn_row</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">'Actual sale price:'</span><span class="p">,</span> <span class="n">test_nn</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'SalePrice'</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Predicted sale price using nearest neighbors:'</span><span class="p">,</span> <span class="n">predict_nn</span><span class="p">(</span><span class="n">example_nn_row</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -792,11 +803,11 @@ Predicted sale price using nearest neighbors: 143415.0
 <p>To evaluate the performance of this approach for the whole test set, we apply <code class="docutils literal notranslate"><span class="pre">predict_nn</span></code> to each test example, then compute the root mean squared error of the predictions. Computation of the predictions may take several minutes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nn_test_predictions</span> <span class="o">=</span> <span class="n">test_nn</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;SalePrice&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">predict_nn</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nn_test_predictions</span> <span class="o">=</span> <span class="n">test_nn</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'SalePrice'</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">predict_nn</span><span class="p">)</span>
 <span class="n">rmse_nn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">test_prices</span> <span class="o">-</span> <span class="n">nn_test_predictions</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test set RMSE for multiple linear regression: &#39;</span><span class="p">,</span> <span class="n">rmse_linear</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test set RMSE for nearest neighbor regression:&#39;</span><span class="p">,</span> <span class="n">rmse_nn</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Test set RMSE for multiple linear regression: '</span><span class="p">,</span> <span class="n">rmse_linear</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Test set RMSE for nearest neighbor regression:'</span><span class="p">,</span> <span class="n">rmse_nn</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -811,7 +822,7 @@ Test set RMSE for nearest neighbor regression: 36067.116043510105
 <p>Finally, we can draw a residual plot for these predictions. We still underestimate the prices of the most expensive houses, but the bias does not appear to be as systematic. However, fewer residuals are very close to zero, indicating that fewer prices were predicted with very high accuracy.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Residual&#39;</span><span class="p">,</span> <span class="n">test_prices</span><span class="o">-</span><span class="n">nn_test_predictions</span><span class="p">)</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Residual&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'Residual'</span><span class="p">,</span> <span class="n">test_prices</span><span class="o">-</span><span class="n">nn_test_predictions</span><span class="p">)</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Residual'</span><span class="p">)</span>
 <span class="n">plots</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">7e5</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]);</span>
 </pre></div>
 </div>

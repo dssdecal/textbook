@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -170,12 +169,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -221,7 +232,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -396,8 +407,8 @@ document.write(`
 
 <span class="n">deviations</span> <span class="o">=</span> <span class="n">any_numbers</span> <span class="o">-</span> <span class="n">mean</span>
 <span class="n">calculation_steps</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-        <span class="s1">&#39;Value&#39;</span><span class="p">,</span> <span class="n">any_numbers</span><span class="p">,</span>
-        <span class="s1">&#39;Deviation from Average&#39;</span><span class="p">,</span> <span class="n">deviations</span>
+        <span class="s1">'Value'</span><span class="p">,</span> <span class="n">any_numbers</span><span class="p">,</span>
+        <span class="s1">'Deviation from Average'</span><span class="p">,</span> <span class="n">deviations</span>
         <span class="p">)</span>
 <span class="n">calculation_steps</span>
 </pre></div>
@@ -463,7 +474,7 @@ document.write(`
 
 <span class="n">squared_deviations</span> <span class="o">=</span> <span class="n">deviations</span> <span class="o">**</span> <span class="mi">2</span>
 <span class="n">calculation_steps</span> <span class="o">=</span> <span class="n">calculation_steps</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
-   <span class="s1">&#39;Squared Deviations from Average&#39;</span><span class="p">,</span> <span class="n">squared_deviations</span>
+   <span class="s1">'Squared Deviations from Average'</span><span class="p">,</span> <span class="n">squared_deviations</span>
     <span class="p">)</span>
 <span class="n">calculation_steps</span>
 </pre></div>
@@ -551,7 +562,7 @@ document.write(`
 <p>To see what we can learn from the SD, let’s move to a more interesting dataset than <code class="docutils literal notranslate"><span class="pre">any_numbers</span></code>. The table <code class="docutils literal notranslate"><span class="pre">nba13</span></code> contains data on the players in the National Basketball Association (NBA) in 2013. For each player, the table records the position at which the player usually played, his height in inches, his weight in pounds, and his age in years.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba13</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">&#39;nba2013.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba13</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">'nba2013.csv'</span><span class="p">)</span>
 <span class="n">nba13</span>
 </pre></div>
 </div>
@@ -601,7 +612,7 @@ document.write(`
 <p>Here is a histogram of the players’ heights.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba13</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Height&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba13</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Height'</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -612,7 +623,7 @@ document.write(`
 <p>It is no surprise that NBA players are tall! Their average height is just over 79 inches (6’7”), about 10 inches taller than the average height of men in the United States.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_height</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">nba13</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Height&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_height</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">nba13</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Height'</span><span class="p">))</span>
 <span class="n">mean_height</span>
 </pre></div>
 </div>
@@ -626,7 +637,7 @@ document.write(`
 <p>About how far off are the players’ heights from the average? This is measured by the SD of the heights, which is about 3.45 inches.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sd_height</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">nba13</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Height&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sd_height</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">nba13</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Height'</span><span class="p">))</span>
 <span class="n">sd_height</span>
 </pre></div>
 </div>
@@ -640,7 +651,7 @@ document.write(`
 <p>The towering center Hasheem Thabeet of the Oklahoma City Thunder was the tallest player at a height of 87 inches.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba13</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;Height&#39;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba13</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'Height'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -695,7 +706,7 @@ document.write(`
 <p>At 69 inches tall, Isaiah Thomas was one of the two shortest NBA players in 2013. His height was about 2.9 SDs below average.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba13</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;Height&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba13</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'Height'</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -742,7 +753,7 @@ document.write(`
 <p>What about the ages? Here is a histogram of the distribution, along with the mean and SD of the ages.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba13</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Age in 2013&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba13</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Age in 2013'</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -752,7 +763,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ages</span> <span class="o">=</span> <span class="n">nba13</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Age in 2013&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ages</span> <span class="o">=</span> <span class="n">nba13</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Age in 2013'</span><span class="p">)</span>
 <span class="n">mean_age</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ages</span><span class="p">)</span>
 <span class="n">sd_age</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ages</span><span class="p">)</span>
 <span class="n">mean_age</span><span class="p">,</span> <span class="n">sd_age</span>
@@ -770,7 +781,7 @@ document.write(`
 <p>Juwan Howard was the oldest player, at 40.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba13</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;Age in 2013&#39;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba13</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'Age in 2013'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -837,8 +848,8 @@ z ~=~ \frac{\mbox{value }-\mbox{ average}}{\mbox{SD}}
 <p>As we will see, standard units are frequently used in data analysis. So it is useful to define a function that converts an array of numbers to standard units.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">standard_units</span><span class="p">(</span><span class="n">numbers_array</span><span class="p">):</span>
-    <span class="s2">&quot;Convert any array of numbers to standard units.&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">standard_units</span><span class="p">(</span><span class="n">numbers_array</span><span class="p">):</span>
+    <span class="s2">"Convert any array of numbers to standard units."</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">numbers_array</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numbers_array</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">numbers_array</span><span class="p">)</span>    
 </pre></div>
 </div>
@@ -850,9 +861,9 @@ z ~=~ \frac{\mbox{value }-\mbox{ average}}{\mbox{SD}}
 <p>As we saw in an earlier section, the table <code class="docutils literal notranslate"><span class="pre">united</span></code> contains a column <code class="docutils literal notranslate"><span class="pre">Delay</span></code> consisting of the departure delay times, in minutes, of over thousands of United Airlines flights in the summer of 2015. We will create a new column called <code class="docutils literal notranslate"><span class="pre">Delay</span> <span class="pre">(Standard</span> <span class="pre">Units)</span></code> by applying the function <code class="docutils literal notranslate"><span class="pre">standard_units</span></code> to the column of delay times. This allows us to see all the delay times in minutes as well as their corresponding values in standard units.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">united</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">&#39;united_summer2015.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">united</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">'united_summer2015.csv'</span><span class="p">)</span>
 <span class="n">united</span> <span class="o">=</span> <span class="n">united</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
-    <span class="s1">&#39;Delay (Standard Units)&#39;</span><span class="p">,</span> <span class="n">standard_units</span><span class="p">(</span><span class="n">united</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Delay&#39;</span><span class="p">))</span>
+    <span class="s1">'Delay (Standard Units)'</span><span class="p">,</span> <span class="n">standard_units</span><span class="p">(</span><span class="n">united</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Delay'</span><span class="p">))</span>
 <span class="p">)</span>
 <span class="n">united</span>
 </pre></div>
@@ -904,7 +915,7 @@ z ~=~ \frac{\mbox{value }-\mbox{ average}}{\mbox{SD}}
 <p>But something rather alarming happens when we sort the delay times from highest to lowest. The standard units that we can see are extremely high!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">united</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;Delay&#39;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">united</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'Delay'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -954,7 +965,7 @@ z ~=~ \frac{\mbox{value }-\mbox{ average}}{\mbox{SD}}
 <p>However, the proportion of these extreme values is small, and Chebychev’s bounds still hold true. For example, let us calculate the percent of delay times that are in the range “average <span class="math notranslate nohighlight">\(\pm\)</span> 3 SDs”. This is the same as the percent of times for which the standard units are in the range (-3, 3). That is about 98%, as computed below, consistent with Chebychev’s bound of “at least 89%”.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">within_3_sd</span> <span class="o">=</span> <span class="n">united</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;Delay (Standard Units)&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">within_3_sd</span> <span class="o">=</span> <span class="n">united</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'Delay (Standard Units)'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">within_3_sd</span><span class="o">.</span><span class="n">num_rows</span><span class="o">/</span><span class="n">united</span><span class="o">.</span><span class="n">num_rows</span>
 </pre></div>
 </div>
@@ -968,7 +979,7 @@ z ~=~ \frac{\mbox{value }-\mbox{ average}}{\mbox{SD}}
 <p>The histogram of delay times is shown below, with the horizontal axis in standard units. By the table above, the right hand tail continues all the way out to <span class="math notranslate nohighlight">\(z=14.27\)</span> standard units (580 minutes). The area of the histogram outside the range <span class="math notranslate nohighlight">\(z=-3\)</span> to <span class="math notranslate nohighlight">\(z=3\)</span> is about 2%, put together in tiny little bits that are mostly invisible in the histogram.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">united</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;Delay (Standard Units)&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">united</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Delay (Standard Units)'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
 <span class="n">plots</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">3</span><span class="p">));</span>
 </pre></div>
 </div>

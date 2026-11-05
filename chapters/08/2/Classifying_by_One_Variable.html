@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -170,12 +169,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -221,7 +232,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -366,8 +377,8 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;strawberry&#39;</span><span class="p">,</span> <span class="s1">&#39;chocolate&#39;</span><span class="p">,</span> <span class="s1">&#39;chocolate&#39;</span><span class="p">,</span> <span class="s1">&#39;strawberry&#39;</span><span class="p">,</span> <span class="s1">&#39;chocolate&#39;</span><span class="p">),</span>
-    <span class="s1">&#39;Price&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">3.55</span><span class="p">,</span> <span class="mf">4.75</span><span class="p">,</span> <span class="mf">6.55</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">)</span>
+    <span class="s1">'Flavor'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'strawberry'</span><span class="p">,</span> <span class="s1">'chocolate'</span><span class="p">,</span> <span class="s1">'chocolate'</span><span class="p">,</span> <span class="s1">'strawberry'</span><span class="p">,</span> <span class="s1">'chocolate'</span><span class="p">),</span>
+    <span class="s1">'Price'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">3.55</span><span class="p">,</span> <span class="mf">4.75</span><span class="p">,</span> <span class="mf">6.55</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">)</span>
 <span class="p">)</span>
 <span class="n">cones</span>
 </pre></div>
@@ -401,7 +412,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;Flavor&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -432,7 +443,7 @@ document.write(`
 <p>To find the total price of each flavor, we call <code class="docutils literal notranslate"><span class="pre">group</span></code> again, with <code class="docutils literal notranslate"><span class="pre">Flavor</span></code> as its first argument as before. But this time there is a second argument: the function name <code class="docutils literal notranslate"><span class="pre">sum</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="nb">sum</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="nb">sum</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -459,7 +470,7 @@ document.write(`
 <p>To see in more detail what <code class="docutils literal notranslate"><span class="pre">group</span></code> is doing, notice that you could have figured out the total prices yourself, not only by mental arithmetic but also using code. For example, to find the total price of all the chocolate cones, you could start by creating a new table consisting of only the chocolate cones, and then accessing the column of prices:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">&#39;chocolate&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Price&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">'chocolate'</span><span class="p">))</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Price'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -471,7 +482,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sum</span><span class="p">(</span><span class="n">cones</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">&#39;chocolate&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Price&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sum</span><span class="p">(</span><span class="n">cones</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">'chocolate'</span><span class="p">))</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Price'</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -487,20 +498,20 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># For each distinct value in `Flavor, access all the rows</span>
 <span class="c1"># and create an array of `Price`</span>
 
-<span class="n">cones_choc</span> <span class="o">=</span> <span class="n">cones</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">&#39;chocolate&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Price&#39;</span><span class="p">)</span>
-<span class="n">cones_strawb</span> <span class="o">=</span> <span class="n">cones</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">&#39;strawberry&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Price&#39;</span><span class="p">)</span>
+<span class="n">cones_choc</span> <span class="o">=</span> <span class="n">cones</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">'chocolate'</span><span class="p">))</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Price'</span><span class="p">)</span>
+<span class="n">cones_strawb</span> <span class="o">=</span> <span class="n">cones</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">'strawberry'</span><span class="p">))</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Price'</span><span class="p">)</span>
 
 <span class="c1"># Display the arrays in a table</span>
 
 <span class="n">grouped_cones</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;chocolate&#39;</span><span class="p">,</span> <span class="s1">&#39;strawberry&#39;</span><span class="p">),</span>
-    <span class="s1">&#39;Array of All the Prices&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="n">cones_choc</span><span class="p">,</span> <span class="n">cones_strawb</span><span class="p">)</span>
+    <span class="s1">'Flavor'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'chocolate'</span><span class="p">,</span> <span class="s1">'strawberry'</span><span class="p">),</span>
+    <span class="s1">'Array of All the Prices'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="n">cones_choc</span><span class="p">,</span> <span class="n">cones_strawb</span><span class="p">)</span>
 <span class="p">)</span>
 
 <span class="c1"># Append a column with the sum of the `Price` values in each array</span>
 
 <span class="n">price_totals</span> <span class="o">=</span> <span class="n">grouped_cones</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
-    <span class="s1">&#39;Sum of the Array&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">cones_choc</span><span class="p">),</span> <span class="nb">sum</span><span class="p">(</span><span class="n">cones_strawb</span><span class="p">))</span>
+    <span class="s1">'Sum of the Array'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">cones_choc</span><span class="p">),</span> <span class="nb">sum</span><span class="p">(</span><span class="n">cones_strawb</span><span class="p">))</span>
 <span class="p">)</span>
 <span class="n">price_totals</span>
 </pre></div>
@@ -526,7 +537,7 @@ document.write(`
 <p>You can replace <code class="docutils literal notranslate"><span class="pre">sum</span></code> by any other functions that work on arrays. For example, you could use <code class="docutils literal notranslate"><span class="pre">max</span></code> to find the largest price in each category:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;Flavor&#39;</span><span class="p">,</span> <span class="nb">max</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cones</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="nb">max</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -551,7 +562,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">price_maxes</span> <span class="o">=</span> <span class="n">grouped_cones</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
-    <span class="s1">&#39;Max of the Array&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">cones_choc</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">cones_strawb</span><span class="p">))</span>
+    <span class="s1">'Max of the Array'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">cones_choc</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">cones_strawb</span><span class="p">))</span>
 <span class="p">)</span>
 <span class="n">price_maxes</span>
 </pre></div>
@@ -578,7 +589,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lengths</span> <span class="o">=</span> <span class="n">grouped_cones</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
-    <span class="s1">&#39;Length of the Array&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cones_choc</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">cones_strawb</span><span class="p">))</span>
+    <span class="s1">'Length of the Array'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cones_choc</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">cones_strawb</span><span class="p">))</span>
 <span class="p">)</span>
 <span class="n">lengths</span>
 </pre></div>
@@ -607,8 +618,8 @@ document.write(`
 <p>The table <code class="docutils literal notranslate"><span class="pre">nba</span></code> contains data on the 2015-2016 players in the National Basketball Association. We have examined these data earlier. Recall that salaries are measured in millions of dollars.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba1</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">&#39;nba_salaries.csv&#39;</span><span class="p">)</span>
-<span class="n">nba</span> <span class="o">=</span> <span class="n">nba1</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="s2">&quot;&#39;15-&#39;16 SALARY&quot;</span><span class="p">,</span> <span class="s1">&#39;SALARY&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba1</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">'nba_salaries.csv'</span><span class="p">)</span>
+<span class="n">nba</span> <span class="o">=</span> <span class="n">nba1</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="s2">"'15-'16 SALARY"</span><span class="p">,</span> <span class="s1">'SALARY'</span><span class="p">)</span>
 <span class="n">nba</span>
 </pre></div>
 </div>
@@ -659,8 +670,8 @@ document.write(`
 <p>The only columns involved are <code class="docutils literal notranslate"><span class="pre">TEAM</span></code> and <code class="docutils literal notranslate"><span class="pre">SALARY</span></code>. We have to <code class="docutils literal notranslate"><span class="pre">group</span></code> the rows by <code class="docutils literal notranslate"><span class="pre">TEAM</span></code> and then <code class="docutils literal notranslate"><span class="pre">sum</span></code> the salaries of the groups.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">teams_and_money</span> <span class="o">=</span> <span class="n">nba</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;TEAM&#39;</span><span class="p">,</span> <span class="s1">&#39;SALARY&#39;</span><span class="p">)</span>
-<span class="n">teams_and_money</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;TEAM&#39;</span><span class="p">,</span> <span class="nb">sum</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">teams_and_money</span> <span class="o">=</span> <span class="n">nba</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'TEAM'</span><span class="p">,</span> <span class="s1">'SALARY'</span><span class="p">)</span>
+<span class="n">teams_and_money</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'TEAM'</span><span class="p">,</span> <span class="nb">sum</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -710,7 +721,7 @@ document.write(`
 <p>We have to classify by <code class="docutils literal notranslate"><span class="pre">POSITION</span></code>, and count. This can be done with just one argument to group:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;POSITION&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'POSITION'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -744,8 +755,8 @@ document.write(`
 <p>This time, we have to group by <code class="docutils literal notranslate"><span class="pre">POSITION</span></code> and take the mean of the salaries. For clarity, we will work with a table of just the positions and the salaries.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">positions_and_money</span> <span class="o">=</span> <span class="n">nba</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;POSITION&#39;</span><span class="p">,</span> <span class="s1">&#39;SALARY&#39;</span><span class="p">)</span>
-<span class="n">positions_and_money</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;POSITION&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">positions_and_money</span> <span class="o">=</span> <span class="n">nba</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'POSITION'</span><span class="p">,</span> <span class="s1">'SALARY'</span><span class="p">)</span>
+<span class="n">positions_and_money</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'POSITION'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -779,7 +790,7 @@ document.write(`
 <p>If we had not selected the two columns as our first step, <code class="docutils literal notranslate"><span class="pre">group</span></code> would not attempt to “average” the categorical columns in <code class="docutils literal notranslate"><span class="pre">nba</span></code>. (It is impossible to average two strings like “Atlanta Hawks” and “Boston Celtics”.) It performs arithmetic only on numerical columns and leaves the rest blank.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;POSITION&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nba</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'POSITION'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

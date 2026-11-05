@@ -1,3 +1,7 @@
-jupyter-book
+# These theme versions reproduce the existing published CSS exactly.
+jupyter-book==0.15.1
+sphinx-book-theme==1.0.1
+pydata-sphinx-theme==0.13.3
 numpy
 datascience
+pandas>=2.2,<4

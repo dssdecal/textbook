@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -168,12 +167,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -219,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -396,7 +407,7 @@ document.write(`
 <p><strong>The goats:</strong> We start by setting up an array <code class="docutils literal notranslate"><span class="pre">goats</span></code> that contains unimaginative names for the two goats.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">goats</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;first goat&#39;</span><span class="p">,</span> <span class="s1">&#39;second goat&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">goats</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'first goat'</span><span class="p">,</span> <span class="s1">'second goat'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -404,23 +415,23 @@ document.write(`
 <p>To help Monty conduct the game, we are going to have to identify which goat is selected and which one is revealed behind the open door. The function <code class="docutils literal notranslate"><span class="pre">other_goat</span></code> takes one goat and returns the other.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">other_goat</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;first goat&#39;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s1">&#39;second goat&#39;</span>
-    <span class="k">elif</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;second goat&#39;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s1">&#39;first goat&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">other_goat</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">'first goat'</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">'second goat'</span>
+    <span class="k">elif</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">'second goat'</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">'first goat'</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">other_goat</span><span class="p">(</span><span class="s1">&#39;first goat&#39;</span><span class="p">),</span> <span class="n">other_goat</span><span class="p">(</span><span class="s1">&#39;second goat&#39;</span><span class="p">),</span> <span class="n">other_goat</span><span class="p">(</span><span class="s1">&#39;watermelon&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">other_goat</span><span class="p">(</span><span class="s1">'first goat'</span><span class="p">),</span> <span class="n">other_goat</span><span class="p">(</span><span class="s1">'second goat'</span><span class="p">),</span> <span class="n">other_goat</span><span class="p">(</span><span class="s1">'watermelon'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;second goat&#39;, &#39;first goat&#39;, None)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>('second goat', 'first goat', None)
 </pre></div>
 </div>
 </div>
@@ -430,13 +441,13 @@ document.write(`
 behind the doors.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hidden_behind_doors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">goats</span><span class="p">,</span> <span class="s1">&#39;car&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hidden_behind_doors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">goats</span><span class="p">,</span> <span class="s1">'car'</span><span class="p">)</span>
 <span class="n">hidden_behind_doors</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;first goat&#39;, &#39;second goat&#39;, &#39;car&#39;], dtype=&#39;&lt;U11&#39;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array(['first goat', 'second goat', 'car'], dtype='&lt;U11')
 </pre></div>
 </div>
 </div>
@@ -452,19 +463,19 @@ behind the doors.</p>
 <p>If the contestant happens to pick the car, then Monty reveals one of the goats and the other goat is behind the remaining door.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">monty_hall_game</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return </span>
-<span class="sd">    [contestant&#39;s guess, what Monty reveals, what remains behind the other door]&quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">monty_hall_game</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Return </span>
+<span class="sd">    [contestant's guess, what Monty reveals, what remains behind the other door]"""</span>
     
     <span class="n">contestant_guess</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">hidden_behind_doors</span><span class="p">)</span>
     
-    <span class="k">if</span> <span class="n">contestant_guess</span> <span class="o">==</span> <span class="s1">&#39;first goat&#39;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">contestant_guess</span><span class="p">,</span> <span class="s1">&#39;second goat&#39;</span><span class="p">,</span> <span class="s1">&#39;car&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">contestant_guess</span> <span class="o">==</span> <span class="s1">'first goat'</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">contestant_guess</span><span class="p">,</span> <span class="s1">'second goat'</span><span class="p">,</span> <span class="s1">'car'</span><span class="p">]</span>
     
-    <span class="k">if</span> <span class="n">contestant_guess</span> <span class="o">==</span> <span class="s1">&#39;second goat&#39;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">contestant_guess</span><span class="p">,</span> <span class="s1">&#39;first goat&#39;</span><span class="p">,</span> <span class="s1">&#39;car&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">contestant_guess</span> <span class="o">==</span> <span class="s1">'second goat'</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">contestant_guess</span><span class="p">,</span> <span class="s1">'first goat'</span><span class="p">,</span> <span class="s1">'car'</span><span class="p">]</span>
     
-    <span class="k">if</span> <span class="n">contestant_guess</span> <span class="o">==</span> <span class="s1">&#39;car&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">contestant_guess</span> <span class="o">==</span> <span class="s1">'car'</span><span class="p">:</span>
         <span class="n">revealed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">goats</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">contestant_guess</span><span class="p">,</span> <span class="n">revealed</span><span class="p">,</span> <span class="n">other_goat</span><span class="p">(</span><span class="n">revealed</span><span class="p">)]</span>
 </pre></div>
@@ -479,7 +490,7 @@ behind the doors.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;car&#39;, &#39;first goat&#39;, &#39;second goat&#39;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>['car', 'first goat', 'second goat']
 </pre></div>
 </div>
 </div>
@@ -497,7 +508,7 @@ augment the table with each new simulated row. Each row will contain the complet
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># empty collection table</span>
-<span class="n">games</span> <span class="o">=</span> <span class="n">Table</span><span class="p">([</span><span class="s1">&#39;Guess&#39;</span><span class="p">,</span> <span class="s1">&#39;Revealed&#39;</span><span class="p">,</span> <span class="s1">&#39;Remaining&#39;</span><span class="p">])</span>
+<span class="n">games</span> <span class="o">=</span> <span class="n">Table</span><span class="p">([</span><span class="s1">'Guess'</span><span class="p">,</span> <span class="s1">'Revealed'</span><span class="p">,</span> <span class="s1">'Remaining'</span><span class="p">])</span>
 
 <span class="c1"># Play the game 10000 times and </span>
 <span class="c1"># record the results in the table games</span>
@@ -543,7 +554,7 @@ augment the table with each new simulated row. Each row will contain the complet
 <p>It is no surprise that the three doors appear about equally often as the contestant’s original guess.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">original_choice</span> <span class="o">=</span> <span class="n">games</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;Guess&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">original_choice</span> <span class="o">=</span> <span class="n">games</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Guess'</span><span class="p">)</span>
 <span class="n">original_choice</span>
 </pre></div>
 </div>
@@ -571,7 +582,7 @@ augment the table with each new simulated row. Each row will contain the complet
 <p>Once Monty has eliminated a goat, how often is the car behind the remaining door?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">remaining_door</span> <span class="o">=</span> <span class="n">games</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;Remaining&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">remaining_door</span> <span class="o">=</span> <span class="n">games</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Remaining'</span><span class="p">)</span>
 <span class="n">remaining_door</span>
 </pre></div>
 </div>
@@ -600,8 +611,8 @@ augment the table with each new simulated row. Each row will contain the complet
 <p>To see this graphically, we can join the two tables above and draw overlaid bar charts.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">joined</span> <span class="o">=</span> <span class="n">original_choice</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;Guess&#39;</span><span class="p">,</span> <span class="n">remaining_door</span><span class="p">,</span> <span class="s1">&#39;Remaining&#39;</span><span class="p">)</span>
-<span class="n">combined</span> <span class="o">=</span> <span class="n">joined</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Item&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Original Door&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Remaining Door&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">joined</span> <span class="o">=</span> <span class="n">original_choice</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">'Guess'</span><span class="p">,</span> <span class="n">remaining_door</span><span class="p">,</span> <span class="s1">'Remaining'</span><span class="p">)</span>
+<span class="n">combined</span> <span class="o">=</span> <span class="n">joined</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'Item'</span><span class="p">)</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'Original Door'</span><span class="p">)</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'Remaining Door'</span><span class="p">)</span>
 <span class="n">combined</span>
 </pre></div>
 </div>

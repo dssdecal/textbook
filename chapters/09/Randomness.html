@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -168,12 +167,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -219,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -348,13 +359,13 @@ document.write(`
 <p>Thus the following code evaluates to <code class="docutils literal notranslate"><span class="pre">treatment</span></code> with chance 50%, and <code class="docutils literal notranslate"><span class="pre">control</span></code> with chance 50%.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">two_groups</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;treatment&#39;</span><span class="p">,</span> <span class="s1">&#39;control&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">two_groups</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'treatment'</span><span class="p">,</span> <span class="s1">'control'</span><span class="p">)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">two_groups</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;treatment&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>'treatment'
 </pre></div>
 </div>
 </div>
@@ -367,8 +378,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;control&#39;, &#39;control&#39;, &#39;treatment&#39;, &#39;treatment&#39;, &#39;control&#39;,
-       &#39;control&#39;, &#39;control&#39;, &#39;control&#39;, &#39;control&#39;, &#39;control&#39;], dtype=&#39;&lt;U9&#39;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array(['control', 'control', 'treatment', 'treatment', 'control',
+       'control', 'control', 'control', 'control', 'control'], dtype='&lt;U9')
 </pre></div>
 </div>
 </div>
@@ -444,10 +455,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">  File</span><span class="nn"> &quot;&lt;ipython-input-5-e8c755f5e450&gt;&quot;</span><span class="gt">, line </span><span class="mi">1</span>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">  File</span><span class="nn"> "&lt;ipython-input-5-e8c755f5e450&gt;"</span><span class="gt">, line </span><span class="mi">1</span>
 <span class="g g-Whitespace">    </span><span class="mi">5</span> <span class="o">=</span> <span class="mi">10</span><span class="o">/</span><span class="mi">2</span>
             <span class="o">^</span>
-<span class="ne">SyntaxError</span>: can&#39;t assign to literal
+<span class="ne">SyntaxError</span>: can't assign to literal
 </pre></div>
 </div>
 </div>
@@ -496,7 +507,7 @@ document.write(`
 <p>Strings can also be compared, and their order is alphabetical. A shorter string is less than a longer string that begins with the shorter string.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;Dog&#39;</span> <span class="o">&gt;</span> <span class="s1">&#39;Catastrophe&#39;</span> <span class="o">&gt;</span> <span class="s1">&#39;Cat&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">'Dog'</span> <span class="o">&gt;</span> <span class="s1">'Catastrophe'</span> <span class="o">&gt;</span> <span class="s1">'Cat'</span>
 </pre></div>
 </div>
 </div>
@@ -509,7 +520,7 @@ document.write(`
 <p>Let’s return to random selection. Recall the array <code class="docutils literal notranslate"><span class="pre">two_groups</span></code> which consists of just two elements, <code class="docutils literal notranslate"><span class="pre">treatment</span></code> and <code class="docutils literal notranslate"><span class="pre">control</span></code>. To see whether a randomly assigned individual went to the treatment group, you can use a comparison:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">two_groups</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;treatment&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">two_groups</span><span class="p">)</span> <span class="o">==</span> <span class="s1">'treatment'</span>
 </pre></div>
 </div>
 </div>
@@ -524,8 +535,8 @@ document.write(`
 <p>Recall that we can perform arithmetic operations on many numbers in an array at once.  For example, <code class="docutils literal notranslate"><span class="pre">make_array(0,</span> <span class="pre">5,</span> <span class="pre">2)*2</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">make_array(0,</span> <span class="pre">10,</span> <span class="pre">4)</span></code>.  In similar fashion, if we compare an array and one value, each element of the array is compared to that value, and the comparison evaluates to an array of Booleans.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tosses</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;Tails&#39;</span><span class="p">,</span> <span class="s1">&#39;Heads&#39;</span><span class="p">,</span> <span class="s1">&#39;Tails&#39;</span><span class="p">,</span> <span class="s1">&#39;Heads&#39;</span><span class="p">,</span> <span class="s1">&#39;Heads&#39;</span><span class="p">)</span>
-<span class="n">tosses</span> <span class="o">==</span> <span class="s1">&#39;Heads&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tosses</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'Tails'</span><span class="p">,</span> <span class="s1">'Heads'</span><span class="p">,</span> <span class="s1">'Tails'</span><span class="p">,</span> <span class="s1">'Heads'</span><span class="p">,</span> <span class="s1">'Heads'</span><span class="p">)</span>
+<span class="n">tosses</span> <span class="o">==</span> <span class="s1">'Heads'</span>
 </pre></div>
 </div>
 </div>
@@ -538,7 +549,7 @@ document.write(`
 <p>The <code class="docutils literal notranslate"><span class="pre">numpy</span></code> method <code class="docutils literal notranslate"><span class="pre">count_nonzero</span></code> evaluates to the number of non-zero (that is, <code class="docutils literal notranslate"><span class="pre">True</span></code>) elements of the array.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">tosses</span> <span class="o">==</span> <span class="s1">&#39;Heads&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">tosses</span> <span class="o">==</span> <span class="s1">'Heads'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

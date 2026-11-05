@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -168,12 +167,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -219,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -372,7 +383,7 @@ document.write(`
 <p>Compensation data for the calendar year 2019 are in the table <code class="docutils literal notranslate"><span class="pre">sf2019</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sf2019</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">&#39;san_francisco_2019.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sf2019</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">'san_francisco_2019.csv'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -407,7 +418,7 @@ document.write(`
 <p>There is one row for each of over 44,500 employees. There are numerous columns containing information about City departmental affiliation and details of the different parts of the employee’s compensation package. Here is the row corresponding to London Breed, the Mayor of San Francisco in 2019.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sf2019</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;Job&#39;</span><span class="p">,</span> <span class="s1">&#39;Mayor&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sf2019</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'Job'</span><span class="p">,</span> <span class="s1">'Mayor'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -429,7 +440,7 @@ document.write(`
 <p>Financial packages in a calendar year can sometimes be hard to understand as they depend on the date of hire, whether the employee is changing jobs within the City, and so on. For example, the lowest values in the <code class="docutils literal notranslate"><span class="pre">Total</span> <span class="pre">Compensation</span></code> column look a little strange.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sf2019</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;Total Compensation&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sf2019</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'Total Compensation'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -478,7 +489,7 @@ document.write(`
 <p>For clarity of interpretation, we will focus our attention on those who had roughly the equivalent of a half-time job or more for the whole year. At a minimum wage of about 15 dollars per hour, and 20 hours per week for 52 weeks, that’s a salary of over 15,000 dollars.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sf2019</span> <span class="o">=</span> <span class="n">sf2019</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;Salary&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">above</span><span class="p">(</span><span class="mi">15000</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sf2019</span> <span class="o">=</span> <span class="n">sf2019</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'Salary'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">above</span><span class="p">(</span><span class="mi">15000</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -502,7 +513,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sf_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">726000</span><span class="p">,</span> <span class="mi">25000</span><span class="p">)</span>
-<span class="n">sf2019</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Total Compensation&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">sf_bins</span><span class="p">)</span>
+<span class="n">sf2019</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Total Compensation'</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">sf_bins</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -513,7 +524,7 @@ document.write(`
 <p>While most of the values are below 300,000 dollars, a few are quite a bit higher. For example, the total compensation of the Chief Investment Officer was over 700,000 dollars. That is why the horizontal axis stretches quite far to the right of the visible bars.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sf2019</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;Total Compensation&#39;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sf2019</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'Total Compensation'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -539,7 +550,7 @@ document.write(`
 <p>Since we have the luxury of having all of the data from the population, we can simply calculate the parameter:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pop_median</span> <span class="o">=</span> <span class="n">percentile</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">sf2019</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Total Compensation&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pop_median</span> <span class="o">=</span> <span class="n">percentile</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">sf2019</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Total Compensation'</span><span class="p">))</span>
 <span class="n">pop_median</span>
 </pre></div>
 </div>
@@ -560,7 +571,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">our_sample</span> <span class="o">=</span> <span class="n">sf2019</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="n">with_replacement</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">our_sample</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Total Compensation&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">sf_bins</span><span class="p">)</span>
+<span class="n">our_sample</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Total Compensation'</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">sf_bins</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -570,7 +581,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">est_median</span> <span class="o">=</span> <span class="n">percentile</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">our_sample</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Total Compensation&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">est_median</span> <span class="o">=</span> <span class="n">percentile</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">our_sample</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Total Compensation'</span><span class="p">))</span>
 <span class="n">est_median</span>
 </pre></div>
 </div>
@@ -618,7 +629,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resample_1</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Total Compensation&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">sf_bins</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resample_1</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Total Compensation'</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">sf_bins</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -628,7 +639,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resampled_median_1</span> <span class="o">=</span> <span class="n">percentile</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">resample_1</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Total Compensation&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resampled_median_1</span> <span class="o">=</span> <span class="n">percentile</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">resample_1</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Total Compensation'</span><span class="p">))</span>
 <span class="n">resampled_median_1</span>
 </pre></div>
 </div>
@@ -644,7 +655,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resample_2</span> <span class="o">=</span> <span class="n">our_sample</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
-<span class="n">resampled_median_2</span> <span class="o">=</span> <span class="n">percentile</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">resample_2</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Total Compensation&#39;</span><span class="p">))</span>
+<span class="n">resampled_median_2</span> <span class="o">=</span> <span class="n">percentile</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">resample_2</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Total Compensation'</span><span class="p">))</span>
 <span class="n">resampled_median_2</span>
 </pre></div>
 </div>
@@ -658,9 +669,9 @@ document.write(`
 <p>Let us collect this code and define a function <code class="docutils literal notranslate"><span class="pre">one_bootstrap_median</span></code> that returns one bootstrapped median of total compensation, based on bootstrapping the original random sample that we called <code class="docutils literal notranslate"><span class="pre">our_sample</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">one_bootstrap_median</span><span class="p">():</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">one_bootstrap_median</span><span class="p">():</span>
     <span class="n">resampled_table</span> <span class="o">=</span> <span class="n">our_sample</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
-    <span class="n">bootstrapped_median</span> <span class="o">=</span> <span class="n">percentile</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">resampled_table</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Total Compensation&#39;</span><span class="p">))</span>
+    <span class="n">bootstrapped_median</span> <span class="o">=</span> <span class="n">percentile</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">resampled_table</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Total Compensation'</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">bootstrapped_median</span>
 </pre></div>
 </div>
@@ -697,12 +708,12 @@ document.write(`
 <p>Here is an empirical histogram of the 5000 bootstrapped medians. The green dot is the population parameter: it is the median of the entire population, which is what we are trying to estimate. In this example we happen to know its value, but we did not use it in the bootstrap process.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resampled_medians</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Bootstrap Sample Median&#39;</span><span class="p">,</span> <span class="n">bstrap_medians</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resampled_medians</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'Bootstrap Sample Median'</span><span class="p">,</span> <span class="n">bstrap_medians</span><span class="p">)</span>
 <span class="n">median_bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">120000</span><span class="p">,</span> <span class="mi">160000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
 <span class="n">resampled_medians</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span> <span class="o">=</span> <span class="n">median_bins</span><span class="p">)</span>
 
 <span class="c1"># Plotting parameters; you can ignore this code</span>
-<span class="n">parameter_green</span> <span class="o">=</span> <span class="s1">&#39;#32CD32&#39;</span>
+<span class="n">parameter_green</span> <span class="o">=</span> <span class="s1">'#32CD32'</span>
 <span class="n">plots</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.000005</span><span class="p">,</span> <span class="mf">0.00014</span><span class="p">)</span>
 <span class="n">plots</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">pop_median</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">parameter_green</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span>
 </pre></div>
@@ -752,7 +763,7 @@ document.write(`
 
 <span class="c1"># Plotting parameters; you can ignore this code</span>
 <span class="n">plots</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.000005</span><span class="p">,</span> <span class="mf">0.00014</span><span class="p">)</span>
-<span class="n">plots</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plots</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">'yellow'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plots</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">pop_median</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">parameter_green</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -772,11 +783,11 @@ document.write(`
 <p>We will start by writing a function <code class="docutils literal notranslate"><span class="pre">bootstrap_median</span></code> that takes two arguments: the name of the table containing the original random sample, and the number of bootstrap samples to draw. It returns an array of bootstrapped medians, one from each bootstrap sample.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bootstrap_median</span><span class="p">(</span><span class="n">original_sample</span><span class="p">,</span> <span class="n">num_repetitions</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">bootstrap_median</span><span class="p">(</span><span class="n">original_sample</span><span class="p">,</span> <span class="n">num_repetitions</span><span class="p">):</span>
     <span class="n">medians</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_repetitions</span><span class="p">):</span>
         <span class="n">new_bstrap_sample</span> <span class="o">=</span> <span class="n">original_sample</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
-        <span class="n">new_bstrap_median</span> <span class="o">=</span> <span class="n">percentile</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">new_bstrap_sample</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Total Compensation&#39;</span><span class="p">))</span>
+        <span class="n">new_bstrap_median</span> <span class="o">=</span> <span class="n">percentile</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">new_bstrap_sample</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Total Compensation'</span><span class="p">))</span>
         <span class="n">medians</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">medians</span><span class="p">,</span> <span class="n">new_bstrap_median</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">medians</span>
 </pre></div>
@@ -801,8 +812,8 @@ document.write(`
     <span class="n">right_ends</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">right_ends</span><span class="p">,</span> <span class="n">percentile</span><span class="p">(</span><span class="mf">97.5</span><span class="p">,</span> <span class="n">medians</span><span class="p">))</span>
 
 <span class="n">intervals</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;Left&#39;</span><span class="p">,</span> <span class="n">left_ends</span><span class="p">,</span>
-    <span class="s1">&#39;Right&#39;</span><span class="p">,</span> <span class="n">right_ends</span>
+    <span class="s1">'Left'</span><span class="p">,</span> <span class="n">left_ends</span><span class="p">,</span>
+    <span class="s1">'Right'</span><span class="p">,</span> <span class="n">right_ends</span>
 <span class="p">)</span>    
 </pre></div>
 </div>
@@ -874,8 +885,8 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">intervals</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
-    <span class="s1">&#39;Left&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">below</span><span class="p">(</span><span class="n">pop_median</span><span class="p">))</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
-    <span class="s1">&#39;Right&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">above</span><span class="p">(</span><span class="n">pop_median</span><span class="p">))</span><span class="o">.</span><span class="n">num_rows</span>
+    <span class="s1">'Left'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">below</span><span class="p">(</span><span class="n">pop_median</span><span class="p">))</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+    <span class="s1">'Right'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">above</span><span class="p">(</span><span class="n">pop_median</span><span class="p">))</span><span class="o">.</span><span class="n">num_rows</span>
 </pre></div>
 </div>
 </div>

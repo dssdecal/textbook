@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -170,12 +169,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -221,7 +232,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -366,7 +377,7 @@ document.write(`
 <p>This time we’ll look at predicting whether a banknote (e.g., a $20 bill) is counterfeit or legitimate.  Researchers have put together a data set for us, based on photographs of many individual banknotes: some counterfeit, some legitimate.  They computed a few numbers from each image, using techniques that we won’t worry about for this course.  So, for each banknote, we know a few numbers that were computed from a photograph of it as well as its class (whether it is counterfeit or not).  Let’s load it into a table and take a look.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">banknotes</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">&#39;banknote.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">banknotes</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">'banknote.csv'</span><span class="p">)</span>
 <span class="n">banknotes</span>
 </pre></div>
 </div>
@@ -417,8 +428,8 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">color_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-    <span class="s1">&#39;Color&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;darkblue&#39;</span><span class="p">,</span> <span class="s1">&#39;gold&#39;</span><span class="p">)</span>
+    <span class="s1">'Class'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="s1">'Color'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'darkblue'</span><span class="p">,</span> <span class="s1">'gold'</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -426,14 +437,14 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">banknotes</span> <span class="o">=</span> <span class="n">banknotes</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="n">color_table</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">banknotes</span> <span class="o">=</span> <span class="n">banknotes</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">'Class'</span><span class="p">,</span> <span class="n">color_table</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">banknotes</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">&#39;WaveletVar&#39;</span><span class="p">,</span> <span class="s1">&#39;WaveletCurt&#39;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">&#39;Color&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">banknotes</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">'WaveletVar'</span><span class="p">,</span> <span class="s1">'WaveletCurt'</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">'Color'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -446,7 +457,7 @@ document.write(`
 <p>The patterns that show up in the data can get pretty wild.  For instance, here’s what we’d get if used a different pair of measurements from the images:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">banknotes</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">&#39;WaveletSkew&#39;</span><span class="p">,</span> <span class="s1">&#39;Entropy&#39;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">&#39;Color&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">banknotes</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">'WaveletSkew'</span><span class="p">,</span> <span class="s1">'Entropy'</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">'Color'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -464,11 +475,11 @@ document.write(`
 <p>For instance, let’s see what happens if we try to predict whether a banknote is counterfeit or not using 3 of the measurements, instead of just 2.  Here’s what you get:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">banknotes</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;WaveletSkew&#39;</span><span class="p">),</span> 
-           <span class="n">banknotes</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;WaveletVar&#39;</span><span class="p">),</span> 
-           <span class="n">banknotes</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;WaveletCurt&#39;</span><span class="p">),</span> 
-           <span class="n">c</span><span class="o">=</span><span class="n">banknotes</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Color&#39;</span><span class="p">));</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">'3d'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">banknotes</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'WaveletSkew'</span><span class="p">),</span> 
+           <span class="n">banknotes</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'WaveletVar'</span><span class="p">),</span> 
+           <span class="n">banknotes</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'WaveletCurt'</span><span class="p">),</span> 
+           <span class="n">c</span><span class="o">=</span><span class="n">banknotes</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Color'</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
@@ -499,10 +510,10 @@ D = \sqrt{(x_0-x_1)^2 + (y_0-y_1)^2 + (z_0-z_1)^2}
 <p>In the last section, we defined the function <code class="docutils literal notranslate"><span class="pre">distance</span></code> which returned the distance between two points. We used it in two-dimensions, but the great news is that the function doesn’t care how many dimensions there are! It just subtracts the two arrays of coordinates (no matter how long the arrays are), squares the differences and adds up, and then takes the square root. To work in multiple dimensions, we don’t have to change the code at all.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="n">point1</span><span class="p">,</span> <span class="n">point2</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the distance between point1 and point2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">distance</span><span class="p">(</span><span class="n">point1</span><span class="p">,</span> <span class="n">point2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Returns the distance between point1 and point2</span>
 <span class="sd">    where each argument is an array </span>
-<span class="sd">    consisting of the coordinates of the point&quot;&quot;&quot;</span>
+<span class="sd">    consisting of the coordinates of the point"""</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">point1</span> <span class="o">-</span> <span class="n">point2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -511,17 +522,17 @@ D = \sqrt{(x_0-x_1)^2 + (y_0-y_1)^2 + (z_0-z_1)^2}
 <p>Let’s use this on a <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/Wine">new dataset</a>. The table <code class="docutils literal notranslate"><span class="pre">wine</span></code> contains the chemical composition of 178 different Italian wines. The classes are the grape species, called cultivars. There are three classes but let’s just see whether we can tell Class 1 apart from the other two.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wine</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">&#39;wine.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wine</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">'wine.csv'</span><span class="p">)</span>
 
 <span class="c1"># For converting Class to binary</span>
 
-<span class="k">def</span> <span class="nf">is_one</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_one</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">0</span>
     
-<span class="n">wine</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="n">wine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">is_one</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">wine</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'Class'</span><span class="p">,</span> <span class="n">wine</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">is_one</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -577,7 +588,7 @@ D = \sqrt{(x_0-x_1)^2 + (y_0-y_1)^2 + (z_0-z_1)^2}
 <p>The first two wines are both in Class 1. To find the distance between them, we first need a table of just the attributes:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wine_attributes</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Class&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wine_attributes</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'Class'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -610,14 +621,14 @@ D = \sqrt{(x_0-x_1)^2 + (y_0-y_1)^2 + (z_0-z_1)^2}
 <p>That’s quite a bit bigger! Let’s do some visualization to see if Class 1 really looks different from Class 0.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wine_with_colors</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="n">color_table</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wine_with_colors</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">'Class'</span><span class="p">,</span> <span class="n">color_table</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wine_with_colors</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">&#39;Flavanoids&#39;</span><span class="p">,</span> <span class="s1">&#39;Alcohol&#39;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">&#39;Color&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wine_with_colors</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">'Flavanoids'</span><span class="p">,</span> <span class="s1">'Alcohol'</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">'Color'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -628,7 +639,7 @@ D = \sqrt{(x_0-x_1)^2 + (y_0-y_1)^2 + (z_0-z_1)^2}
 <p>The blue points (Class 1) are almost entirely separate from the gold ones. That is one indication of why the distance between two Class 1 wines would be smaller than the distance between wines of two different classes. We can see a similar phenomenon with a different pair of attributes too:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wine_with_colors</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">&#39;Alcalinity of Ash&#39;</span><span class="p">,</span> <span class="s1">&#39;Ash&#39;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">&#39;Color&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wine_with_colors</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">'Alcalinity of Ash'</span><span class="p">,</span> <span class="s1">'Ash'</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">'Color'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -639,7 +650,7 @@ D = \sqrt{(x_0-x_1)^2 + (y_0-y_1)^2 + (z_0-z_1)^2}
 <p>But for some pairs the picture is more murky.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wine_with_colors</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">&#39;Magnesium&#39;</span><span class="p">,</span> <span class="s1">&#39;Total Phenols&#39;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">&#39;Color&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wine_with_colors</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">'Magnesium'</span><span class="p">,</span> <span class="s1">'Total Phenols'</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">'Color'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -659,15 +670,15 @@ D = \sqrt{(x_0-x_1)^2 + (y_0-y_1)^2 + (z_0-z_1)^2}
 <p>So that will guide the structure of our Python code.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">closest</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">closest</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
     <span class="o">...</span>
 
-<span class="k">def</span> <span class="nf">majority</span><span class="p">(</span><span class="n">topkclasses</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">majority</span><span class="p">(</span><span class="n">topkclasses</span><span class="p">):</span>
     <span class="o">...</span>
 
-<span class="k">def</span> <span class="nf">classify</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">classify</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
     <span class="n">kclosest</span> <span class="o">=</span> <span class="n">closest</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
-    <span class="n">kclosest</span><span class="o">.</span><span class="n">classes</span> <span class="o">=</span> <span class="n">kclosest</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Class&#39;</span><span class="p">)</span>
+    <span class="n">kclosest</span><span class="o">.</span><span class="n">classes</span> <span class="o">=</span> <span class="n">kclosest</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Class'</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">majority</span><span class="p">(</span><span class="n">kclosest</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -680,31 +691,31 @@ D = \sqrt{(x_0-x_1)^2 + (y_0-y_1)^2 + (z_0-z_1)^2}
 <p>That’s what we did in the previous section with the point corresponding to Alice. Let’s generalize that code. We’ll redefine <code class="docutils literal notranslate"><span class="pre">distance</span></code> here, just for convenience.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="n">point1</span><span class="p">,</span> <span class="n">point2</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the distance between point1 and point2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">distance</span><span class="p">(</span><span class="n">point1</span><span class="p">,</span> <span class="n">point2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Returns the distance between point1 and point2</span>
 <span class="sd">    where each argument is an array </span>
-<span class="sd">    consisting of the coordinates of the point&quot;&quot;&quot;</span>
+<span class="sd">    consisting of the coordinates of the point"""</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">point1</span> <span class="o">-</span> <span class="n">point2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 
-<span class="k">def</span> <span class="nf">all_distances</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">new_point</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns an array of distances</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">all_distances</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">new_point</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Returns an array of distances</span>
 <span class="sd">    between each point in the training set</span>
-<span class="sd">    and the new point (which is a row of attributes)&quot;&quot;&quot;</span>
-    <span class="n">attributes</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Class&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">distance_from_point</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+<span class="sd">    and the new point (which is a row of attributes)"""</span>
+    <span class="n">attributes</span> <span class="o">=</span> <span class="n">training</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'Class'</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">distance_from_point</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">distance</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">new_point</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">attributes</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">distance_from_point</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">table_with_distances</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">new_point</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Augments the training table </span>
-<span class="sd">    with a column of distances from new_point&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">training</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Distance&#39;</span><span class="p">,</span> <span class="n">all_distances</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">new_point</span><span class="p">))</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">table_with_distances</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">new_point</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Augments the training table </span>
+<span class="sd">    with a column of distances from new_point"""</span>
+    <span class="k">return</span> <span class="n">training</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'Distance'</span><span class="p">,</span> <span class="n">all_distances</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">new_point</span><span class="p">))</span>
 
-<span class="k">def</span> <span class="nf">closest</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">new_point</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a table of the k rows of the augmented table</span>
-<span class="sd">    corresponding to the k smallest distances&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">closest</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">new_point</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Returns a table of the k rows of the augmented table</span>
+<span class="sd">    corresponding to the k smallest distances"""</span>
     <span class="n">with_dists</span> <span class="o">=</span> <span class="n">table_with_distances</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">new_point</span><span class="p">)</span>
-    <span class="n">sorted_by_distance</span> <span class="o">=</span> <span class="n">with_dists</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;Distance&#39;</span><span class="p">)</span>
+    <span class="n">sorted_by_distance</span> <span class="o">=</span> <span class="n">with_dists</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'Distance'</span><span class="p">)</span>
     <span class="n">topk</span> <span class="o">=</span> <span class="n">sorted_by_distance</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">topk</span>
 </pre></div>
@@ -715,7 +726,7 @@ D = \sqrt{(x_0-x_1)^2 + (y_0-y_1)^2 + (z_0-z_1)^2}
 <p>First let’s extract its attributes:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">special_wine</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Class&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">special_wine</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'Class'</span><span class="p">)</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -760,17 +771,17 @@ D = \sqrt{(x_0-x_1)^2 + (y_0-y_1)^2 + (z_0-z_1)^2}
 <p>Next we need to take a “majority vote” of the nearest neighbors and assign our point the same class as the majority.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">majority</span><span class="p">(</span><span class="n">topkclasses</span><span class="p">):</span>
-    <span class="n">ones</span> <span class="o">=</span> <span class="n">topkclasses</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">num_rows</span>
-    <span class="n">zeros</span> <span class="o">=</span> <span class="n">topkclasses</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">num_rows</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">majority</span><span class="p">(</span><span class="n">topkclasses</span><span class="p">):</span>
+    <span class="n">ones</span> <span class="o">=</span> <span class="n">topkclasses</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'Class'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">num_rows</span>
+    <span class="n">zeros</span> <span class="o">=</span> <span class="n">topkclasses</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'Class'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">num_rows</span>
     <span class="k">if</span> <span class="n">ones</span> <span class="o">&gt;</span> <span class="n">zeros</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">0</span>
 
-<span class="k">def</span> <span class="nf">classify</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">new_point</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">classify</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">new_point</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
     <span class="n">closestk</span> <span class="o">=</span> <span class="n">closest</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">new_point</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
-    <span class="n">topkclasses</span> <span class="o">=</span> <span class="n">closestk</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Class&#39;</span><span class="p">)</span>
+    <span class="n">topkclasses</span> <span class="o">=</span> <span class="n">closestk</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Class'</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">majority</span><span class="p">(</span><span class="n">topkclasses</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -791,7 +802,7 @@ D = \sqrt{(x_0-x_1)^2 + (y_0-y_1)^2 + (z_0-z_1)^2}
 <p>If we change <code class="docutils literal notranslate"><span class="pre">special_wine</span></code> to be the last one in the dataset, is our classifier able to tell that it’s in Class 0?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">special_wine</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Class&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="mi">177</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">special_wine</span> <span class="o">=</span> <span class="n">wine</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'Class'</span><span class="p">)</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="mi">177</span><span class="p">)</span>
 <span class="n">classify</span><span class="p">(</span><span class="n">wine</span><span class="p">,</span> <span class="n">special_wine</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>

@@ -1,0 +1,1199 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>5.8. Modern Machine Learning 🧠 &#8212; Introduction to Real World Data Science</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/fa26/modern-machine-learning';</script>
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="5.7. Week 7: Unsupervised Learning — K-Means, Dimensionality Reduction, and PCA" href="unsupervised-learning.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/favicon.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/favicon.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01/what-is-data-science.html">1. What is a Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../01/1/intro.html">1.1. Introduction</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../01/1/1/computational-tools.html">1.1.1. Computational Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../01/1/2/statistical-techniques.html">1.1.2. Statistical Techniques</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../01/2/why-data-science.html">1.2. Why Data Science?</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02/intro_python.html">2. Introduction to Python</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02/1/expressions.html">2.1. Simple Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/2/variables.html">2.2. Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/3/call_expressions.html">2.3. Call Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/4/data_types.html">2.4. Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/5/comparisons.html">2.5. Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/6/lists.html">2.6. Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/7/dictionaries.html">2.7. Dictionaries</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">5. Fall 2026 Readings</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">5.8. Week 8 · Modern Machine Learning</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/dssdecal/textbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/fa26/modern-machine-learning.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Modern Machine Learning 🧠</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">5.8.1. Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-from-pixels-to-neurons">5.8.2. Part 1: From Pixels to Neurons</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-a-model-see">5.8.2.1. 1.1 What does a model see?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-neuron-weighted-sum-bias-activation">5.8.2.2. 1.2 A neuron: weighted sum, bias, activation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-stack-layers">5.8.2.3. 1.3 Why stack layers?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">5.8.2.3.1. ✏️ Quick Check</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-how-neural-networks-learn">5.8.3. Part 2: How Neural Networks Learn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-training-cycle">5.8.3.1. 2.1 The training cycle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-validation-and-test-still-matter">5.8.3.2. 2.2 Training, validation, and test still matter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-makes-learning-deep">5.8.3.3. 2.3 What makes learning “deep”?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pretraining-and-transfer-learning">5.8.3.4. 2.4 Pretraining and transfer learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.8.3.4.1. ✏️ Quick Check</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-nlp-turning-language-into-vectors">5.8.4. Part 3: NLP — Turning Language into Vectors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tokens-and-numerical-representations">5.8.4.1. 3.1 Tokens and numerical representations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-embeddings">5.8.4.2. 3.2 Comparing embeddings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-attention-and-transformers">5.8.5. Part 4: Attention and Transformers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#context-changes-the-representation">5.8.5.1. 4.1 Context changes the representation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#positions-and-architecture-types">5.8.5.2. 4.2 Positions and architecture types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#language-models-and-autoregression">5.8.5.3. 4.3 Language models and autoregression</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.8.5.3.1. ✏️ Quick Check</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-computer-vision">5.8.6. Part 5: Computer Vision</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-image-structure">5.8.6.1. 5.1 Why use image structure?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convolutional-neural-networks-cnns">5.8.6.2. 5.2 Convolutional neural networks (CNNs)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-imagenet-to-vision-transformers">5.8.6.3. 5.3 From ImageNet to vision transformers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-backbone-different-tasks">5.8.6.4. 5.4 One backbone, different tasks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-6-connecting-images-language-and-actions">5.8.7. Part 6: Connecting Images, Language, and Actions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5.8.7.1. ✏️ Quick Check</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-summary">5.8.8. Chapter Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">5.8.8.1. Further Reading</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="modern-machine-learning">
+<h1><span class="section-number">5.8. </span>Modern Machine Learning 🧠<a class="headerlink" href="#modern-machine-learning" title="Permalink to this heading">#</a></h1>
+<p><strong>Week 8 · November 2, 2026</strong></p>
+<p>In previous chapters we supplied measurements such as house size or listening hours. But how do we turn a photo, a sentence, or a recording into useful features? Modern machine learning often <strong>learns representations</strong> along with the prediction rule.</p>
+<p>This chapter follows the Week 8 lecture: <strong>neural networks → deep learning → NLP and transformers → computer vision</strong>. Lab 07 puts the first part into practice by classifying handwritten digits with a small multilayer perceptron (MLP).</p>
+<p>By the end, you should be able to:</p>
+<ul class="simple">
+<li><p>Describe a neuron, activation function, hidden layer, and output layer.</p></li>
+<li><p>Explain forward passes, loss, backpropagation, and parameter updates.</p></li>
+<li><p>Distinguish tokens, embeddings, contextual representations, and generated outputs.</p></li>
+<li><p>Compare MLPs, CNNs, and vision transformers.</p></li>
+<li><p>Explain pretraining, transfer learning, and the need for honest evaluation.</p></li>
+</ul>
+<p>Run the examples from top to bottom. They use small arrays and the digits dataset bundled with scikit-learn; there are no model-weight or dataset downloads.</p>
+<section id="setup">
+<h2><span class="section-number">5.8.1. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
+<p>The examples use NumPy, pandas, matplotlib, scikit-learn, and PyTorch, matching Lab 07. If needed, install the missing packages in your notebook environment, restart the kernel, and rerun from the top.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run only if needed:</span>
+<span class="c1"># %pip install numpy pandas matplotlib scikit-learn torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_digits</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+
+<span class="n">SEED</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">set_num_threads</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">'figure.figsize'</span><span class="p">:</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">)})</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="part-1-from-pixels-to-neurons">
+<h2><span class="section-number">5.8.2. </span>Part 1: From Pixels to Neurons<a class="headerlink" href="#part-1-from-pixels-to-neurons" title="Permalink to this heading">#</a></h2>
+<section id="what-does-a-model-see">
+<h3><span class="section-number">5.8.2.1. </span>1.1 What does a model see?<a class="headerlink" href="#what-does-a-model-see" title="Permalink to this heading">#</a></h3>
+<p>A computer sees an image as numbers: one intensity per pixel for a grayscale image, or usually three color-channel values per pixel for a color image. MNIST, discussed in lecture, has 28 × 28 grayscale images. For a quick CPU example, we use scikit-learn’s smaller <strong>digits</strong> dataset: 1,797 images, each 8 × 8, with pixel values from 0 to 16.</p>
+<p>Flattening an image produces 64 input features. A linear classifier can assign one weight to each pixel for each class. A neural network can instead learn intermediate combinations of pixels and then combine those features to classify the image.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">digits</span> <span class="o">=</span> <span class="n">load_digits</span><span class="p">()</span>
+<span class="n">X_pixels</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">data</span> <span class="o">/</span> <span class="mf">16.0</span>
+<span class="n">y_digits</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">target</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axes</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'gray'</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Digit </span><span class="si">{</span><span class="n">y_digits</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">'off'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Images:'</span><span class="p">,</span> <span class="n">digits</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s1">'→ Feature matrix:'</span><span class="p">,</span> <span class="n">X_pixels</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/e5fe2908c63136fe434a04119424d55eb3ae9b29874d0dcb44e68adaa9c5c98f.png" src="../../_images/e5fe2908c63136fe434a04119424d55eb3ae9b29874d0dcb44e68adaa9c5c98f.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Images: (1797, 8, 8) → Feature matrix: (1797, 64)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="a-neuron-weighted-sum-bias-activation">
+<h3><span class="section-number">5.8.2.2. </span>1.2 A neuron: weighted sum, bias, activation<a class="headerlink" href="#a-neuron-weighted-sum-bias-activation" title="Permalink to this heading">#</a></h3>
+<p>A neuron computes</p>
+<div class="math notranslate nohighlight">
+\[z = w_1x_1 + w_2x_2 + \cdots + w_dx_d + b, \qquad a = f(z).\]</div>
+<ul class="simple">
+<li><p><strong>Weights</strong> determine how the inputs contribute to the score.</p></li>
+<li><p>The <strong>bias</strong> shifts the score, changing when the unit activates.</p></li>
+<li><p>The <strong>activation function</strong> transforms the score. ReLU keeps positive values and replaces negative values with zero. Sigmoid maps scores into (0, 1). GeLU is a smooth activation used in many transformer networks.</p></li>
+</ul>
+<p>A single neuron can respond to a learned input pattern. A layer contains many neurons, each with its own weights and bias.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">])</span>
+<span class="n">bias</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">inputs</span> <span class="o">@</span> <span class="n">weights</span> <span class="o">+</span> <span class="n">bias</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Weighted sum + bias:'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s1">'| ReLU output:'</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span>
+
+<span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">scores</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">'ReLU'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">scores</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Sigmoid'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Input score'</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Activation'</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Weighted sum + bias: 0.0 | ReLU output: 2.7755575615628914e-17
+</pre></div>
+</div>
+<img alt="../../_images/993bdd5eea08c534e85e1d92639498281c875678cc8efc9b3cea886d5384d77c.png" src="../../_images/993bdd5eea08c534e85e1d92639498281c875678cc8efc9b3cea886d5384d77c.png" />
+</div>
+</div>
+</section>
+<section id="why-stack-layers">
+<h3><span class="section-number">5.8.2.3. </span>1.3 Why stack layers?<a class="headerlink" href="#why-stack-layers" title="Permalink to this heading">#</a></h3>
+<p>An MLP has an <strong>input layer</strong>, one or more <strong>hidden layers</strong>, and an <strong>output layer</strong>. Hidden activations are learned features. With 64 pixels, 32 hidden units, and 10 classes, the shapes are:</p>
+<p><strong>(batch, 64) → Linear → (batch, 32) → ReLU → Linear → (batch, 10)</strong></p>
+<p>The final ten numbers are <strong>logits</strong>, unrestricted class scores. The largest score supplies the predicted digit. A softmax can turn the scores into probabilities, but PyTorch’s cross-entropy loss takes logits directly.</p>
+<p>Without nonlinear activations, stacking linear layers and biases still produces a single affine transformation. Extra depth alone would not add nonlinear decision boundaries.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">network</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">example_batch</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">X_pixels</span><span class="p">[:</span><span class="mi">5</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">logits</span> <span class="o">=</span> <span class="n">network</span><span class="p">(</span><span class="n">example_batch</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">network</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Output shape:'</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">logits</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Predicted classes before training:'</span><span class="p">,</span> <span class="n">logits</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Parameters:'</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">network</span><span class="o">.</span><span class="n">parameters</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sequential(
+  (0): Linear(in_features=64, out_features=32, bias=True)
+  (1): ReLU()
+  (2): Linear(in_features=32, out_features=10, bias=True)
+)
+Output shape: (5, 10)
+Predicted classes before training: [4, 3, 3, 6, 3]
+Parameters: 2410
+</pre></div>
+</div>
+</div>
+</div>
+<section id="quick-check">
+<h4><span class="section-number">5.8.2.3.1. </span>✏️ Quick Check<a class="headerlink" href="#quick-check" title="Permalink to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>Why do we need an activation between the linear layers?</p></li>
+<li><p>What does a hidden layer with 32 units output for one image?</p></li>
+<li><p>Are ten logits the same thing as ten probabilities?</p></li>
+</ol>
+<details><summary><b>Click for answers</b></summary>
+<ol class="arabic simple">
+<li><p>Nonlinearity lets the model represent relationships beyond one affine transformation.</p></li>
+<li><p>A vector of 32 learned feature activations.</p></li>
+<li><p>No. Logits are unrestricted scores; probabilities must be nonnegative and sum to one.</p></li>
+</ol>
+</details></section>
+</section>
+</section>
+<section id="part-2-how-neural-networks-learn">
+<h2><span class="section-number">5.8.3. </span>Part 2: How Neural Networks Learn<a class="headerlink" href="#part-2-how-neural-networks-learn" title="Permalink to this heading">#</a></h2>
+<section id="the-training-cycle">
+<h3><span class="section-number">5.8.3.1. </span>2.1 The training cycle<a class="headerlink" href="#the-training-cycle" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Forward pass:</strong> send a batch through the network to obtain logits.</p></li>
+<li><p><strong>Loss:</strong> compare predictions with the known labels. Cross-entropy penalizes assigning little probability to the correct class.</p></li>
+<li><p><strong>Backpropagation:</strong> apply the chain rule to compute how the loss changes with each parameter. It computes gradients; it does not itself update the parameters.</p></li>
+<li><p><strong>Optimizer step:</strong> use those gradients to update weights and biases. A learning rate controls the update scale. Adam also adapts updates using accumulated gradient information.</p></li>
+<li><p>Repeat over batches. One <strong>epoch</strong> is a pass through the training set.</p></li>
+</ol>
+<p>Call <code class="docutils literal notranslate"><span class="pre">optimizer.zero_grad()</span></code> before the next backward pass: PyTorch otherwise accumulates gradients. Differentiable operations allow gradients to flow through the layers. ReLU is not differentiable exactly at zero; frameworks use a convention there.</p>
+</section>
+<section id="training-validation-and-test-still-matter">
+<h3><span class="section-number">5.8.3.2. </span>2.2 Training, validation, and test still matter<a class="headerlink" href="#training-validation-and-test-still-matter" title="Permalink to this heading">#</a></h3>
+<p>Use training data to learn parameters, validation data to select widths, learning rates, or stopping points, and test data for final evaluation. Larger models may fit training data better while generalizing worse. <strong>A neural network is not automatically better than a simpler baseline.</strong></p>
+<p>This worked example trains one fixed architecture on training data and monitors validation loss. Lab 07 adds a width comparison and a final held-out test evaluation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_dev</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_dev</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X_pixels</span><span class="p">,</span> <span class="n">y_digits</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.20</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y_digits</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X_dev</span><span class="p">,</span> <span class="n">y_dev</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y_dev</span><span class="p">)</span>
+<span class="n">train_X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">train_y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+<span class="n">val_X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">val_y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Train / validation / test:'</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_val</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">))</span>
+<span class="c1"># Scaling by the known upper bound 16 does not fit statistics on held-out data.</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train / validation / test: 1077 360 360
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">train_losses</span><span class="p">,</span> <span class="n">val_losses</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">60</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">logits</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">train_X</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="n">train_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">val_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">criterion</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">val_X</span><span class="p">),</span> <span class="n">val_y</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">61</span><span class="p">),</span> <span class="n">train_losses</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Training'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">61</span><span class="p">),</span> <span class="n">val_losses</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Validation'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Epoch'</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Cross-entropy loss'</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">val_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">val_X</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'MLP validation accuracy:'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">val_pred</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">linear_baseline</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Logistic regression validation accuracy:'</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">linear_baseline</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/e87103a1a4a2d0e84bafc7b70c1063817d5e03b56a22cf8f36fc815e12c72cf3.png" src="../../_images/e87103a1a4a2d0e84bafc7b70c1063817d5e03b56a22cf8f36fc815e12c72cf3.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MLP validation accuracy: 0.953
+Logistic regression validation accuracy: 0.972
+</pre></div>
+</div>
+</div>
+</div>
+<p>The example uses one full training batch per epoch for clarity. Lab 07 uses mini-batches and a smaller learning rate. <code class="docutils literal notranslate"><span class="pre">model.eval()</span></code> changes the behavior of layers such as dropout; <code class="docutils literal notranslate"><span class="pre">torch.no_grad()</span></code> turns off gradient tracking during evaluation. They serve different purposes.</p>
+<p>If training loss falls while validation loss rises, the model may be overfitting. Possible responses include collecting better data, using a smaller network, regularization, or early stopping chosen using validation data. Do not repeatedly inspect test accuracy to guide these decisions.</p>
+</section>
+<section id="what-makes-learning-deep">
+<h3><span class="section-number">5.8.3.3. </span>2.3 What makes learning “deep”?<a class="headerlink" href="#what-makes-learning-deep" title="Permalink to this heading">#</a></h3>
+<p>Deep learning uses multiple layers of trainable transformations to learn representations. MLP layers, convolutions, and attention provide different ways to combine inputs. One loss can train the layers together <strong>end to end</strong>.</p>
+<p>Depth can help learn complex patterns, but representations are not guaranteed to become clearer or more useful at every layer. Deep networks can also memorize data, require substantial compute, and be difficult to interpret. There is no universal minimum number of examples per class: needs depend on the task, model, labels, and prior training.</p>
+</section>
+<section id="pretraining-and-transfer-learning">
+<h3><span class="section-number">5.8.3.4. </span>2.4 Pretraining and transfer learning<a class="headerlink" href="#pretraining-and-transfer-learning" title="Permalink to this heading">#</a></h3>
+<p><strong>Pretraining</strong> learns parameters on a broad dataset. <strong>Transfer learning</strong> reuses those parameters for another task, either by freezing the feature extractor and training a small prediction head, or by <strong>fine-tuning</strong> some or all weights.</p>
+<p>For a hospital with 500 labeled X-rays, training a large network from scratch would usually be a poor starting point. A suitable pretrained model may help, but medical use still requires careful validation, representative data, and expert review. Transfer learning reduces data needs; it does not establish reliability by itself.</p>
+<section id="id1">
+<h4><span class="section-number">5.8.3.4.1. </span>✏️ Quick Check<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>Which step computes gradients, and which changes the parameters?</p></li>
+<li><p>Can the highest training accuracy choose the best hidden-layer width?</p></li>
+<li><p>What can transfer learning reuse?</p></li>
+</ol>
+<details><summary><b>Click for answers</b></summary>
+<ol class="arabic simple">
+<li><p>Backpropagation computes gradients; the optimizer updates parameters.</p></li>
+<li><p>No. Select the width using validation performance and reserve the test set.</p></li>
+<li><p>Learned feature-extractor weights, with a new head or further fine-tuning.</p></li>
+</ol>
+</details></section>
+</section>
+</section>
+<section id="part-3-nlp-turning-language-into-vectors">
+<h2><span class="section-number">5.8.4. </span>Part 3: NLP — Turning Language into Vectors<a class="headerlink" href="#part-3-nlp-turning-language-into-vectors" title="Permalink to this heading">#</a></h2>
+<section id="tokens-and-numerical-representations">
+<h3><span class="section-number">5.8.4.1. </span>3.1 Tokens and numerical representations<a class="headerlink" href="#tokens-and-numerical-representations" title="Permalink to this heading">#</a></h3>
+<p>Natural language processing (<strong>NLP</strong>) works with text: classification, search, translation, or generation. Text has context and order: “the cat chased the mouse” differs from “the mouse chased the cat.”</p>
+<p>A <strong>tokenizer</strong> divides text into units. Tokens may be characters, words, or subword pieces. Modern language models commonly use subwords; token boundaries and token counts depend on the tokenizer. A token ID is an index, not a meaningful numerical measurement.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Representation</p></th>
+<th class="head"><p>What it stores</p></th>
+<th class="head"><p>Main limitation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>One-hot token vector</p></td>
+<td><p>One vocabulary position is 1; the rest are 0</p></td>
+<td><p>Sparse; no learned similarity</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bag of words</p></td>
+<td><p>Counts per vocabulary word in a document</p></td>
+<td><p>Discards word order</p></td>
+</tr>
+<tr class="row-even"><td><p>Static word embedding</p></td>
+<td><p>A learned dense vector per word</p></td>
+<td><p>Same vector in every context</p></td>
+</tr>
+<tr class="row-odd"><td><p>Contextual representation</p></td>
+<td><p>A vector updated using surrounding tokens</p></td>
+<td><p>More computation; context is bounded</p></td>
+</tr>
+</tbody>
+</table>
+<p>Embeddings can encode useful similarities learned from data, along with biases and other unwanted associations. Nearby vectors do not necessarily mean two items are interchangeable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sentences</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'the cat chased the mouse'</span><span class="p">,</span> <span class="s1">'the mouse chased the cat'</span><span class="p">]</span>
+<span class="n">vocabulary</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">sentence</span><span class="o">.</span><span class="n">split</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">vocabulary</span><span class="p">]</span>
+                   <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">sentences</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">vocabulary</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Bag-of-words vectors are identical:'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">counts</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>cat</th>
+      <th>chased</th>
+      <th>mouse</th>
+      <th>the</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>the cat chased the mouse</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>the mouse chased the cat</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bag-of-words vectors are identical: True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="comparing-embeddings">
+<h3><span class="section-number">5.8.4.2. </span>3.2 Comparing embeddings<a class="headerlink" href="#comparing-embeddings" title="Permalink to this heading">#</a></h3>
+<p>For nonzero vectors, <strong>cosine similarity</strong> compares direction:</p>
+<div class="math notranslate nohighlight">
+\[\operatorname{cos}(a,b)=\frac{a\cdot b}{\lVert a\rVert\lVert b\rVert}.\]</div>
+<p>Cosine values range from −1 to 1. A value of 0 means orthogonal vectors, not a universal guarantee of unrelated meanings. Dot product depends on direction and magnitude. Euclidean distance measures straight-line separation. The best measure depends on how the representation was trained.</p>
+<p>The following vectors are <strong>handmade teaching examples</strong>, not embeddings learned from a language model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">toy_vectors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'cash'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]),</span>
+               <span class="s1">'money'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]),</span>
+               <span class="s1">'river'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])}</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">cosine</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">@</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'money'</span><span class="p">,</span> <span class="s1">'river'</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"cash / </span><span class="si">{</span><span class="n">word</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">cosine</span><span class="p">(</span><span class="n">toy_vectors</span><span class="p">[</span><span class="s1">'cash'</span><span class="p">],</span><span class="w"> </span><span class="n">toy_vectors</span><span class="p">[</span><span class="n">word</span><span class="p">])</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cash / money: 0.993
+cash / river: 0.198
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="part-4-attention-and-transformers">
+<h2><span class="section-number">5.8.5. </span>Part 4: Attention and Transformers<a class="headerlink" href="#part-4-attention-and-transformers" title="Permalink to this heading">#</a></h2>
+<section id="context-changes-the-representation">
+<h3><span class="section-number">5.8.5.1. </span>4.1 Context changes the representation<a class="headerlink" href="#context-changes-the-representation" title="Permalink to this heading">#</a></h3>
+<p>In “I got cash from the bank,” <strong>cash</strong> helps identify the meaning of <strong>bank</strong>. In “I sat on the river bank,” <strong>river</strong> supplies different context. Attention lets a token mix information from other tokens using weights computed from their representations.</p>
+<p>In one attention head:</p>
+<ul class="simple">
+<li><p>A <strong>query</strong> describes what a token is looking for.</p></li>
+<li><p><strong>Keys</strong> determine how well other tokens match that query.</p></li>
+<li><p><strong>Values</strong> provide the information to mix.</p></li>
+</ul>
+<p>Learned linear projections create Q, K, and V from the input vectors. For key dimension <span class="math notranslate nohighlight">\(d_k\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\operatorname{Attention}(Q,K,V)=\operatorname{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V.\]</div>
+<p>The softmax is applied <strong>row by row</strong>, making each query’s weights sum to one. This is a mechanism for combining information, not proof that attention weights fully explain a model’s decision.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tiny numerical example, not a pretrained language model.</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]])</span>
+<span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]])</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">]])</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">K</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">exp_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">scores</span> <span class="o">-</span> <span class="n">scores</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="n">attention_weights</span> <span class="o">=</span> <span class="n">exp_scores</span> <span class="o">/</span> <span class="n">exp_scores</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">context_vectors</span> <span class="o">=</span> <span class="n">attention_weights</span> <span class="o">@</span> <span class="n">V</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">attention_weights</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'Token 1'</span><span class="p">,</span> <span class="s1">'Token 2'</span><span class="p">,</span> <span class="s1">'Token 3'</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Row sums:'</span><span class="p">,</span> <span class="n">attention_weights</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Context-aware mixtures:'</span><span class="p">,</span> <span class="n">context_vectors</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Token 1</th>
+      <th>Token 2</th>
+      <th>Token 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.401</td>
+      <td>0.198</td>
+      <td>0.401</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.198</td>
+      <td>0.401</td>
+      <td>0.401</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.248</td>
+      <td>0.248</td>
+      <td>0.503</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Row sums: [1. 1. 1.]
+Context-aware mixtures: [[1.797 2.407]
+ [2.203 2.   ]
+ [2.    2.51 ]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="positions-and-architecture-types">
+<h3><span class="section-number">5.8.5.2. </span>4.2 Positions and architecture types<a class="headerlink" href="#positions-and-architecture-types" title="Permalink to this heading">#</a></h3>
+<p>Attention alone does not encode sequence position. Transformers add position information to distinguish different arrangements of the same tokens. A transformer block combines attention with an MLP and supporting operations such as residual connections and normalization. Multiple attention heads can learn different relationships.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Architecture</p></th>
+<th class="head"><p>Available context</p></th>
+<th class="head"><p>Typical task</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Encoder, such as BERT</p></td>
+<td><p>Tokens can attend in both directions</p></td>
+<td><p>Classification, tagging, retrieval</p></td>
+</tr>
+<tr class="row-odd"><td><p>Decoder, such as GPT</p></td>
+<td><p>Causal attention to current and earlier positions</p></td>
+<td><p>Next-token generation</p></td>
+</tr>
+<tr class="row-even"><td><p>Encoder–decoder</p></td>
+<td><p>Encoder reads input; decoder attends to input and earlier outputs</p></td>
+<td><p>Translation</p></td>
+</tr>
+</tbody>
+</table>
+<p>A causal mask prevents a decoder from seeing future tokens during training. It can process positions in parallel during training while still respecting this constraint. Generation proceeds one new token at a time.</p>
+</section>
+<section id="language-models-and-autoregression">
+<h3><span class="section-number">5.8.5.3. </span>4.3 Language models and autoregression<a class="headerlink" href="#language-models-and-autoregression" title="Permalink to this heading">#</a></h3>
+<p>A language model estimates <strong>P(next token | previous tokens)</strong>. To generate, repeatedly predict or sample a token, append it to the context, and predict again. This is <strong>autoregressive generation</strong>.</p>
+<p>Pretraining commonly uses next-token prediction for decoder language models. Inference uses learned weights to produce outputs; it does not normally update the weights. A large language model’s fluent text can still be incorrect: generating plausible continuations does not verify facts.</p>
+<p>Standard full attention compares token pairs, so its attention matrix grows quadratically with sequence length. Context windows and compute limit how much text a model can process at once.</p>
+<section id="id2">
+<h4><span class="section-number">5.8.5.3.1. </span>✏️ Quick Check<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>Why does bag of words miss the difference between the cat/mouse sentences?</p></li>
+<li><p>What makes a contextual embedding different from a static one?</p></li>
+<li><p>Why mask future tokens in a decoder?</p></li>
+</ol>
+<details><summary><b>Click for answers</b></summary>
+<ol class="arabic simple">
+<li><p>The word counts match; word order was discarded.</p></li>
+<li><p>Its representation depends on the surrounding tokens.</p></li>
+<li><p>To prevent future-token information leaking into a next-token prediction.</p></li>
+</ol>
+</details></section>
+</section>
+</section>
+<section id="part-5-computer-vision">
+<h2><span class="section-number">5.8.6. </span>Part 5: Computer Vision<a class="headerlink" href="#part-5-computer-vision" title="Permalink to this heading">#</a></h2>
+<section id="why-use-image-structure">
+<h3><span class="section-number">5.8.6.1. </span>5.1 Why use image structure?<a class="headerlink" href="#why-use-image-structure" title="Permalink to this heading">#</a></h3>
+<p>Lab 07’s MLP flattens each image. This works on a small dataset, but the network must learn relationships among individual input positions without a built-in notion of neighboring pixels.</p>
+<p>A 224 × 224 RGB image has 150,528 input values. Connecting all of them to just 1,000 hidden units requires over 150 million weights. An image shifted slightly also places its edges at different input positions.</p>
+</section>
+<section id="convolutional-neural-networks-cnns">
+<h3><span class="section-number">5.8.6.2. </span>5.2 Convolutional neural networks (CNNs)<a class="headerlink" href="#convolutional-neural-networks-cnns" title="Permalink to this heading">#</a></h3>
+<p>A <strong>convolution</strong> slides a small learned filter across local image regions. The same weights are reused at each position, creating a <strong>feature map</strong>. One filter can respond to the same local pattern in many places. Pooling or strided operations reduce spatial size; deeper layers can combine information from larger regions.</p>
+<p>Early filters often respond to edges and simple textures, while later layers may respond to combinations useful for the task. This interpretation is an intuition, not a promise that every unit has a neat human-readable meaning.</p>
+<p>The next example uses a fixed edge filter to illustrate the operation. Real CNNs learn their filter weights.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">image</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mf">16.0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+<span class="n">edge_filter</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]])[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+<span class="n">feature_map</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">conv2d</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">edge_filter</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'gray'</span><span class="p">);</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'8 × 8 digit'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">feature_map</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'coolwarm'</span><span class="p">);</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'6 × 6 filter response'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span> <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">'off'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'One 3 × 3 filter uses 9 shared weights.'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/4e1bfdcd820bdcbd31066596d9eff73250167cb4145ff1cd58de9a2b6dd180ae.png" src="../../_images/4e1bfdcd820bdcbd31066596d9eff73250167cb4145ff1cd58de9a2b6dd180ae.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>One 3 × 3 filter uses 9 shared weights.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="from-imagenet-to-vision-transformers">
+<h3><span class="section-number">5.8.6.3. </span>5.3 From ImageNet to vision transformers<a class="headerlink" href="#from-imagenet-to-vision-transformers" title="Permalink to this heading">#</a></h3>
+<p>ImageNet supplied a large labeled image benchmark. AlexNet’s 2012 competition result showed the strength of deep CNNs trained with GPUs. Subsequent systems built on learned visual representations and pretrained backbones.</p>
+<p>A <strong>vision transformer (ViT)</strong> divides an image into patches, maps each patch to an embedding, adds position information, and processes the resulting token sequence with transformer blocks. Patch size is an architectural choice; it is not always 16 × 16.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Model</p></th>
+<th class="head"><p>How it combines inputs</p></th>
+<th class="head"><p>Useful intuition</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>MLP</p></td>
+<td><p>Dense connections among flattened features</p></td>
+<td><p>No built-in spatial neighborhoods</p></td>
+</tr>
+<tr class="row-odd"><td><p>CNN</p></td>
+<td><p>Shared filters over local neighborhoods</p></td>
+<td><p>Strong locality and weight-sharing assumptions</p></td>
+</tr>
+<tr class="row-even"><td><p>ViT</p></td>
+<td><p>Attention among patch tokens</p></td>
+<td><p>Can model relationships across distant patches</p></td>
+</tr>
+</tbody>
+</table>
+<p>CNNs often work well with less data because of their structural assumptions. ViTs can scale well with large datasets and pretraining. Performance still depends on the architecture, data, and training procedure.</p>
+</section>
+<section id="one-backbone-different-tasks">
+<h3><span class="section-number">5.8.6.4. </span>5.4 One backbone, different tasks<a class="headerlink" href="#one-backbone-different-tasks" title="Permalink to this heading">#</a></h3>
+<p>A pretrained <strong>backbone</strong> extracts representations. A task-specific <strong>head</strong> turns them into outputs: an image class, object boxes, or a segmentation label per pixel. Transfer learning adapts the representation or head to a new dataset.</p>
+<p>A classifier trained on centered grayscale digits may fail on phone photographs with shadows, color, or distracting backgrounds. This <strong>distribution shift</strong> is why a high held-out score on one dataset does not guarantee real-world performance.</p>
+</section>
+</section>
+<section id="part-6-connecting-images-language-and-actions">
+<h2><span class="section-number">5.8.7. </span>Part 6: Connecting Images, Language, and Actions<a class="headerlink" href="#part-6-connecting-images-language-and-actions" title="Permalink to this heading">#</a></h2>
+<p>The lecture closes with a shared idea: different inputs can be represented as vectors and processed together.</p>
+<ul class="simple">
+<li><p><strong>CLIP</strong> learns image and text encoders with a contrastive objective: matching image–caption pairs should have compatible representations. Comparing image embeddings with candidate text embeddings supports retrieval or zero-shot classification. CLIP itself is not a caption-generating language model.</p></li>
+<li><p>A <strong>vision-language model (VLM)</strong> connects visual representations with a language model so it can respond to image-and-text inputs. The mapping between the vision encoder and language model is trained; image pixels do not become ordinary word tokens by themselves.</p></li>
+<li><p>A <strong>vision-language-action model (VLA)</strong> uses visual and language context to produce actions or action representations, such as robot motion. Acting in an environment requires evaluation beyond text accuracy.</p></li>
+</ul>
+<p>The shared pipeline is <strong>input → representation → processing → task output</strong>. Architecture and training objectives determine what those representations are useful for.</p>
+<section id="id3">
+<h3><span class="section-number">5.8.7.1. </span>✏️ Quick Check<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Why does a convolution need fewer weights than a dense layer over the whole image?</p></li>
+<li><p>What are the tokens in a ViT?</p></li>
+<li><p>How does CLIP differ from a model that writes image captions?</p></li>
+</ol>
+<details><summary><b>Click for answers</b></summary>
+<ol class="arabic simple">
+<li><p>It uses small local filters and shares each filter’s weights across positions.</p></li>
+<li><p>Embedded image patches, with position information (and sometimes special tokens).</p></li>
+<li><p>CLIP compares image/text representations; caption generation requires a generative output mechanism.</p></li>
+</ol>
+</details>
+</section>
+</section>
+<section id="chapter-summary">
+<h2><span class="section-number">5.8.8. </span>Chapter Summary<a class="headerlink" href="#chapter-summary" title="Permalink to this heading">#</a></h2>
+<p>A neuron combines inputs with weights and a bias, then applies an activation. Networks stack these transformations to learn representations. Backpropagation computes gradients; an optimizer updates the parameters. Validation and test discipline still apply, and simpler baselines remain useful.</p>
+<p>For language, tokenization defines the input units, embeddings provide vectors, and attention mixes context. Transformers use position information and architecture-specific masks. Decoder language models generate autoregressively.</p>
+<p>For vision, CNNs share local filters, while ViTs process patch tokens with attention. Pretraining can make learned representations useful with fewer task-specific labels. CLIP, VLMs, and VLAs connect representations across modalities.</p>
+<p><strong>Connection to Lab 07:</strong> prepare digit pixels, define a Linear–ReLU–Linear MLP, train with cross-entropy, choose a width using validation accuracy, compare baselines on the test set, and inspect mistakes. Optional sections visualize hidden embeddings with PCA and connect them to language and vision architectures.</p>
+<section id="further-reading">
+<h3><span class="section-number">5.8.8.1. </span>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.google.com/presentation/d/1KZjPmp-dmr4sX38FGmjVjMLF-cd5hWl_fjZm9gkEqos/edit?usp=sharing">Week 8 lecture slides</a></p></li>
+<li><p><a class="reference external" href="https://docs.pytorch.org/tutorials/beginner/basics/buildmodel_tutorial.html">PyTorch neural network tutorial</a></p></li>
+<li><p><a class="reference external" href="https://docs.pytorch.org/tutorials/beginner/basics/optimization_tutorial.html">PyTorch optimization tutorial</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/2010.11929">An Image is Worth 16x16 Words</a></p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/2103.00020">Learning Transferable Visual Models From Natural Language Supervision (CLIP)</a></p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/fa26"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="unsupervised-learning.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">5.7. </span>Week 7: Unsupervised Learning — K-Means, Dimensionality Reduction, and PCA</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">5.8.1. Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-from-pixels-to-neurons">5.8.2. Part 1: From Pixels to Neurons</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-a-model-see">5.8.2.1. 1.1 What does a model see?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-neuron-weighted-sum-bias-activation">5.8.2.2. 1.2 A neuron: weighted sum, bias, activation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-stack-layers">5.8.2.3. 1.3 Why stack layers?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">5.8.2.3.1. ✏️ Quick Check</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-how-neural-networks-learn">5.8.3. Part 2: How Neural Networks Learn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-training-cycle">5.8.3.1. 2.1 The training cycle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-validation-and-test-still-matter">5.8.3.2. 2.2 Training, validation, and test still matter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-makes-learning-deep">5.8.3.3. 2.3 What makes learning “deep”?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pretraining-and-transfer-learning">5.8.3.4. 2.4 Pretraining and transfer learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.8.3.4.1. ✏️ Quick Check</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-nlp-turning-language-into-vectors">5.8.4. Part 3: NLP — Turning Language into Vectors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tokens-and-numerical-representations">5.8.4.1. 3.1 Tokens and numerical representations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-embeddings">5.8.4.2. 3.2 Comparing embeddings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-attention-and-transformers">5.8.5. Part 4: Attention and Transformers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#context-changes-the-representation">5.8.5.1. 4.1 Context changes the representation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#positions-and-architecture-types">5.8.5.2. 4.2 Positions and architecture types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#language-models-and-autoregression">5.8.5.3. 4.3 Language models and autoregression</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.8.5.3.1. ✏️ Quick Check</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-computer-vision">5.8.6. Part 5: Computer Vision</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-image-structure">5.8.6.1. 5.1 Why use image structure?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convolutional-neural-networks-cnns">5.8.6.2. 5.2 Convolutional neural networks (CNNs)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-imagenet-to-vision-transformers">5.8.6.3. 5.3 From ImageNet to vision transformers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-backbone-different-tasks">5.8.6.4. 5.4 One backbone, different tasks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-6-connecting-images-language-and-actions">5.8.7. Part 6: Connecting Images, Language, and Actions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5.8.7.1. ✏️ Quick Check</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-summary">5.8.8. Chapter Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">5.8.8.1. Further Reading</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brandon Concepcion
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -170,12 +169,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -221,7 +232,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -383,9 +394,9 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jury</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;Ethnicity&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;Asian/PI&#39;</span><span class="p">,</span> <span class="s1">&#39;Black/AA&#39;</span><span class="p">,</span> <span class="s1">&#39;Caucasian&#39;</span><span class="p">,</span> <span class="s1">&#39;Hispanic&#39;</span><span class="p">,</span> <span class="s1">&#39;Other&#39;</span><span class="p">),</span>
-    <span class="s1">&#39;Eligible&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">,</span> <span class="mf">0.54</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">),</span>
-    <span class="s1">&#39;Panels&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">0.26</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.54</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">)</span>
+    <span class="s1">'Ethnicity'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'Asian/PI'</span><span class="p">,</span> <span class="s1">'Black/AA'</span><span class="p">,</span> <span class="s1">'Caucasian'</span><span class="p">,</span> <span class="s1">'Hispanic'</span><span class="p">,</span> <span class="s1">'Other'</span><span class="p">),</span>
+    <span class="s1">'Eligible'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">,</span> <span class="mf">0.54</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">),</span>
+    <span class="s1">'Panels'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">0.26</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.54</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">)</span>
 <span class="p">)</span>
 
 <span class="n">jury</span>
@@ -422,7 +433,7 @@ document.write(`
 <p>A bar chart is helpful for visualizing the differences.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jury</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">&#39;Ethnicity&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jury</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Ethnicity'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -439,9 +450,9 @@ document.write(`
 <p>In the cell below, we sample at random 1453 times from the distribution of eligible jurors, and display the distribution of the random sample along with the distributions of the eligible jurors and the panel in the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eligible_population</span> <span class="o">=</span> <span class="n">jury</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Eligible&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eligible_population</span> <span class="o">=</span> <span class="n">jury</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Eligible'</span><span class="p">)</span>
 <span class="n">sample_distribution</span> <span class="o">=</span> <span class="n">sample_proportions</span><span class="p">(</span><span class="mi">1453</span><span class="p">,</span> <span class="n">eligible_population</span><span class="p">)</span>
-<span class="n">panels_and_sample</span> <span class="o">=</span> <span class="n">jury</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Random Sample&#39;</span><span class="p">,</span> <span class="n">sample_distribution</span><span class="p">)</span>
+<span class="n">panels_and_sample</span> <span class="o">=</span> <span class="n">jury</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'Random Sample'</span><span class="p">,</span> <span class="n">sample_distribution</span><span class="p">)</span>
 <span class="n">panels_and_sample</span>
 </pre></div>
 </div>
@@ -475,7 +486,7 @@ document.write(`
 <p>The distribution of the random sample is quite close to the distribution of the eligible population, unlike the distribution of the panels. As always, it helps to visualize.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">panels_and_sample</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">&#39;Ethnicity&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">panels_and_sample</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Ethnicity'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -491,7 +502,7 @@ document.write(`
 <p>We know how to measure how different two numbers are: if the numbers are <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>, the distance between them is <span class="math notranslate nohighlight">\(\vert x-y \vert\)</span>. Now we have to quantify the distance between two distributions. For example, we have to measure the distance between the blue and gold distributions below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jury</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">&#39;Ethnicity&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jury</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Ethnicity'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -506,7 +517,7 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Augment the table with a column of differences between proportions</span>
 
 <span class="n">jury_with_diffs</span> <span class="o">=</span> <span class="n">jury</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
-    <span class="s1">&#39;Difference&#39;</span><span class="p">,</span> <span class="n">jury</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Panels&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="n">jury</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Eligible&#39;</span><span class="p">)</span>
+    <span class="s1">'Difference'</span><span class="p">,</span> <span class="n">jury</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Panels'</span><span class="p">)</span> <span class="o">-</span> <span class="n">jury</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Eligible'</span><span class="p">)</span>
 <span class="p">)</span>
 <span class="n">jury_with_diffs</span>
 </pre></div>
@@ -544,7 +555,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jury_with_diffs</span> <span class="o">=</span> <span class="n">jury_with_diffs</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
-    <span class="s1">&#39;Absolute Difference&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">jury_with_diffs</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Difference&#39;</span><span class="p">))</span>
+    <span class="s1">'Absolute Difference'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">jury_with_diffs</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Difference'</span><span class="p">))</span>
 <span class="p">)</span>
 
 <span class="n">jury_with_diffs</span>
@@ -579,7 +590,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jury_with_diffs</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Absolute Difference&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jury_with_diffs</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Absolute Difference'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span>
 </pre></div>
 </div>
 </div>
@@ -601,7 +612,7 @@ document.write(`
 <p>The function <code class="docutils literal notranslate"><span class="pre">total_variation_distance</span></code> takes two arrays containing the distributions to compare, and returns the TVD between them.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">total_variation_distance</span><span class="p">(</span><span class="n">distribution_1</span><span class="p">,</span> <span class="n">distribution_2</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">total_variation_distance</span><span class="p">(</span><span class="n">distribution_1</span><span class="p">,</span> <span class="n">distribution_2</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">distribution_1</span> <span class="o">-</span> <span class="n">distribution_2</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
 </pre></div>
 </div>
@@ -610,7 +621,7 @@ document.write(`
 <p>This function will help us calculate our statistic in each repetition of the simulation. But first let’s check that it gives the right answer when we use it to compute the distance between the blue (eligible) and gold (panels) distributions above. These are the distribution in the ACLU study.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">total_variation_distance</span><span class="p">(</span><span class="n">jury</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Panels&#39;</span><span class="p">),</span> <span class="n">jury</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;Eligible&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">total_variation_distance</span><span class="p">(</span><span class="n">jury</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Panels'</span><span class="p">),</span> <span class="n">jury</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Eligible'</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -649,7 +660,7 @@ document.write(`
 <span class="c1"># the distribution of a sample selected at random</span>
 <span class="c1"># and the distribution of the eligible population</span>
 
-<span class="k">def</span> <span class="nf">one_simulated_tvd</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">one_simulated_tvd</span><span class="p">():</span>
     <span class="n">sample_distribution</span> <span class="o">=</span> <span class="n">sample_proportions</span><span class="p">(</span><span class="mi">1453</span><span class="p">,</span> <span class="n">eligible_population</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">total_variation_distance</span><span class="p">(</span><span class="n">sample_distribution</span><span class="p">,</span> <span class="n">eligible_population</span><span class="p">)</span>   
 </pre></div>
@@ -678,13 +689,13 @@ document.write(`
 <p>The panels in the study, however, were not quite so similar to the eligible population. The total variation distance between the panels and the population was 0.14, shown as the red dot on the horizontal axis. It is far beyond the tail of the histogram and does not look at all like a typical distance between the distributions of a random sample and the eligible population.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;TVD&#39;</span><span class="p">,</span> <span class="n">tvds</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'TVD'</span><span class="p">,</span> <span class="n">tvds</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">))</span>
 
 <span class="c1"># Plotting parameters; you can ignore this code</span>
-<span class="n">plots</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Prediction Assuming Random Selection&#39;</span><span class="p">)</span>
+<span class="n">plots</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Prediction Assuming Random Selection'</span><span class="p">)</span>
 <span class="n">plots</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">)</span>
 <span class="n">plots</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-<span class="n">plots</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mf">0.14</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">30</span><span class="p">);</span>
+<span class="n">plots</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mf">0.14</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">30</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>

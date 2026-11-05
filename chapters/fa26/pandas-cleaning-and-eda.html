@@ -1,0 +1,2610 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>5.2. Week 2: Pandas, Data Cleaning, and Introductory EDA &#8212; Introduction to Real World Data Science</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/fa26/pandas-cleaning-and-eda';</script>
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5.3. Week 3: Data Visualization, Feature Engineering, and Selection" href="visualization-and-features.html" />
+    <link rel="prev" title="5.1. Python Basics" href="python-basics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/favicon.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/favicon.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01/what-is-data-science.html">1. What is a Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../01/1/intro.html">1.1. Introduction</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../01/1/1/computational-tools.html">1.1.1. Computational Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../01/1/2/statistical-techniques.html">1.1.2. Statistical Techniques</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../01/2/why-data-science.html">1.2. Why Data Science?</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02/intro_python.html">2. Introduction to Python</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02/1/expressions.html">2.1. Simple Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/2/variables.html">2.2. Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/3/call_expressions.html">2.3. Call Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/4/data_types.html">2.4. Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/5/comparisons.html">2.5. Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/6/lists.html">2.6. Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/7/dictionaries.html">2.7. Dictionaries</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">5. Fall 2026 Readings</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/dssdecal/textbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/fa26/pandas-cleaning-and-eda.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Week 2: Pandas, Data Cleaning, and Introductory EDA</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-pandas">5.2.1. What is Pandas?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#series">5.2.2. Series</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframes">5.2.3. DataFrames</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-arrays">5.2.4. NumPy Arrays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-cleaning-functions">5.2.5. Pandas Cleaning Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-exploring-the-data">5.2.5.1. Step 1: Exploring the Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-selecting-data-with-loc-and-iloc">5.2.5.2. Step 2: Selecting Data with <code class="docutils literal notranslate"><span class="pre">loc</span></code> and <code class="docutils literal notranslate"><span class="pre">iloc</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-handling-missing-data">5.2.5.3. Step 3: Handling Missing Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-modifying-data">5.2.5.4. Step 4: Modifying Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-sorting-and-removing-duplicates">5.2.5.5. Step 5: Sorting and Removing Duplicates</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introductory-exploratory-data-analysis">5.2.6. Introductory Exploratory Data Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-eda">5.2.6.1. What is EDA?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-should-we-look-for-during-eda">5.2.6.2. What should we look for during EDA?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-eda-with-pandas">5.2.6.3. Basic EDA with Pandas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">5.2.7. 🎉 Recap</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-next">5.2.7.1. What’s Next?</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="week-2-pandas-data-cleaning-and-introductory-eda">
+<h1><span class="section-number">5.2. </span>Week 2: Pandas, Data Cleaning, and Introductory EDA<a class="headerlink" href="#week-2-pandas-data-cleaning-and-introductory-eda" title="Permalink to this heading">#</a></h1>
+<p>Welcome! This notebook introduces <strong>pandas</strong>, one of the most widely used Python libraries for working with data. Whether you’re a biology major analyzing lab results, a business student exploring sales data, or a CS student building a data pipeline — pandas will become one of your most-used tools.</p>
+<p>By the end of this notebook, you will be able to:</p>
+<ul class="simple">
+<li><p>Understand what pandas is and why it matters</p></li>
+<li><p>Create and work with <strong>Series</strong> and <strong>DataFrames</strong></p></li>
+<li><p>Understand how pandas relates to <strong>NumPy arrays</strong></p></li>
+<li><p>Use essential pandas functions to <strong>explore and clean</strong> data</p></li>
+</ul>
+<hr class="docutils" />
+<blockquote>
+<div><p>💡 <strong>No prior pandas experience required.</strong> Basic familiarity with Python (variables, lists, dictionaries) will be helpful.
+<strong>September 21 · Bo and Kabilan</strong></p>
+</div></blockquote>
+<p>Read the worked examples in order. This week covers pandas, cleaning and manipulating tables, and introductory EDA. Plotting and feature engineering follow in <a class="reference internal" href="visualization-and-features.html"><span class="doc std std-doc">Week 3</span></a>.</p>
+<section id="what-is-pandas">
+<h2><span class="section-number">5.2.1. </span>What is Pandas?<a class="headerlink" href="#what-is-pandas" title="Permalink to this heading">#</a></h2>
+<p><strong>Pandas</strong> (originally short for <em>Panel Data</em>, though everyone just thinks of the animal 🐼) is a Python library built for data manipulation and analysis. It gives you powerful, flexible data structures that make working with structured data — think spreadsheets, CSV files, or database tables — fast and intuitive.</p>
+<p><strong>Why is pandas so popular?</strong></p>
+<ul class="simple">
+<li><p>It handles <strong>messy, real-world data</strong> gracefully: missing values, mixed types, inconsistent formatting</p></li>
+<li><p>It reads from <strong>many file formats</strong>: CSV, Excel, JSON, SQL databases, and more</p></li>
+<li><p>It has rich tools for <strong>filtering, grouping, reshaping, and summarizing</strong> data</p></li>
+<li><p>It integrates with the broader Python data science ecosystem: NumPy, Matplotlib, scikit-learn, etc.</p></li>
+</ul>
+<p>Pandas is built on top of <strong>NumPy</strong>, which we’ll touch on later. For now, think of pandas as adding a friendlier, more expressive layer on top of NumPy’s raw numerical power.</p>
+<blockquote>
+<div><p><strong>Installing pandas:</strong> If working locally, run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pandas</span></code>. In Google Colab or most Jupyter environments, it comes pre-installed.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The standard way to import pandas is with the alias 'pd'</span>
+<span class="c1"># This convention is followed universally — you'll see it in virtually every tutorial</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># We'll also use numpy throughout this notebook</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="series">
+<h2><span class="section-number">5.2.2. </span>Series<a class="headerlink" href="#series" title="Permalink to this heading">#</a></h2>
+<p>A <strong>Series</strong> is the simplest pandas data structure. Think of it as a single column of data — like one column in a spreadsheet.</p>
+<p>More precisely, a Series is a <strong>one-dimensional labeled array</strong>. It has two parts:</p>
+<ul class="simple">
+<li><p><strong>Values</strong>: the actual data (numbers, strings, booleans, etc.)</p></li>
+<li><p><strong>An index</strong>: a label for each value (by default: 0, 1, 2, … but can be anything meaningful)</p></li>
+</ul>
+<p>The index is what makes a Series more powerful than a plain Python list. It lets you access data by <em>label</em> rather than just position — very useful when your data has meaningful identifiers like dates, names, or country codes.</p>
+<p><strong>Real-world examples of a Series:</strong></p>
+<ul class="simple">
+<li><p>Daily high temperatures for a week</p></li>
+<li><p>Ages of patients in a medical study</p></li>
+<li><p>Stock prices over time</p></li>
+<li><p>Responses to a single survey question</p></li>
+</ul>
+<blockquote>
+<div><p>📖 <strong>Reference:</strong> <a class="reference external" href="https://dssdecal.org/fa26/pandas_reference/">DSSDecal Pandas Reference – Series</a></p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Creating a Series from a Python list ---</span>
+<span class="c1"># By default, the index is 0, 1, 2, ...</span>
+<span class="n">temperatures</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">72</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">70</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Temperatures Series (default index):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">temperatures</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Temperatures Series (default index):
+0    72
+1    75
+2    68
+3    80
+4    77
+5    65
+6    70
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong><code class="docutils literal notranslate"><span class="pre">pd.Series(data,</span> <span class="pre">index=None,</span> <span class="pre">dtype=None,</span> <span class="pre">name=None)</span></code></strong></p>
+<p>Creates a one-dimensional labeled array.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>What it does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">data</span></code></p></td>
+<td><p>The values — can be a list, dict, scalar, or NumPy array</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">index</span></code></p></td>
+<td><p>Custom labels for each element. Defaults to <code class="docutils literal notranslate"><span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">...</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dtype</span></code></p></td>
+<td><p>Force a specific data type (e.g. <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">str</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>Gives the Series a name, which shows up as the column label when placed in a DataFrame</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Common usage patterns:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># From a list (default integer index)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span>
+
+<span class="c1"># With a custom string index</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">])</span>
+
+<span class="c1"># From a dict — keys become the index automatically</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s2">"Mon"</span><span class="p">:</span> <span class="mi">72</span><span class="p">,</span> <span class="s2">"Tue"</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s2">"Wed"</span><span class="p">:</span> <span class="mi">68</span><span class="p">})</span>
+
+<span class="c1"># Give it a name (useful when converting to DataFrame later)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">3.7</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">"score"</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Creating a Series with a custom index ---</span>
+<span class="c1"># Now each value is labeled with the day of the week</span>
+<span class="n">temperatures</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+    <span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">70</span><span class="p">],</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">"Mon"</span><span class="p">,</span> <span class="s2">"Tue"</span><span class="p">,</span> <span class="s2">"Wed"</span><span class="p">,</span> <span class="s2">"Thu"</span><span class="p">,</span> <span class="s2">"Fri"</span><span class="p">,</span> <span class="s2">"Sat"</span><span class="p">,</span> <span class="s2">"Sun"</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Temperatures with day labels:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">temperatures</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Access a single value by its label</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Thursday's temperature:"</span><span class="p">,</span> <span class="n">temperatures</span><span class="p">[</span><span class="s2">"Thu"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Slice a range of values (label-based slicing is INCLUSIVE of the end label)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Weekday temperatures (Mon through Fri):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">temperatures</span><span class="p">[</span><span class="s2">"Mon"</span><span class="p">:</span><span class="s2">"Fri"</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Temperatures with day labels:
+Mon    72
+Tue    75
+Wed    68
+Thu    80
+Fri    77
+Sat    65
+Sun    70
+dtype: int64
+
+Thursday's temperature: 80
+
+Weekday temperatures (Mon through Fri):
+Mon    72
+Tue    75
+Wed    68
+Thu    80
+Fri    77
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Creating a Series from a dictionary ---</span>
+<span class="c1"># The dictionary keys become the index automatically</span>
+<span class="n">enrollment</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
+    <span class="s2">"Biology"</span><span class="p">:</span> <span class="mi">320</span><span class="p">,</span>
+    <span class="s2">"Computer Science"</span><span class="p">:</span> <span class="mi">540</span><span class="p">,</span>
+    <span class="s2">"Economics"</span><span class="p">:</span> <span class="mi">415</span><span class="p">,</span>
+    <span class="s2">"History"</span><span class="p">:</span> <span class="mi">210</span><span class="p">,</span>
+    <span class="s2">"Psychology"</span><span class="p">:</span> <span class="mi">480</span>
+<span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Department Enrollment:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">enrollment</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Department Enrollment:
+Biology             320
+Computer Science    540
+Economics           415
+History             210
+Psychology          480
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Useful Series attributes and methods ---</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Data type of values:"</span><span class="p">,</span> <span class="n">enrollment</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Number of elements: "</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">enrollment</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Index:              "</span><span class="p">,</span> <span class="n">enrollment</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Basic statistics — pandas computes these instantly</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Mean enrollment:"</span><span class="p">,</span> <span class="n">enrollment</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Max enrollment: "</span><span class="p">,</span> <span class="n">enrollment</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Largest dept:   "</span><span class="p">,</span> <span class="n">enrollment</span><span class="o">.</span><span class="n">idxmax</span><span class="p">())</span>  <span class="c1"># idxmax returns the INDEX LABEL, not the value</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># .describe() gives a full statistical summary</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">enrollment</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data type of values: int64
+Number of elements:  5
+Index:               ['Biology', 'Computer Science', 'Economics', 'History', 'Psychology']
+
+Mean enrollment: 393.0
+Max enrollment:  540
+Largest dept:    Computer Science
+
+count      5.000000
+mean     393.000000
+std      130.843418
+min      210.000000
+25%      320.000000
+50%      415.000000
+75%      480.000000
+max      540.000000
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Key Series Attributes &amp; Methods</strong></p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute / Method</p></th>
+<th class="head"><p>What it returns</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s.dtype</span></code></p></td>
+<td><p>The data type of the values (e.g. <code class="docutils literal notranslate"><span class="pre">int64</span></code>, <code class="docutils literal notranslate"><span class="pre">float64</span></code>, <code class="docutils literal notranslate"><span class="pre">object</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s.index</span></code></p></td>
+<td><p>The Index object holding all labels</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s.values</span></code></p></td>
+<td><p>The underlying NumPy array of values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">len(s)</span></code></p></td>
+<td><p>Number of elements</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s.shape</span></code></p></td>
+<td><p>Tuple <code class="docutils literal notranslate"><span class="pre">(n,)</span></code> where n is the length</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s.mean()</span></code> / <code class="docutils literal notranslate"><span class="pre">s.sum()</span></code> / <code class="docutils literal notranslate"><span class="pre">s.std()</span></code></p></td>
+<td><p>Aggregate statistics</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s.min()</span></code> / <code class="docutils literal notranslate"><span class="pre">s.max()</span></code></p></td>
+<td><p>Minimum and maximum values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s.idxmin()</span></code> / <code class="docutils literal notranslate"><span class="pre">s.idxmax()</span></code></p></td>
+<td><p>Index label of the min / max value</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s.describe()</span></code></p></td>
+<td><p>Full statistical summary (count, mean, std, quartiles)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s.value_counts()</span></code></p></td>
+<td><p>Frequency of each unique value</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s.unique()</span></code></p></td>
+<td><p>Array of distinct values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s.isnull()</span></code> / <code class="docutils literal notranslate"><span class="pre">s.notnull()</span></code></p></td>
+<td><p>Boolean mask for missing / present values</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">88</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">"Alex"</span><span class="p">,</span><span class="s2">"Andre"</span><span class="p">,</span><span class="s2">"Anirra"</span><span class="p">,</span><span class="s2">"Aniruthan"</span><span class="p">,</span><span class="s2">"Bo"</span><span class="p">,</span><span class="s2">"Christopher"</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>        <span class="c1"># 89.67</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">idxmax</span><span class="p">())</span>      <span class="c1"># Christopher</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+<span class="c1"># 88     2</span>
+<span class="c1"># 95     2</span>
+<span class="c1"># 72     1</span>
+<span class="c1"># 100    1</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Filtering a Series with boolean conditions ---</span>
+<span class="c1"># You can use comparisons to filter values, just like in a spreadsheet</span>
+
+<span class="n">large_depts</span> <span class="o">=</span> <span class="n">enrollment</span><span class="p">[</span><span class="n">enrollment</span> <span class="o">&gt;</span> <span class="mi">400</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Departments with more than 400 students:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">large_depts</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Arithmetic works element-wise — no loop needed!</span>
+<span class="c1"># What if enrollment grows 10% next year?</span>
+<span class="n">projected</span> <span class="o">=</span> <span class="n">enrollment</span> <span class="o">*</span> <span class="mf">1.10</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Projected enrollment with 10</span><span class="si">% g</span><span class="s2">rowth:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">projected</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Departments with more than 400 students:
+Computer Science    540
+Economics           415
+Psychology          480
+dtype: int64
+
+Projected enrollment with 10% growth:
+Biology             352
+Computer Science    594
+Economics           457
+History             231
+Psychology          528
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Boolean Filtering &amp; Arithmetic on Series</strong></p>
+<p>You can apply comparisons (<code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">==</span></code>, <code class="docutils literal notranslate"><span class="pre">!=</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>) to a Series to get a Boolean mask, then use that mask to filter values. This is much more readable than a loop.</p>
+<p><strong>Filtering examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">"a"</span><span class="p">,</span><span class="s2">"b"</span><span class="p">,</span><span class="s2">"c"</span><span class="p">,</span><span class="s2">"d"</span><span class="p">,</span><span class="s2">"e"</span><span class="p">])</span>
+
+<span class="c1"># Boolean mask</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span> <span class="o">&gt;</span> <span class="mi">25</span><span class="p">)</span>         <span class="c1"># False, False, True, True, True</span>
+
+<span class="c1"># Filter using the mask</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">s</span> <span class="o">&gt;</span> <span class="mi">25</span><span class="p">])</span>      <span class="c1"># c 30, d 40, e 50</span>
+
+<span class="c1"># Combine conditions</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">[(</span><span class="n">s</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">s</span> <span class="o">&lt;</span> <span class="mi">45</span><span class="p">)])</span>   <span class="c1"># b 20, c 30, d 40</span>
+</pre></div>
+</div>
+<p><strong>Arithmetic (vectorized — no loops needed):</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">s</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>          <span class="c1"># All values doubled</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">100</span><span class="p">)</span>        <span class="c1"># 100 added to each value</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>     <span class="c1"># Square root of each value (uses NumPy)</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="dataframes">
+<h2><span class="section-number">5.2.3. </span>DataFrames<a class="headerlink" href="#dataframes" title="Permalink to this heading">#</a></h2>
+<p>If a Series is a single column, a <strong>DataFrame</strong> is an entire table — rows and columns, like a spreadsheet or a database table. It is the most important pandas data structure, and the one you’ll use most.</p>
+<p>A DataFrame is a <strong>two-dimensional labeled data structure</strong> where:</p>
+<ul class="simple">
+<li><p>Each <strong>column</strong> is a Series (and can have a different data type)</p></li>
+<li><p>Each <strong>row</strong> has an index label</p></li>
+<li><p><strong>Columns</strong> also have names</p></li>
+</ul>
+<p>You can think of a DataFrame as a dictionary where each key is a column name and each value is a Series — all sharing the same row index.</p>
+<p><strong>Real-world examples of a DataFrame:</strong></p>
+<ul class="simple">
+<li><p>A spreadsheet of student grades across multiple assignments</p></li>
+<li><p>A table of patient records: age, weight, blood type, diagnosis</p></li>
+<li><p>A dataset of countries with population, GDP, and life expectancy</p></li>
+<li><p>Any CSV file you’d open in Excel</p></li>
+</ul>
+<p><strong><code class="docutils literal notranslate"><span class="pre">pd.DataFrame(data,</span> <span class="pre">index=None,</span> <span class="pre">columns=None)</span></code></strong></p>
+<p>Creates a two-dimensional table. The most common ways to build one:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Source</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Dict of lists</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pd.DataFrame({&quot;a&quot;:</span> <span class="pre">[1,2],</span> <span class="pre">&quot;b&quot;:</span> <span class="pre">[3,4]})</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>List of dicts</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pd.DataFrame([{&quot;a&quot;:1,&quot;b&quot;:3},</span> <span class="pre">{&quot;a&quot;:2,&quot;b&quot;:4}])</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>NumPy 2D array</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pd.DataFrame(arr,</span> <span class="pre">columns=[&quot;x&quot;,&quot;y&quot;,&quot;z&quot;])</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Another DataFrame</strong></p></td>
+<td><p>Selects/renames existing columns</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key attributes:</strong></p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">df.shape</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(rows,</span> <span class="pre">cols)</span></code> tuple</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">df.columns</span></code></p></td>
+<td><p>Column names (Index object)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">df.index</span></code></p></td>
+<td><p>Row labels</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">df.dtypes</span></code></p></td>
+<td><p>Data type of each column</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">df.head(n)</span></code></p></td>
+<td><p>First n rows (default 5)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">df.tail(n)</span></code></p></td>
+<td><p>Last n rows (default 5)</p></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<div><p>📖 <strong>Reference:</strong> <a class="reference external" href="https://dssdecal.org/fa26/pandas_reference/">DSSDecal Pandas Reference – DataFrame</a></p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Creating a DataFrame from a dictionary ---</span>
+<span class="c1"># Each key is a column name; each list is the column's values</span>
+<span class="c1"># All lists must be the same length!</span>
+
+<span class="n">students</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"name"</span><span class="p">:</span>    <span class="p">[</span><span class="s2">"Alex"</span><span class="p">,</span> <span class="s2">"Andre"</span><span class="p">,</span> <span class="s2">"Anirra"</span><span class="p">,</span> <span class="s2">"Aniruthan"</span><span class="p">,</span> <span class="s2">"Bo"</span><span class="p">,</span> <span class="s2">"Christopher"</span><span class="p">],</span>
+    <span class="s2">"major"</span><span class="p">:</span>   <span class="p">[</span><span class="s2">"Biology"</span><span class="p">,</span> <span class="s2">"CS"</span><span class="p">,</span> <span class="s2">"Economics"</span><span class="p">,</span> <span class="s2">"Biology"</span><span class="p">,</span> <span class="s2">"CS"</span><span class="p">,</span> <span class="s2">"History"</span><span class="p">],</span>
+    <span class="s2">"year"</span><span class="p">:</span>    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="s2">"gpa"</span><span class="p">:</span>     <span class="p">[</span><span class="mf">3.8</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.9</span><span class="p">,</span> <span class="mf">2.7</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">],</span>
+    <span class="s2">"credits"</span><span class="p">:</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">90</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">students</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>          name      major  year  gpa  credits
+0         Alex    Biology     2  3.8       60
+1        Andre         CS     3  3.5       90
+2       Anirra  Economics     1  3.9       30
+3    Aniruthan    Biology     4  2.7      120
+4           Bo         CS     2  3.6       60
+5  Christopher    History     3  3.2       90
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Selecting columns ---</span>
+
+<span class="c1"># Single column — returns a Series</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"GPA column (this is a Series):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">students</span><span class="p">[</span><span class="s2">"gpa"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Multiple columns in a list — returns a DataFrame</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Name and Major (this is a DataFrame):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">students</span><span class="p">[[</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"major"</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPA column (this is a Series):
+0    3.8
+1    3.5
+2    3.9
+3    2.7
+4    3.6
+5    3.2
+Name: gpa, dtype: float64
+
+Name and Major (this is a DataFrame):
+          name      major
+0         Alex    Biology
+1        Andre         CS
+2       Anirra  Economics
+3    Aniruthan    Biology
+4           Bo         CS
+5  Christopher    History
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Selecting Columns</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Single column → returns a Series</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span>
+
+<span class="c1"># Multiple columns → returns a DataFrame</span>
+<span class="n">df</span><span class="p">[[</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"gpa"</span><span class="p">]]</span>
+
+<span class="c1"># Dot notation (only works when column name has no spaces or special characters)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>⚠️ Always prefer <code class="docutils literal notranslate"><span class="pre">df[&quot;col&quot;]</span></code> over <code class="docutils literal notranslate"><span class="pre">df.col</span></code> — dot notation silently fails if the column name collides with a DataFrame method (e.g. a column named <code class="docutils literal notranslate"><span class="pre">&quot;count&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;sum&quot;</span></code>).</p>
+</div></blockquote>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get just the names of students with GPA above 3.5</span>
+<span class="n">top_students</span> <span class="o">=</span> <span class="n">students</span><span class="p">[</span><span class="n">students</span><span class="p">[</span><span class="s2">"gpa"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">3.5</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">top_students</span><span class="p">)</span>
+<span class="c1"># 0        Alex</span>
+<span class="c1"># 2      Anirra</span>
+<span class="c1"># 4          Bo</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Selecting rows and cells with .loc and .iloc ---</span>
+
+<span class="c1"># .loc uses INDEX LABELS (with default integer index, label == position)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Row with index label 2 (Anirra):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">students</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Select a range of rows AND specific columns</span>
+<span class="c1"># .loc slicing is INCLUSIVE on both ends</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Rows 0-2, name and gpa columns:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">students</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"gpa"</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># .iloc uses INTEGER POSITIONS (like list indexing — exclusive end)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Rows at positions 0-2 (iloc — exclusive end):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">students</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>  <span class="c1"># rows 0,1,2 and columns 0,1,2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Row with index label 2 (Anirra):
+name          Anirra
+major      Economics
+year               1
+gpa              3.9
+credits           30
+Name: 2, dtype: object
+
+Rows 0-2, name and gpa columns:
+     name  gpa
+0    Alex  3.8
+1   Andre  3.5
+2  Anirra  3.9
+
+Rows at positions 0-2 (iloc — exclusive end):
+     name      major  year
+0    Alex    Biology     2
+1   Andre         CS     3
+2  Anirra  Economics     1
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong><code class="docutils literal notranslate"><span class="pre">.loc</span></code> vs <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> — Label vs Position</strong></p>
+<p>This distinction trips up nearly every pandas beginner. Here’s the rule:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Accessor</p></th>
+<th class="head"><p>Selects by</p></th>
+<th class="head"><p>End of slice</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.loc[row,</span> <span class="pre">col]</span></code></p></td>
+<td><p><strong>Label</strong> (index value or column name)</p></td>
+<td><p><strong>Inclusive</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.iloc[row,</span> <span class="pre">col]</span></code></p></td>
+<td><p><strong>Integer position</strong> (0-based, like a list)</p></td>
+<td><p><strong>Exclusive</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong><code class="docutils literal notranslate"><span class="pre">.loc</span></code> examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>                        <span class="c1"># Row whose index label is 3</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">:</span><span class="s2">"gpa"</span><span class="p">]</span>        <span class="c1"># Rows 1–3 (inclusive), columns name through gpa (inclusive)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"gpa"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">3.5</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">]</span> <span class="c1"># Filter rows + select one column</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"major"</span><span class="p">]]</span>     <span class="c1"># All rows, two specific columns</span>
+</pre></div>
+</div>
+<p><strong><code class="docutils literal notranslate"><span class="pre">.iloc</span></code> examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>           <span class="c1"># First row by position</span>
+<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>          <span class="c1"># Last row by position</span>
+<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>    <span class="c1"># Rows 0–2, columns 0–1 (exclusive end)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>        <span class="c1"># All rows, second column</span>
+</pre></div>
+</div>
+<p><strong>Setting values with <code class="docutils literal notranslate"><span class="pre">.loc</span></code>:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Change a specific cell</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"gpa"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">4.0</span>
+
+<span class="c1"># Set an entire column for filtered rows</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"honor_roll"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Filtering rows with boolean conditions ---</span>
+<span class="c1"># Pass a True/False condition — only rows where True is kept</span>
+
+<span class="n">high_gpa</span> <span class="o">=</span> <span class="n">students</span><span class="p">[</span><span class="n">students</span><span class="p">[</span><span class="s2">"gpa"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">3.5</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Students with GPA &gt; 3.5:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">high_gpa</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Combine conditions with &amp; (and) or | (or)</span>
+<span class="c1"># Parentheses around each condition are REQUIRED</span>
+<span class="n">cs_sophomores</span> <span class="o">=</span> <span class="n">students</span><span class="p">[(</span><span class="n">students</span><span class="p">[</span><span class="s2">"major"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"CS"</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">students</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"CS students in year 2:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cs_sophomores</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Students with GPA &gt; 3.5:
+     name      major  year  gpa  credits
+0    Alex    Biology     2  3.8       60
+2  Anirra  Economics     1  3.9       30
+4      Bo         CS     2  3.6       60
+
+CS students in year 2:
+  name major  year  gpa  credits
+4   Bo    CS     2  3.6       60
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Adding new columns ---</span>
+
+<span class="c1"># A simple calculation: credits remaining before graduation (120 total)</span>
+<span class="n">students</span><span class="p">[</span><span class="s2">"credits_remaining"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">120</span> <span class="o">-</span> <span class="n">students</span><span class="p">[</span><span class="s2">"credits"</span><span class="p">]</span>
+
+<span class="c1"># A conditional column: are they on the honor roll? (GPA &gt;= 3.7)</span>
+<span class="c1"># np.where(condition, value_if_true, value_if_false)</span>
+<span class="n">students</span><span class="p">[</span><span class="s2">"honor_roll"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">students</span><span class="p">[</span><span class="s2">"gpa"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">3.7</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">students</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>          name      major  year  gpa  credits  credits_remaining  honor_roll
+0         Alex    Biology     2  3.8       60                 60        True
+1        Andre         CS     3  3.5       90                 30       False
+2       Anirra  Economics     1  3.9       30                 90        True
+3    Aniruthan    Biology     4  2.7      120                  0       False
+4           Bo         CS     2  3.6       60                 60       False
+5  Christopher    History     3  3.2       90                 30       False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Groupby: split, apply, combine ---</span>
+<span class="c1"># One of the most powerful pandas features.</span>
+<span class="c1"># groupby splits data into groups, applies a function, then combines the results.</span>
+
+<span class="c1"># Average GPA per major</span>
+<span class="n">avg_gpa</span> <span class="o">=</span> <span class="n">students</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"major"</span><span class="p">)[</span><span class="s2">"gpa"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Average GPA by Major:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">avg_gpa</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Multiple aggregations at once using .agg()</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">students</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"major"</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="n">num_students</span><span class="o">=</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"count"</span><span class="p">),</span>
+    <span class="n">avg_gpa</span><span class="o">=</span><span class="p">(</span><span class="s2">"gpa"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">),</span>
+    <span class="n">avg_credits</span><span class="o">=</span><span class="p">(</span><span class="s2">"credits"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Full summary by major:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average GPA by Major:
+major
+Biology      3.25
+CS           3.55
+Economics    3.90
+History      3.20
+Name: gpa, dtype: float64
+
+Full summary by major:
+           num_students  avg_gpa  avg_credits
+major                                        
+Biology               2     3.25         90.0
+CS                    2     3.55         75.0
+Economics             1     3.90         30.0
+History               1     3.20         90.0
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong><code class="docutils literal notranslate"><span class="pre">df.groupby(by)</span></code> — Split → Apply → Combine</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">groupby</span></code> is one of the most powerful patterns in pandas. It:</p>
+<ol class="arabic simple">
+<li><p><strong>Splits</strong> the DataFrame into groups based on a column’s values</p></li>
+<li><p><strong>Applies</strong> an aggregation function to each group</p></li>
+<li><p><strong>Combines</strong> the results into a new DataFrame</p></li>
+</ol>
+<p><strong>Common aggregation functions:</strong></p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>What it computes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.mean()</span></code></p></td>
+<td><p>Average</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.sum()</span></code></p></td>
+<td><p>Total</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.count()</span></code></p></td>
+<td><p>Non-null count</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.min()</span></code> / <code class="docutils literal notranslate"><span class="pre">.max()</span></code></p></td>
+<td><p>Smallest / largest</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.std()</span></code></p></td>
+<td><p>Standard deviation</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">.median()</span></code></p></td>
+<td><p>Median value</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.agg({&quot;col&quot;:</span> <span class="pre">&quot;func&quot;})</span></code></p></td>
+<td><p>Different functions per column</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Count students per major</span>
+<span class="n">students</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"major"</span><span class="p">)[</span><span class="s2">"name"</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+
+<span class="c1"># Multiple stats at once with .agg()</span>
+<span class="n">students</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"major"</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="n">total</span><span class="o">=</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"count"</span><span class="p">),</span>
+    <span class="n">avg_gpa</span><span class="o">=</span><span class="p">(</span><span class="s2">"gpa"</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">),</span>
+    <span class="n">max_gpa</span><span class="o">=</span><span class="p">(</span><span class="s2">"gpa"</span><span class="p">,</span> <span class="s2">"max"</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Group by multiple columns</span>
+<span class="n">students</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"major"</span><span class="p">,</span> <span class="s2">"year"</span><span class="p">])[</span><span class="s2">"gpa"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># Filter groups with .filter() — keep groups where avg GPA &gt; 3.5</span>
+<span class="n">students</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"major"</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">g</span><span class="p">:</span> <span class="n">g</span><span class="p">[</span><span class="s2">"gpa"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">3.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>📖 <strong>Reference:</strong> <a class="reference external" href="https://dssdecal.org/fa26/pandas_reference/">DSSDecal Pandas Reference – GroupBy</a></p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="numpy-arrays">
+<h2><span class="section-number">5.2.4. </span>NumPy Arrays<a class="headerlink" href="#numpy-arrays" title="Permalink to this heading">#</a></h2>
+<p>Before diving into cleaning, it’s worth understanding pandas’ relationship with <strong>NumPy</strong>.</p>
+<p><strong>NumPy</strong> (Numerical Python) is the foundational library for numerical computing in Python. Its core object is the <strong>ndarray</strong> (n-dimensional array) — a fast, efficient grid of values, all of the same data type.</p>
+<p><strong>Pandas is built on top of NumPy.</strong> Under the hood, every Series and DataFrame column stores its data as a NumPy array. This means:</p>
+<ul class="simple">
+<li><p>Pandas inherits NumPy’s speed for numerical operations</p></li>
+<li><p>You can easily convert between pandas and NumPy objects</p></li>
+<li><p>Many NumPy functions work directly on pandas objects</p></li>
+</ul>
+<p><strong>When to use NumPy vs. pandas:</strong></p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Use <strong>NumPy</strong> when…</p></th>
+<th class="head"><p>Use <strong>Pandas</strong> when…</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Pure numerical data (matrices, vectors)</p></td>
+<td><p>Data has mixed types (strings + numbers)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Linear algebra, matrix math</p></td>
+<td><p>Data has meaningful row/column labels</p></td>
+</tr>
+<tr class="row-even"><td><p>Writing scientific simulations</p></td>
+<td><p>Reading/writing CSV, Excel, JSON</p></td>
+</tr>
+<tr class="row-odd"><td><p>Maximum raw performance</p></td>
+<td><p>Groupby, merge, pivot, time-series operations</p></td>
+</tr>
+</tbody>
+</table>
+<p>In practice, you’ll use both together constantly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Creating NumPy arrays ---</span>
+
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"1D NumPy array:     "</span><span class="p">,</span> <span class="n">arr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Type:               "</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">arr</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Element data type:  "</span><span class="p">,</span> <span class="n">arr</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Shape:              "</span><span class="p">,</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># (5,) = 5 elements, 1 dimension</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1D NumPy array:      [10 20 30 40 50]
+Type:                &lt;class 'numpy.ndarray'&gt;
+Element data type:   int64
+Shape:               (5,)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- 2D NumPy array (a matrix) ---</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"2D array (matrix):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Shape:"</span><span class="p">,</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>   <span class="c1"># (3, 3) = 3 rows, 3 columns</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Element-wise operations — no loops needed!</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Matrix * 2:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matrix</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># axis=0 means "collapse across rows" → gives per-column result</span>
+<span class="c1"># axis=1 means "collapse across columns" → gives per-row result</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Column means (axis=0):"</span><span class="p">,</span> <span class="n">matrix</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Row means    (axis=1):"</span><span class="p">,</span> <span class="n">matrix</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2D array (matrix):
+[[1 2 3]
+ [4 5 6]
+ [7 8 9]]
+Shape: (3, 3)
+
+Matrix * 2:
+[[ 2  4  6]
+ [ 8 10 12]
+ [14 16 18]]
+
+Column means (axis=0): [4. 5. 6.]
+Row means    (axis=1): [2. 5. 8.]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Converting between NumPy and Pandas ---</span>
+
+<span class="c1"># NumPy array → pandas Series</span>
+<span class="n">gpa_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.8</span><span class="p">,</span> <span class="mf">3.7</span><span class="p">,</span> <span class="mf">3.9</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">])</span>
+<span class="n">gpa_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">gpa_array</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"gpa"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Series from NumPy array:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gpa_series</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># pandas Series → NumPy array</span>
+<span class="n">back_to_np</span> <span class="o">=</span> <span class="n">gpa_series</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Back to NumPy:"</span><span class="p">,</span> <span class="n">back_to_np</span><span class="p">,</span> <span class="s2">"Type:"</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">back_to_np</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># DataFrame → NumPy array (loses all labels!)</span>
+<span class="n">numeric_df</span> <span class="o">=</span> <span class="n">students</span><span class="p">[[</span><span class="s2">"year"</span><span class="p">,</span> <span class="s2">"gpa"</span><span class="p">,</span> <span class="s2">"credits"</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Numeric DataFrame as NumPy array:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">numeric_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Series from NumPy array:
+0    3.8
+1    3.7
+2    3.9
+3    3.0
+4    3.6
+5    3.2
+Name: gpa, dtype: float64
+
+Back to NumPy: [3.8 3.7 3.9 3.  3.6 3.2] Type: &lt;class 'numpy.ndarray'&gt;
+
+Numeric DataFrame as NumPy array:
+[[  2.    3.8  60. ]
+ [  3.    3.5  90. ]
+ [  1.    3.9  30. ]
+ [  4.    2.7 120. ]
+ [  2.    3.6  60. ]
+ [  3.    3.2  90. ]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- np.nan: the standard missing value ---</span>
+<span class="c1"># np.nan (Not a Number) is used throughout NumPy and pandas to represent</span>
+<span class="c1"># missing or undefined numerical values</span>
+
+<span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Array with NaN:"</span><span class="p">,</span> <span class="n">vals</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Naive sum (propagates NaN!):  "</span><span class="p">,</span> <span class="n">vals</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"NaN-safe sum (np.nansum):     "</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">vals</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"NaN-safe mean (np.nanmean):   "</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">vals</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Pandas handles NaN gracefully by default:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"pd.Series.sum():"</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>  <span class="c1"># pandas skips NaN automatically</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Array with NaN: [ 1.  2. nan  4. nan  6.]
+Naive sum (propagates NaN!):   nan
+NaN-safe sum (np.nansum):      13.0
+NaN-safe mean (np.nanmean):    3.25
+
+Pandas handles NaN gracefully by default:
+pd.Series.sum(): 13.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="pandas-cleaning-functions">
+<h2><span class="section-number">5.2.5. </span>Pandas Cleaning Functions<a class="headerlink" href="#pandas-cleaning-functions" title="Permalink to this heading">#</a></h2>
+<p>In the real world, data is almost never clean when you first receive it. Column names are inconsistent, values are missing, data types are wrong, and rows may be duplicated. <strong>Data cleaning</strong> is the process of identifying and fixing these problems before you analyze anything.</p>
+<p>Experienced analysts often say that <strong>80% of data work is cleaning</strong> — and pandas provides an excellent toolkit for it.</p>
+<p>We’ll walk through the most essential functions using a realistic, intentionally messy dataset:</p>
+<ol class="arabic simple">
+<li><p><strong>Exploring data</strong> — <code class="docutils literal notranslate"><span class="pre">head()</span></code>, <code class="docutils literal notranslate"><span class="pre">tail()</span></code>, <code class="docutils literal notranslate"><span class="pre">shape</span></code>, <code class="docutils literal notranslate"><span class="pre">columns</span></code>, <code class="docutils literal notranslate"><span class="pre">index</span></code>, <code class="docutils literal notranslate"><span class="pre">info()</span></code>, <code class="docutils literal notranslate"><span class="pre">describe()</span></code></p></li>
+<li><p><strong>Selecting data</strong> — <code class="docutils literal notranslate"><span class="pre">loc</span></code>, <code class="docutils literal notranslate"><span class="pre">iloc</span></code>, column selection, boolean filters</p></li>
+<li><p><strong>Handling missing data</strong> — <code class="docutils literal notranslate"><span class="pre">isnull()</span></code>, <code class="docutils literal notranslate"><span class="pre">dropna()</span></code>, <code class="docutils literal notranslate"><span class="pre">fillna()</span></code></p></li>
+<li><p><strong>Modifying data</strong> — renaming columns, fixing types, standardizing strings</p></li>
+<li><p><strong>Sorting and deduplication</strong> — <code class="docutils literal notranslate"><span class="pre">sort_values()</span></code>, <code class="docutils literal notranslate"><span class="pre">drop_duplicates()</span></code></p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let's create a realistic messy dataset — survey data collected from students.</span>
+<span class="c1"># Notice the problems intentionally baked in:</span>
+<span class="c1">#   - Student 102 (Iana) appears twice (duplicate)</span>
+<span class="c1">#   - Column name '  Name  ' has extra spaces</span>
+<span class="c1">#   - 'MAJOR' column has inconsistent capitalization: "ds", "DS", "CS", "economics", "Biology"</span>
+<span class="c1">#   - 'year' column has "third" (a string) instead of 3</span>
+<span class="c1">#   - Several missing values across multiple columns</span>
+<span class="c1">#   - 'Extra Column' is entirely empty — useless</span>
+
+<span class="n">raw_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"Student ID"</span><span class="p">:</span>    <span class="p">[</span><span class="mi">101</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">102</span><span class="p">],</span>
+    <span class="s2">"  Name  "</span><span class="p">:</span>      <span class="p">[</span><span class="s2">"Gina"</span><span class="p">,</span> <span class="s2">"Iana"</span><span class="p">,</span> <span class="s2">"Kabilan"</span><span class="p">,</span> <span class="s2">"Nathan"</span><span class="p">,</span> <span class="s2">"Earn"</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"Sameer"</span><span class="p">,</span> <span class="s2">"Sarah"</span><span class="p">,</span> <span class="s2">"Wayland"</span><span class="p">,</span> <span class="s2">"Iana"</span><span class="p">],</span>
+    <span class="s2">"MAJOR"</span><span class="p">:</span>         <span class="p">[</span><span class="s2">"Math"</span><span class="p">,</span> <span class="s2">"ds"</span><span class="p">,</span> <span class="s2">"Math"</span><span class="p">,</span> <span class="s2">"DS"</span><span class="p">,</span> <span class="s2">"Business"</span><span class="p">,</span> <span class="s2">"ds"</span><span class="p">,</span> <span class="s2">"economics"</span><span class="p">,</span> <span class="s2">"CS"</span><span class="p">,</span> <span class="s2">"DS"</span><span class="p">,</span> <span class="s2">"Biology"</span><span class="p">],</span>
+    <span class="s2">"GPA"</span><span class="p">:</span>           <span class="p">[</span><span class="mf">3.8</span><span class="p">,</span> <span class="mf">3.7</span><span class="p">,</span> <span class="mf">3.9</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">,</span> <span class="mf">3.7</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">],</span>
+    <span class="s2">"Year"</span><span class="p">:</span>          <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"third"</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="s2">"scholarship"</span><span class="p">:</span>   <span class="p">[</span><span class="s2">"yes"</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">,</span> <span class="s2">"yes"</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">,</span> <span class="s2">"yes"</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">,</span> <span class="s2">"yes"</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">],</span>
+    <span class="s2">"Extra Column"</span><span class="p">:</span>  <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
+<span class="p">}</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Student ID   Name        MAJOR  GPA   Year scholarship Extra Column
+0         101     Gina       Math  3.8      2         yes         None
+1         102     Iana         ds  3.7      3          no         None
+2         103  Kabilan       Math  3.9      1         yes         None
+3         104   Nathan         DS  3.0      4          no         None
+4         105     Earn   Business  3.6      2         yes         None
+5         106      NaN         ds  3.2      3          no         None
+6         107   Sameer  economics  NaN      1         yes         None
+7         108    Sarah         CS  3.1  third          no         None
+8         109  Wayland         DS  3.7      4         NaN         None
+9         102     Iana    Biology  3.5      3          no         None
+</pre></div>
+</div>
+</div>
+</div>
+<section id="step-1-exploring-the-data">
+<h3><span class="section-number">5.2.5.1. </span>Step 1: Exploring the Data<a class="headerlink" href="#step-1-exploring-the-data" title="Permalink to this heading">#</a></h3>
+<p>Before fixing anything, you need to <em>understand</em> what you have. These functions help you get oriented in seconds — especially important when your dataset has thousands of rows and you can’t read it all at once.</p>
+<p><strong>Exploration Functions in Detail</strong></p>
+<p>These are the first functions you should call whenever you load a new dataset.</p>
+<hr class="docutils" />
+<p><strong><code class="docutils literal notranslate"><span class="pre">df.head(n=5)</span></code> / <code class="docutils literal notranslate"><span class="pre">df.tail(n=5)</span></code></strong></p>
+<ul class="simple">
+<li><p>Returns the first (or last) <em>n</em> rows</p></li>
+<li><p>Default is 5 rows if you don’t pass an argument</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">head()</span></code> lets you confirm column names, spot obvious problems, and see what the data looks like before touching it</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tail()</span></code> is useful for checking if files end with summary rows or footers</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>    <span class="c1"># First 3 rows</span>
+<span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>     <span class="c1"># Last 5 rows (default)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong><code class="docutils literal notranslate"><span class="pre">df.shape</span></code></strong></p>
+<ul class="simple">
+<li><p>Returns a tuple <code class="docutils literal notranslate"><span class="pre">(number_of_rows,</span> <span class="pre">number_of_columns)</span></code></p></li>
+<li><p>Not a method — no parentheses needed</p></li>
+<li><p>Useful for checking how many records survived after filtering or dropping</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Dataset has </span><span class="si">{</span><span class="n">rows</span><span class="si">}</span><span class="s2"> records and </span><span class="si">{</span><span class="n">cols</span><span class="si">}</span><span class="s2"> features"</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong><code class="docutils literal notranslate"><span class="pre">df.columns</span></code></strong> / <strong><code class="docutils literal notranslate"><span class="pre">df.index</span></code></strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">df.columns</span></code> — the column names as an Index object; call <code class="docutils literal notranslate"><span class="pre">.tolist()</span></code> to get a plain Python list</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.index</span></code> — the row labels (default <code class="docutils literal notranslate"><span class="pre">RangeIndex(0,</span> <span class="pre">n)</span></code>)</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>   <span class="c1"># ['student_id', 'name', 'major', ...]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span> <span class="c1"># [0, 1, 2, 3, 4]</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>📖 <strong>Reference:</strong> <a class="reference external" href="https://dssdecal.org/fa26/pandas_reference/">DSSDecal Pandas Reference – Exploration</a></p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># df.head(n) — show the first n rows (default 5)</span>
+<span class="c1"># The go-to first command whenever you load a dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"First 5 rows:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># df.tail(n) — show the last n rows (default 5)</span>
+<span class="c1"># Useful for checking if files have trailing summary rows or footers</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Last 3 rows:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>First 5 rows:
+   Student ID   Name       MAJOR  GPA Year scholarship Extra Column
+0         101     Gina      Math  3.8    2         yes         None
+1         102     Iana        ds  3.7    3          no         None
+2         103  Kabilan      Math  3.9    1         yes         None
+3         104   Nathan        DS  3.0    4          no         None
+4         105     Earn  Business  3.6    2         yes         None
+
+Last 3 rows:
+   Student ID   Name      MAJOR  GPA   Year scholarship Extra Column
+7         108    Sarah       CS  3.1  third          no         None
+8         109  Wayland       DS  3.7      4         NaN         None
+9         102     Iana  Biology  3.5      3          no         None
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong><code class="docutils literal notranslate"><span class="pre">df.info()</span></code></strong></p>
+<p>Prints a concise summary of the entire DataFrame:</p>
+<ul class="simple">
+<li><p>Column names and their data types</p></li>
+<li><p>Number of <strong>non-null</strong> values per column (how many rows have data)</p></li>
+<li><p>Memory usage</p></li>
+</ul>
+<p>This is the single fastest way to spot: which columns have missing values, which columns are stored as the wrong type (e.g. numbers stored as strings → <code class="docutils literal notranslate"><span class="pre">object</span></code> dtype), and how big the dataset is.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<span class="c1"># Output (example):</span>
+<span class="c1"># RangeIndex: 10 entries, 0 to 9</span>
+<span class="c1"># Data columns (total 7 columns):</span>
+<span class="c1">#  #   Column        Non-Null Count  Dtype</span>
+<span class="c1"># ---  ------        --------------  -----</span>
+<span class="c1">#  0   Student ID    10 non-null     int64</span>
+<span class="c1">#  1     Name        9 non-null      object   ← 1 missing</span>
+<span class="c1">#  2   MAJOR         9 non-null      object   ← 1 missing</span>
+<span class="c1">#  3   GPA           9 non-null      float64  ← 1 missing</span>
+<span class="c1">#  4   Year          10 non-null     object   ← stored as object (has "third"!)</span>
+<span class="c1">#  5   scholarship   9 non-null      object   ← 1 missing</span>
+<span class="c1">#  6   Extra Column  0 non-null      object   ← completely empty</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong><code class="docutils literal notranslate"><span class="pre">df.describe(include=None)</span></code></strong></p>
+<p>Returns summary statistics for <strong>numeric columns</strong> by default:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stat</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">count</span></code></p></td>
+<td><p>Number of non-null values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mean</span></code></p></td>
+<td><p>Arithmetic average</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">std</span></code></p></td>
+<td><p>Standard deviation</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min</span></code> / <code class="docutils literal notranslate"><span class="pre">max</span></code></p></td>
+<td><p>Smallest / largest value</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">25%</span></code> / <code class="docutils literal notranslate"><span class="pre">50%</span></code> / <code class="docutils literal notranslate"><span class="pre">75%</span></code></p></td>
+<td><p>Quartiles</p></td>
+</tr>
+</tbody>
+</table>
+<p>Pass <code class="docutils literal notranslate"><span class="pre">include='all'</span></code> to also get stats for text columns (unique count, most frequent value, etc.).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>             <span class="c1"># Numeric columns only</span>
+<span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">'all'</span><span class="p">)</span>  <span class="c1"># All columns</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"gpa"</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>      <span class="c1"># Just one column</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>📖 <strong>Reference:</strong> <a class="reference external" href="https://dssdecal.org/fa26/pandas_reference/">DSSDecal Pandas Reference – Exploration</a></p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># df.shape — returns (rows, columns) as a tuple</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Shape:"</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  → </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> rows, </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> columns"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># df.columns — the column names as an Index object</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Column names:"</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># df.index — the row labels (default: 0, 1, 2, ...)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Row index:"</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape: (10, 7)
+  → 10 rows, 7 columns
+
+Column names: ['Student ID', '  Name  ', 'MAJOR', 'GPA', 'Year', 'scholarship', 'Extra Column']
+
+Row index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># df.info() — the single most useful orientation command</span>
+<span class="c1"># Shows: column names, non-null counts, and data types</span>
+<span class="c1"># A quick scan immediately reveals where your missing values and type issues are</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class 'pandas.DataFrame'&gt;
+RangeIndex: 10 entries, 0 to 9
+Data columns (total 7 columns):
+ #   Column        Non-Null Count  Dtype  
+---  ------        --------------  -----  
+ 0   Student ID    10 non-null     int64  
+ 1     Name        9 non-null      str    
+ 2   MAJOR         10 non-null     str    
+ 3   GPA           9 non-null      float64
+ 4   Year          10 non-null     object 
+ 5   scholarship   9 non-null      str    
+ 6   Extra Column  0 non-null      object 
+dtypes: float64(1), int64(1), object(2), str(3)
+memory usage: 692.0+ bytes
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># df.describe() — summary statistics for all numeric columns</span>
+<span class="c1"># Reports count, mean, std, min, 25th/50th/75th percentile, max</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Numeric summary:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># include='all' also shows stats for non-numeric columns (like unique count, top value)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Full summary (all columns):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">'all'</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Numeric summary:
+       Student ID       GPA
+count   10.000000  9.000000
+mean   104.700000  3.500000
+std      2.750757  0.324037
+min    101.000000  3.000000
+25%    102.250000  3.200000
+50%    104.500000  3.600000
+75%    106.750000  3.700000
+max    109.000000  3.900000
+
+Full summary (all columns):
+        Student ID   Name   MAJOR       GPA  Year scholarship Extra Column
+count    10.000000        9    10  9.000000  10.0           9            0
+unique         NaN        8     7       NaN   5.0           2            0
+top            NaN     Iana  Math       NaN   3.0          no          NaN
+freq           NaN        2     2       NaN   3.0           5          NaN
+mean    104.700000      NaN   NaN  3.500000   NaN         NaN          NaN
+std       2.750757      NaN   NaN  0.324037   NaN         NaN          NaN
+min     101.000000      NaN   NaN  3.000000   NaN         NaN          NaN
+25%     102.250000      NaN   NaN  3.200000   NaN         NaN          NaN
+50%     104.500000      NaN   NaN  3.600000   NaN         NaN          NaN
+75%     106.750000      NaN   NaN  3.700000   NaN         NaN          NaN
+max     109.000000      NaN   NaN  3.900000   NaN         NaN          NaN
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-2-selecting-data-with-loc-and-iloc">
+<h3><span class="section-number">5.2.5.2. </span>Step 2: Selecting Data with <code class="docutils literal notranslate"><span class="pre">loc</span></code> and <code class="docutils literal notranslate"><span class="pre">iloc</span></code><a class="headerlink" href="#step-2-selecting-data-with-loc-and-iloc" title="Permalink to this heading">#</a></h3>
+<p>You’ll constantly need to slice specific rows, columns, or individual cells from a DataFrame. Pandas gives you two primary tools:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">.loc[row_label,</span> <span class="pre">col_label]</span></code></strong> — selects by <em>label</em> (the index value or column name). Slicing with <code class="docutils literal notranslate"><span class="pre">.loc</span></code> is <strong>inclusive</strong> on both ends.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">.iloc[row_position,</span> <span class="pre">col_position]</span></code></strong> — selects by <em>integer position</em> (like Python list indexing). Slicing with <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> is <strong>exclusive</strong> of the end (standard Python behavior).</p></li>
+</ul>
+<p>A common confusion: with the default integer index, <code class="docutils literal notranslate"><span class="pre">.loc[2]</span></code> and <code class="docutils literal notranslate"><span class="pre">.iloc[2]</span></code> look the same. They differ once you change the index — and understanding the distinction will save you from subtle bugs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- .loc examples ---</span>
+
+<span class="c1"># Single row by label</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Row with label 0:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Rows 0-2 (INCLUSIVE) and specific columns</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Rows 0-2, Name and GPA:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s2">"  Name  "</span><span class="p">,</span> <span class="s2">"GPA"</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Boolean mask — filter rows where GPA &gt; 3.7</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Rows where GPA &gt; 3.7:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"GPA"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">3.7</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Row with label 0:
+Student ID       101
+  Name          Gina
+MAJOR           Math
+GPA              3.8
+Year               2
+scholarship      yes
+Extra Column    None
+Name: 0, dtype: object
+
+Rows 0-2, Name and GPA:
+    Name    GPA
+0     Gina  3.8
+1     Iana  3.7
+2  Kabilan  3.9
+
+Rows where GPA &gt; 3.7:
+   Student ID   Name   MAJOR  GPA Year scholarship Extra Column
+0         101     Gina  Math  3.8    2         yes         None
+2         103  Kabilan  Math  3.9    1         yes         None
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- .iloc examples ---</span>
+
+<span class="c1"># First row (position 0)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"First row by position:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Rows at positions 1-3 (EXCLUSIVE end), columns at positions 0-2</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Rows 1-3, first 3 columns:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Last row (negative indexing works)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Last row:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>First row by position:
+Student ID       101
+  Name          Gina
+MAJOR           Math
+GPA              3.8
+Year               2
+scholarship      yes
+Extra Column    None
+Name: 0, dtype: object
+
+Rows 1-3, first 3 columns:
+   Student ID   Name   MAJOR
+1         102     Iana    ds
+2         103  Kabilan  Math
+3         104   Nathan    DS
+
+Last row:
+Student ID          102
+  Name             Iana
+MAJOR           Biology
+GPA                 3.5
+Year                  3
+scholarship          no
+Extra Column       None
+Name: 9, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-3-handling-missing-data">
+<h3><span class="section-number">5.2.5.3. </span>Step 3: Handling Missing Data<a class="headerlink" href="#step-3-handling-missing-data" title="Permalink to this heading">#</a></h3>
+<p>Missing data is the most common issue you’ll encounter. Pandas represents missing values as <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (Not a Number) or <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<p>Your two main options:</p>
+<ol class="arabic simple">
+<li><p><strong>Drop</strong> the offending rows or columns</p></li>
+<li><p><strong>Fill</strong> the missing values with something meaningful</p></li>
+</ol>
+<p>Which you choose depends on context. Dropping is safer but loses data. Filling preserves data but introduces assumptions — a mean GPA fill is very different from a median fill if your distribution is skewed.</p>
+<p><strong>Handling Missing Data in Detail</strong></p>
+<p>Pandas uses <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (Not a Number — from NumPy) and <code class="docutils literal notranslate"><span class="pre">None</span></code> interchangeably to represent missing values. The key functions are:</p>
+<hr class="docutils" />
+<p><strong><code class="docutils literal notranslate"><span class="pre">df.isnull()</span></code> / <code class="docutils literal notranslate"><span class="pre">df.notnull()</span></code></strong></p>
+<ul class="simple">
+<li><p>Returns a DataFrame of the same shape filled with <code class="docutils literal notranslate"><span class="pre">True</span></code>/<code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isnull()</span></code> → <code class="docutils literal notranslate"><span class="pre">True</span></code> where value is missing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">notnull()</span></code> → <code class="docutils literal notranslate"><span class="pre">True</span></code> where value is present</p></li>
+<li><p>Most useful pattern: <code class="docutils literal notranslate"><span class="pre">df.isnull().sum()</span></code> to count missing values per column</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span>           <span class="c1"># Full boolean DataFrame</span>
+<span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>     <span class="c1"># Count NaN per column</span>
+<span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>  <span class="c1"># % missing</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"gpa"</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()]</span>  <span class="c1"># Rows where GPA is missing</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong><code class="docutils literal notranslate"><span class="pre">df.dropna(axis=0,</span> <span class="pre">how='any',</span> <span class="pre">subset=None,</span> <span class="pre">inplace=False)</span></code></strong></p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Options</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">axis</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code> (rows) or <code class="docutils literal notranslate"><span class="pre">1</span></code> (columns)</p></td>
+<td><p>What to drop</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">how</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">'any'</span></code> or <code class="docutils literal notranslate"><span class="pre">'all'</span></code></p></td>
+<td><p>Drop if <em>any</em> NaN vs. <em>all</em> NaN</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">subset</span></code></p></td>
+<td><p>List of column names</p></td>
+<td><p>Only check these columns</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">inplace</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> / <code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p>Modify in place vs. return new object</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>                          <span class="c1"># Remove rows with ANY missing value</span>
+<span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">'all'</span><span class="p">)</span>                 <span class="c1"># Only remove rows that are ENTIRELY empty</span>
+<span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"gpa"</span><span class="p">])</span>    <span class="c1"># Remove rows missing name OR gpa</span>
+<span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'all'</span><span class="p">)</span>         <span class="c1"># Drop columns that are completely empty</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong><code class="docutils literal notranslate"><span class="pre">df.fillna(value,</span> <span class="pre">method=None,</span> <span class="pre">inplace=False)</span></code></strong></p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Value type</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Typical use case</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Scalar</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df.fillna(0)</span></code></p></td>
+<td><p>Fill all NaN with zero</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dict</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">df.fillna({&quot;gpa&quot;:</span> <span class="pre">0,</span> <span class="pre">&quot;name&quot;:</span> <span class="pre">&quot;Unknown&quot;})</span></code></p></td>
+<td><p>Different fill per column</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">method='ffill'</span></code></p></td>
+<td><p>Forward-fill from previous row</p></td>
+<td><p>Time series</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">method='bfill'</span></code></p></td>
+<td><p>Back-fill from next row</p></td>
+<td><p>Time series</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.fillna(df[&quot;gpa&quot;].mean())</span></code></p></td>
+<td><p>Column mean</p></td>
+<td><p>Numeric imputation</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">"gpa"</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"gpa"</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>        <span class="c1"># Fill with median</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"major"</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">"Undeclared"</span><span class="p">)</span>            <span class="c1"># Fill categorical</span>
+<span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">({</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Unknown"</span><span class="p">,</span> <span class="s2">"gpa"</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">})</span>  <span class="c1"># Multiple columns at once</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>📖 <strong>Reference:</strong> <a class="reference external" href="https://dssdecal.org/fa26/pandas_reference/">DSSDecal Pandas Reference – Missing Data</a></p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Detecting missing values ---</span>
+
+<span class="c1"># isnull() returns True where a value is missing</span>
+<span class="c1"># The most useful pattern: sum per column to count missing values</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Missing values per column:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Missing % per column:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">((</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Missing values per column:
+Student ID       0
+  Name           1
+MAJOR            0
+GPA              1
+Year             0
+scholarship      1
+Extra Column    10
+dtype: int64
+
+Missing % per column:
+Student ID        0.0
+  Name           10.0
+MAJOR             0.0
+GPA              10.0
+Year              0.0
+scholarship      10.0
+Extra Column    100.0
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Dropping missing values ---</span>
+
+<span class="c1"># dropna() removes any row with at least one NaN (default behavior)</span>
+<span class="n">df_no_nulls</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Original: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">  →  After dropna(): </span><span class="si">{</span><span class="n">df_no_nulls</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Drop columns where ALL values are missing (safe — removes truly empty columns)</span>
+<span class="n">df_clean_cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'all'</span><span class="p">)</span>  <span class="c1"># axis=1 targets columns</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Columns remaining after dropping fully-empty columns:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_clean_cols</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original: (10, 7)  →  After dropna(): (0, 7)
+
+Columns remaining after dropping fully-empty columns:
+['Student ID', '  Name  ', 'MAJOR', 'GPA', 'Year', 'scholarship']
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Filling missing values ---</span>
+
+<span class="c1"># Fill numeric NaN with the column's mean</span>
+<span class="n">mean_gpa</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"GPA"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean GPA (excluding NaN): </span><span class="si">{</span><span class="n">mean_gpa</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"GPA"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"GPA"</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">mean_gpa</span><span class="p">)</span>
+
+<span class="c1"># Fill categorical NaN with a default string</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"scholarship"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"scholarship"</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">"unknown"</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"  Name  "</span><span class="p">]</span>    <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"  Name  "</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">"Unknown"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Missing values after filling:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean GPA (excluding NaN): 3.50
+
+Missing values after filling:
+Student ID       0
+  Name           0
+MAJOR            0
+GPA              0
+Year             0
+scholarship      0
+Extra Column    10
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-4-modifying-data">
+<h3><span class="section-number">5.2.5.4. </span>Step 4: Modifying Data<a class="headerlink" href="#step-4-modifying-data" title="Permalink to this heading">#</a></h3>
+<p>Now let’s clean up the structural problems: inconsistent column names, dirty string values, and wrong data types.</p>
+<p><strong>Modifying Data in Detail</strong></p>
+<hr class="docutils" />
+<p><strong><code class="docutils literal notranslate"><span class="pre">df.rename(columns={old:</span> <span class="pre">new},</span> <span class="pre">index={old:</span> <span class="pre">new},</span> <span class="pre">inplace=False)</span></code></strong></p>
+<p>Renames specific columns or index labels. Uses a dictionary to map old names to new names.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"Student ID"</span><span class="p">:</span> <span class="s2">"student_id"</span><span class="p">,</span> <span class="s2">"GPA"</span><span class="p">:</span> <span class="s2">"gpa"</span><span class="p">})</span>
+
+<span class="c1"># Rename multiple columns at once</span>
+<span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">"  Name  "</span><span class="p">:</span> <span class="s2">"name"</span><span class="p">,</span>
+    <span class="s2">"MAJOR"</span><span class="p">:</span> <span class="s2">"major"</span><span class="p">,</span>
+    <span class="s2">"Year"</span><span class="p">:</span> <span class="s2">"year"</span>
+<span class="p">})</span>
+
+<span class="c1"># Rename using a function (e.g. lowercase all column names)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="nb">str</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong>Bulk column normalization</strong></p>
+<p>A common real-world pattern — fix all column names in one line:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span> <span class="s2">"_"</span><span class="p">)</span>
+<span class="c1"># "  Name  " → "name"</span>
+<span class="c1"># "Student ID" → "student_id"</span>
+<span class="c1"># "Extra Column" → "extra_column"</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong><code class="docutils literal notranslate"><span class="pre">df.drop(columns=[],</span> <span class="pre">index=[],</span> <span class="pre">inplace=False)</span></code></strong></p>
+<p>Removes columns or rows.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"extra_column"</span><span class="p">])</span>              <span class="c1"># Remove one column</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"col1"</span><span class="p">,</span> <span class="s2">"col2"</span><span class="p">])</span>              <span class="c1"># Remove multiple</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>                          <span class="c1"># Remove rows by label</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"gpa"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">2.0</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>      <span class="c1"># Remove rows matching condition</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong><code class="docutils literal notranslate"><span class="pre">df[&quot;col&quot;].astype(dtype)</span></code></strong></p>
+<p>Converts a column to a different data type.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>          <span class="c1"># String/float → integer</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"gpa"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>         <span class="c1"># Object → float</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"student_id"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>    <span class="c1"># Number → string (for joining/merging)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong><code class="docutils literal notranslate"><span class="pre">df[&quot;col&quot;].replace({old:</span> <span class="pre">new})</span></code></strong></p>
+<p>Substitutes specific values in a column. Cleaner than a loop.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"third"</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"major"</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s2">"Cs"</span><span class="p">:</span> <span class="s2">"CS"</span><span class="p">,</span> <span class="s2">"BIOLOGY"</span><span class="p">:</span> <span class="s2">"Biology"</span><span class="p">})</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong><code class="docutils literal notranslate"><span class="pre">df[&quot;col&quot;].map({key:</span> <span class="pre">value})</span></code></strong></p>
+<p>Transforms each value using a dictionary or function. Any value not in the dictionary becomes <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">"scholarship"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s2">"yes"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>      <span class="c1"># Dict mapping</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>                              <span class="c1"># Function mapping</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"major"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s2">"CS"</span><span class="p">:</span> <span class="s2">"Computer Science"</span><span class="p">,</span> <span class="s2">"Bio"</span><span class="p">:</span> <span class="s2">"Biology"</span><span class="p">})</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>📖 <strong>Reference:</strong> <a class="reference external" href="https://dssdecal.org/fa26/pandas_reference/">DSSDecal Pandas Reference – Modifying Data</a></p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Renaming columns and normalizing column names ---</span>
+
+<span class="c1"># Rename individual columns explicitly</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"Student ID"</span><span class="p">:</span> <span class="s2">"student_id"</span><span class="p">,</span> <span class="s2">"Year"</span><span class="p">:</span> <span class="s2">"year"</span><span class="p">})</span>
+
+<span class="c1"># Apply bulk normalization: strip whitespace, lowercase, replace spaces with underscores</span>
+<span class="c1"># This handles '  Name  ', 'MAJOR', 'Extra Column' all at once</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span> <span class="s2">"_"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Cleaned column names:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cleaned column names:
+['student_id', 'name', 'major', 'gpa', 'year', 'scholarship', 'extra_column']
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Dropping a useless column ---</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"extra_column"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Columns after removing 'extra_column':"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Columns after removing 'extra_column':
+['student_id', 'name', 'major', 'gpa', 'year', 'scholarship']
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Standardizing string values ---</span>
+<span class="c1"># The 'major' column has 'ds', 'DS', 'Math', 'Business', 'economics', 'CS', 'Biology' — a mess.</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Before standardizing:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"major"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>  <span class="c1"># value_counts() shows unique values and how often they appear</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># str.title() capitalizes the first letter of each word</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"major"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"major"</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+
+<span class="c1"># Edge case: 'Cs' should be 'CS'</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"major"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"major"</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s2">"Ds"</span><span class="p">:</span> <span class="s2">"DS"</span><span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"After standardizing:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"major"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Before standardizing:
+major
+Math         2
+ds           2
+DS           2
+Business     1
+economics    1
+CS           1
+Biology      1
+Name: count, dtype: int64
+
+After standardizing:
+major
+DS           4
+Math         2
+Business     1
+Economics    1
+Cs           1
+Biology      1
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Fixing data types ---</span>
+<span class="c1"># The 'year' column should be an integer, but has 'third' mixed in</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Current 'year' column:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"year"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Data type:"</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>  <span class="c1"># 'object' = pandas is storing it as strings</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Step 1: replace the string "third" with the number 3</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"third"</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># Step 2: convert the whole column to integer type</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Fixed 'year' column:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"year"</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Data type:"</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s2">"year"</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Current 'year' column:
+0        2
+1        3
+2        1
+3        4
+4        2
+5        3
+6        1
+7    third
+8        4
+9        3
+Name: year, dtype: object
+Data type: object
+
+Fixed 'year' column:
+0    2
+1    3
+2    1
+3    4
+4    2
+5    3
+6    1
+7    3
+8    4
+9    3
+Name: year, dtype: int64
+Data type: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Mapping string values to booleans ---</span>
+<span class="c1"># 'yes'/'no' strings are common in survey data.</span>
+<span class="c1"># Converting to True/False (boolean) makes filtering easier and saves memory.</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s2">"scholarship"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"scholarship"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s2">"yes"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"unknown"</span><span class="p">:</span> <span class="kc">None</span><span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Scholarship column after mapping:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"scholarship"</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Scholarship column after mapping:
+0     True
+1    False
+2     True
+3    False
+4     True
+5    False
+6     True
+7    False
+8     None
+9    False
+Name: scholarship, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-5-sorting-and-removing-duplicates">
+<h3><span class="section-number">5.2.5.5. </span>Step 5: Sorting and Removing Duplicates<a class="headerlink" href="#step-5-sorting-and-removing-duplicates" title="Permalink to this heading">#</a></h3>
+<p><strong>Sorting and Deduplication in Detail</strong></p>
+<hr class="docutils" />
+<p><strong><code class="docutils literal notranslate"><span class="pre">df.sort_values(by,</span> <span class="pre">ascending=True,</span> <span class="pre">na_position='last',</span> <span class="pre">inplace=False)</span></code></strong></p>
+<p>Sorts the DataFrame by one or more columns.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">by</span></code></p></td>
+<td><p>Column name (string) or list of column names</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ascending</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> (A→Z, low→high) or <code class="docutils literal notranslate"><span class="pre">False</span></code> (reverse). List for multi-column</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">na_position</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">'last'</span></code> (default) or <code class="docutils literal notranslate"><span class="pre">'first'</span></code> — where NaN goes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">inplace</span></code></p></td>
+<td><p>Modify in place or return sorted copy</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"gpa"</span><span class="p">)</span>                          <span class="c1"># Low to high GPA</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"gpa"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>         <span class="c1"># High to low GPA</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">"major"</span><span class="p">,</span> <span class="s2">"gpa"</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>  <span class="c1"># Multi-column</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="n">na_position</span><span class="o">=</span><span class="s2">"first"</span><span class="p">)</span>    <span class="c1"># Put missing names first</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong><code class="docutils literal notranslate"><span class="pre">df.duplicated(subset=None,</span> <span class="pre">keep='first')</span></code></strong></p>
+<p>Returns a Boolean Series: <code class="docutils literal notranslate"><span class="pre">True</span></code> for rows that are duplicates.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">keep</span></code></p></th>
+<th class="head"><p>Behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'first'</span></code></p></td>
+<td><p>Mark all duplicates except the first occurrence</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'last'</span></code></p></td>
+<td><p>Mark all duplicates except the last occurrence</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p>Mark ALL occurrences of duplicated rows</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span>                        <span class="c1"># Full-row duplicates</span>
+<span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">"student_id"</span><span class="p">)</span>     <span class="c1"># Duplicate based on one column</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()]</span>                    <span class="c1"># Show the duplicate rows</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>          <span class="c1"># Show ALL copies of duplicate rows</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong><code class="docutils literal notranslate"><span class="pre">df.drop_duplicates(subset=None,</span> <span class="pre">keep='first',</span> <span class="pre">inplace=False)</span></code></strong></p>
+<p>Removes duplicate rows (same parameters as <code class="docutils literal notranslate"><span class="pre">duplicated()</span></code>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>                             <span class="c1"># Remove full-row duplicates</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">"student_id"</span><span class="p">)</span>          <span class="c1"># Keep first occurrence per ID</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">"student_id"</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="s2">"last"</span><span class="p">)</span>  <span class="c1"># Keep most recent</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong><code class="docutils literal notranslate"><span class="pre">df.reset_index(drop=False,</span> <span class="pre">inplace=False)</span></code></strong></p>
+<p>After filtering or dropping rows, the original row numbers create gaps (<code class="docutils literal notranslate"><span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">3,</span> <span class="pre">5,</span> <span class="pre">...</span></code>). <code class="docutils literal notranslate"><span class="pre">reset_index()</span></code> rebuilds the index from <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">n-1</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   <span class="c1"># drop=True discards the old index instead of adding it as a column</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>📖 <strong>Reference:</strong> <a class="reference external" href="https://dssdecal.org/fa26/pandas_reference/">DSSDecal Pandas Reference – Sorting &amp; Duplicates</a></p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Sorting rows ---</span>
+
+<span class="c1"># Sort by a single column, descending</span>
+<span class="n">df_by_gpa</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"gpa"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Sorted by GPA (highest first):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_by_gpa</span><span class="p">[[</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"major"</span><span class="p">,</span> <span class="s2">"gpa"</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Sort by multiple columns: major A-Z, then GPA within each major (high to low)</span>
+<span class="n">df_multi</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">"major"</span><span class="p">,</span> <span class="s2">"gpa"</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Sorted by major, then by GPA within major:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_multi</span><span class="p">[[</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"major"</span><span class="p">,</span> <span class="s2">"gpa"</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sorted by GPA (highest first):
+      name      major  gpa
+2  Kabilan       Math  3.9
+0     Gina       Math  3.8
+1     Iana         DS  3.7
+8  Wayland         DS  3.7
+4     Earn   Business  3.6
+6   Sameer  Economics  3.5
+9     Iana    Biology  3.5
+5  Unknown         DS  3.2
+7    Sarah         Cs  3.1
+3   Nathan         DS  3.0
+
+Sorted by major, then by GPA within major:
+      name      major  gpa
+9     Iana    Biology  3.5
+4     Earn   Business  3.6
+7    Sarah         Cs  3.1
+1     Iana         DS  3.7
+8  Wayland         DS  3.7
+5  Unknown         DS  3.2
+3   Nathan         DS  3.0
+6   Sameer  Economics  3.5
+2  Kabilan       Math  3.9
+0     Gina       Math  3.8
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Finding and removing duplicates ---</span>
+
+<span class="c1"># duplicated() returns True for rows that are duplicates of an earlier row</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Duplicate rows (all columns must match):"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()])</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># More targeted: check if student_id is repeated (it should be unique per student)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Rows with duplicate student_id:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">"student_id"</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Remove duplicates — keep='first' retains the first occurrence</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">"student_id"</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="s2">"first"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Shape after removing duplicates: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicate rows (all columns must match):
+Empty DataFrame
+Columns: [student_id, name, major, gpa, year, scholarship]
+Index: []
+
+Rows with duplicate student_id:
+   student_id  name    major  gpa  year scholarship
+9         102  Iana  Biology  3.5     3       False
+
+Shape after removing duplicates: (9, 6)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Reset the index after dropping rows ---</span>
+<span class="c1"># After removing rows, your index may have gaps: 0, 1, 3, 5, 6...</span>
+<span class="c1"># reset_index() rebuilds it as a clean 0-to-n sequence</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># drop=True discards the old index rather than adding it as a column</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Final cleaned DataFrame:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Final info:"</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Final cleaned DataFrame:
+   student_id     name      major  gpa  year scholarship
+0         101     Gina       Math  3.8     2        True
+1         102     Iana         DS  3.7     3       False
+2         103  Kabilan       Math  3.9     1        True
+3         104   Nathan         DS  3.0     4       False
+4         105     Earn   Business  3.6     2        True
+5         106  Unknown         DS  3.2     3       False
+6         107   Sameer  Economics  3.5     1        True
+7         108    Sarah         Cs  3.1     3       False
+8         109  Wayland         DS  3.7     4        None
+
+Final info:
+&lt;class 'pandas.DataFrame'&gt;
+RangeIndex: 9 entries, 0 to 8
+Data columns (total 6 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   student_id   9 non-null      int64  
+ 1   name         9 non-null      str    
+ 2   major        9 non-null      str    
+ 3   gpa          9 non-null      float64
+ 4   year         9 non-null      int64  
+ 5   scholarship  8 non-null      object 
+dtypes: float64(1), int64(2), object(1), str(2)
+memory usage: 564.0+ bytes
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="introductory-exploratory-data-analysis">
+<h2><span class="section-number">5.2.6. </span>Introductory Exploratory Data Analysis<a class="headerlink" href="#introductory-exploratory-data-analysis" title="Permalink to this heading">#</a></h2>
+<p>Use these questions alongside the inspection, cleaning, and grouped summaries above. EDA starts before cleaning and continues afterward.</p>
+<section id="what-is-eda">
+<h3><span class="section-number">5.2.6.1. </span>What is EDA?<a class="headerlink" href="#what-is-eda" title="Permalink to this heading">#</a></h3>
+<p>Exploratory Data Analysis (EDA) is essential for understanding our datasets as it reveals underlying trends in our data, transforming it from messy numbers into clear insights. Many people working in data science roles report that this is the process that makes up most of their responsibilities!</p>
+<p>EDA  is the process of familiarizing ourselves with a new dataset before performing more advanced analysis or modeling. Through iterative EDA, we can better understand our variables, identify problems in the dataset, and discover potential hypotheses.</p>
+</section>
+<section id="what-should-we-look-for-during-eda">
+<h3><span class="section-number">5.2.6.2. </span>What should we look for during EDA?<a class="headerlink" href="#what-should-we-look-for-during-eda" title="Permalink to this heading">#</a></h3>
+<p>When performing EDA, you can reference a “checklist” of things to consider when examining your data.</p>
+<p><strong>Getting to know the data table columns and their types</strong></p>
+<ul class="simple">
+<li><p>Each column represents a variable in your data, and you should start by identifying what data / storage type the columns are. Data types tell you how each variable is stored in memory, and some data types include integers, floating points, booleans, and strings. You should also determine if columns represent quantitative or categorical variables.</p></li>
+</ul>
+<p><strong>Detecting missing values and outliers</strong></p>
+<ul class="simple">
+<li><p>Identify and handle missing data carefully, noting where and why values are missing; avoid blindly dropping records since this can introduce bias. Instead, consider strategies like keeping <code class="docutils literal notranslate"><span class="pre">NaNs</span></code> or using imputation only after understanding the cause of missingness.</p></li>
+<li><p>Imputation is the process of inferring missing values using other data available in the dataset. Here are some common imputation methods: average imputation (replace missing values with the average value for that field), regression imputation (develop a model to predict missing values and replace with the predicted value from the model), and random imputation (replace missing values with random values).</p></li>
+</ul>
+<p><strong>Looking at summaries, distributions, and relationships between variables</strong></p>
+<ul class="simple">
+<li><p>How is the data in each variable spread? Summary statistics like the mean or standard deviation and visualizations can better clarify the shape of your data. Visualizations can be especially helpful in exploring any potential relationships between two variables or columns in your data.</p></li>
+</ul>
+</section>
+<section id="basic-eda-with-pandas">
+<h3><span class="section-number">5.2.6.3. </span>Basic EDA with Pandas<a class="headerlink" href="#basic-eda-with-pandas" title="Permalink to this heading">#</a></h3>
+<p>EDA is most commonly performed with pandas, a Python library for working with tabular data. Below are some common Pandas notation and functions used during the EDA process.</p>
+<p><strong>Getting to know the data table columns and their types</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pandas</span> <span class="pre">as</span> <span class="pre">pd</span></code> : Pandas is shortened to pd, just like how NumPy is shorted to np.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df</span></code> refers to “dataframe,” which is essentially the term to refer to tables.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pd.read_csv('INSERT</span> <span class="pre">YOUR</span> <span class="pre">FILE</span> <span class="pre">NAME.csv')</span></code> Most datasets are comma-separated values (CSV) files, and this function loads a CSV file into an easily-manipulated dataframe format.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.shape</span></code> Returns the # rows x # columns in the dataframe</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.dtypes</span></code> Returns the data types for each column</p></li>
+</ul>
+<p><strong>Manipulating the data</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">df.sort_values(by='COL',</span> <span class="pre">ascending=True)</span></code> Sorts rows by the values in column <code class="docutils literal notranslate"><span class="pre">'COL'</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.groupby(by='COL')</span></code> “Categorizes” the table based on unique values in the column <code class="docutils literal notranslate"><span class="pre">'COL'</span></code>, applying a function to the collected values.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code> Combines two or more dataframes together based on common values in columns</p></li>
+</ul>
+<p><strong>Detecting missing values and outliers</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">df.isna()</span></code> Returns a dataframe with <code class="docutils literal notranslate"><span class="pre">True</span></code> / <code class="docutils literal notranslate"><span class="pre">False</span></code> values indicating whether a value is missing (None or NaN)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.dropna()</span></code> Drops rows with missing data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.fillna(VALUE)</span></code> Fills missing values with the passed in <code class="docutils literal notranslate"><span class="pre">VALUE</span></code></p></li>
+</ul>
+<p><strong>Looking at summaries, distributions, and relationships between variables</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">df.describe()</span></code> Returns summary statistics for all numeric columns</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df['col'].mean()</span></code>, <code class="docutils literal notranslate"><span class="pre">df['col'].min()</span></code>, and <code class="docutils literal notranslate"><span class="pre">df['col'].max()</span></code> summarize a selected numerical column.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="recap">
+<h2><span class="section-number">5.2.7. </span>🎉 Recap<a class="headerlink" href="#recap" title="Permalink to this heading">#</a></h2>
+<p>You’ve covered a lot of ground! Here’s a summary of everything in this notebook:</p>
+<p><strong>Core Data Structures</strong></p>
+<ul class="simple">
+<li><p>A <strong>Series</strong> is a labeled 1D array — like a single spreadsheet column</p></li>
+<li><p>A <strong>DataFrame</strong> is a labeled 2D table — like an entire spreadsheet</p></li>
+<li><p>Pandas is built on <strong>NumPy</strong> — fast under the hood, and easy to convert between them</p></li>
+</ul>
+<p><strong>Exploration</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">df.head()</span></code> / <code class="docutils literal notranslate"><span class="pre">df.tail()</span></code> — preview first or last rows</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.shape</span></code> — dimensions as (rows, cols)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.columns</span></code> / <code class="docutils literal notranslate"><span class="pre">df.index</span></code> — column names / row labels</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.info()</span></code> — column types and missing value counts</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.describe()</span></code> — summary statistics</p></li>
+</ul>
+<p><strong>Selection</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">df[&quot;col&quot;]</span></code> — select a column (returns Series)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df[[&quot;col1&quot;,</span> <span class="pre">&quot;col2&quot;]]</span></code> — select multiple columns (returns DataFrame)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.loc[row,</span> <span class="pre">col]</span></code> — select by label (inclusive slicing)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.iloc[row,</span> <span class="pre">col]</span></code> — select by integer position (exclusive slicing)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df[df[&quot;col&quot;]</span> <span class="pre">&gt;</span> <span class="pre">value]</span></code> — filter rows by condition</p></li>
+</ul>
+<p><strong>Cleaning</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">df.isnull().sum()</span></code> — count missing values per column</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.dropna()</span></code> — remove rows/cols with missing data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.fillna(value)</span></code> — fill missing values</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.rename(columns={...})</span></code> — rename specific columns</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.columns.str.strip().str.lower()</span></code> — bulk normalize column names</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.drop(columns=[...])</span></code> — remove columns</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df[&quot;col&quot;].str.title()</span></code> — fix string capitalization</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df[&quot;col&quot;].replace({...})</span></code> — replace specific values</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df[&quot;col&quot;].astype(type)</span></code> — convert data type</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df[&quot;col&quot;].map({...})</span></code> — transform values using a dictionary</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.sort_values(&quot;col&quot;)</span></code> — sort rows</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.drop_duplicates(subset=&quot;col&quot;)</span></code> — remove duplicate rows</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.reset_index(drop=True)</span></code> — rebuild a clean row index</p></li>
+</ul>
+<hr class="docutils" />
+<section id="what-s-next">
+<h3><span class="section-number">5.2.7.1. </span>What’s Next?<a class="headerlink" href="#what-s-next" title="Permalink to this heading">#</a></h3>
+<p>Great next topics to explore:</p>
+<ul class="simple">
+<li><p><strong>Reading real data</strong> — <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code>, <code class="docutils literal notranslate"><span class="pre">pd.read_excel()</span></code>, <code class="docutils literal notranslate"><span class="pre">pd.read_json()</span></code></p></li>
+<li><p><strong>Merging datasets</strong> — <code class="docutils literal notranslate"><span class="pre">pd.merge()</span></code>, <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code></p></li>
+<li><p><strong>Pivot tables</strong> — <code class="docutils literal notranslate"><span class="pre">df.pivot_table()</span></code></p></li>
+<li><p><strong>Time series</strong> — <code class="docutils literal notranslate"><span class="pre">pd.to_datetime()</span></code>, <code class="docutils literal notranslate"><span class="pre">.resample()</span></code></p></li>
+<li><p><strong>Visualization</strong> — <code class="docutils literal notranslate"><span class="pre">df.plot()</span></code>, Matplotlib, Seaborn</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/fa26"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="python-basics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">5.1. </span>Python Basics</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="visualization-and-features.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5.3. </span>Week 3: Data Visualization, Feature Engineering, and Selection</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-pandas">5.2.1. What is Pandas?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#series">5.2.2. Series</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframes">5.2.3. DataFrames</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-arrays">5.2.4. NumPy Arrays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-cleaning-functions">5.2.5. Pandas Cleaning Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-exploring-the-data">5.2.5.1. Step 1: Exploring the Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-selecting-data-with-loc-and-iloc">5.2.5.2. Step 2: Selecting Data with <code class="docutils literal notranslate"><span class="pre">loc</span></code> and <code class="docutils literal notranslate"><span class="pre">iloc</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-handling-missing-data">5.2.5.3. Step 3: Handling Missing Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-modifying-data">5.2.5.4. Step 4: Modifying Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-sorting-and-removing-duplicates">5.2.5.5. Step 5: Sorting and Removing Duplicates</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introductory-exploratory-data-analysis">5.2.6. Introductory Exploratory Data Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-eda">5.2.6.1. What is EDA?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-should-we-look-for-during-eda">5.2.6.2. What should we look for during EDA?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-eda-with-pandas">5.2.6.3. Basic EDA with Pandas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">5.2.7. 🎉 Recap</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-next">5.2.7.1. What’s Next?</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brandon Concepcion
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

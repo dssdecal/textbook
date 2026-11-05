@@ -1,0 +1,1673 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>5.6. Model Evaluation: How Good Is Our Model? &#8212; Introduction to Real World Data Science</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/fa26/model-evaluation';</script>
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5.7. Week 7: Unsupervised Learning — K-Means, Dimensionality Reduction, and PCA" href="unsupervised-learning.html" />
+    <link rel="prev" title="5.5. Week 5: Supervised Learning — Linear Regression, Logistic Regression, and Decision Trees" href="supervised-learning.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/favicon.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/favicon.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01/what-is-data-science.html">1. What is a Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../01/1/intro.html">1.1. Introduction</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../01/1/1/computational-tools.html">1.1.1. Computational Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../01/1/2/statistical-techniques.html">1.1.2. Statistical Techniques</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../01/2/why-data-science.html">1.2. Why Data Science?</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02/intro_python.html">2. Introduction to Python</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02/1/expressions.html">2.1. Simple Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/2/variables.html">2.2. Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/3/call_expressions.html">2.3. Call Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/4/data_types.html">2.4. Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/5/comparisons.html">2.5. Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/6/lists.html">2.6. Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/7/dictionaries.html">2.7. Dictionaries</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">5. Fall 2026 Readings</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/dssdecal/textbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/fa26/model-evaluation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Model Evaluation: How Good Is Our Model?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-will-cover">5.6.1. What We Will Cover</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">5.6.2. Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-train-validation-and-test-sets">5.6.3. Part 1: Train, Validation, and Test Sets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#three-sets-three-jobs">5.6.3.1. 1.1 Three Sets, Three Jobs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-reproducible-three-way-split">5.6.3.2. 1.2 A Reproducible Three-Way Split</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-leakage-accidentally-seeing-the-answers">5.6.3.3. 1.3 Data Leakage: Accidentally Seeing the Answers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation-rotate-the-practice-exam">5.6.3.4. 1.4 Cross-Validation: Rotate the Practice Exam</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-regression-metrics">5.6.4. Part 2: Regression Metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-an-error-mean">5.6.4.1. 2.1 What Does an Error Mean?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-small-worked-example">5.6.4.2. 2.2 A Small Worked Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-should-we-read-r-2">5.6.4.3. 2.3 How Should We Read <span class="math notranslate nohighlight">\(R^2\)</span>?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#look-beyond-a-single-score">5.6.4.4. 2.4 Look Beyond a Single Score</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-classification-metrics">5.6.5. Part 3: Classification Metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#start-by-naming-the-positive-class">5.6.5.1. 3.1 Start by Naming the Positive Class</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-confusion-matrix">5.6.5.2. 3.2 The Confusion Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-precision-recall-and-f1">5.6.5.3. 3.3 Accuracy, Precision, Recall, and F1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">5.6.5.4. 3.4 Check Your Understanding</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-class-imbalance">5.6.6. Part 4: Class Imbalance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-accuracy-trap">5.6.6.1. 4.1 The Accuracy Trap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ranking-quality-roc-auc-and-average-precision">5.6.6.2. 4.2 Ranking Quality: ROC-AUC and Average Precision</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-can-we-do-about-imbalance">5.6.6.3. 4.3 What Can We Do About Imbalance?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-probabilities-thresholds-and-decisions">5.6.7. Part 5: Probabilities, Thresholds, and Decisions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-threshold-is-a-choice">5.6.7.1. 5.1 A Threshold Is a Choice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choose-on-validation-data">5.6.7.2. 5.2 Choose on Validation Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#good-ranking-does-not-guarantee-good-probabilities">5.6.7.3. 5.3 Good Ranking Does Not Guarantee Good Probabilities</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-6-putting-it-together">5.6.8. Part 6: Putting It Together</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#freeze-the-decisions-then-open-the-test-set">5.6.8.1. 6.1 Freeze the Decisions, Then Open the Test Set</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-should-we-report">5.6.8.2. 6.2 What Should We Report?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-explain-the-evaluation">5.6.9. Practice: Explain the Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-summary">5.6.10. Chapter Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references-and-further-reading">5.6.10.1. References and Further Reading</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="model-evaluation-how-good-is-our-model">
+<h1><span class="section-number">5.6. </span>Model Evaluation: How Good Is Our Model?<a class="headerlink" href="#model-evaluation-how-good-is-our-model" title="Permalink to this heading">#</a></h1>
+<p>Welcome! We have learned how to fit models. Now we need to decide whether their predictions are actually useful. A model can memorize its training examples, earn impressive accuracy by ignoring a rare class, or rank examples well but make poor decisions at the chosen cutoff. <strong>How do we recognize these problems before using the model on new data?</strong></p>
+<hr class="docutils" />
+<section id="what-we-will-cover">
+<h2><span class="section-number">5.6.1. </span>What We Will Cover<a class="headerlink" href="#what-we-will-cover" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Train, Validation, and Test Sets</strong> — learning, choosing, and reporting</p></li>
+<li><p><strong>Regression Metrics</strong> — MAE, MSE, RMSE, and <span class="math notranslate nohighlight">\(R^2\)</span></p></li>
+<li><p><strong>Classification Metrics</strong> — confusion matrices, accuracy, precision, recall, and F1</p></li>
+<li><p><strong>Class Imbalance</strong> — baselines, balanced accuracy, and ranking metrics</p></li>
+<li><p><strong>Thresholds</strong> — turning probabilities into decisions</p></li>
+<li><p><strong>Putting It Together</strong> — an honest final evaluation</p></li>
+</ol>
+<p>By the end of this notebook, you will be able to:</p>
+<ul class="simple">
+<li><p>Create separate training, validation, and test sets without leaking information.</p></li>
+<li><p>Interpret regression scores in the context of the target’s units.</p></li>
+<li><p>Calculate classification metrics and connect them to different kinds of mistakes.</p></li>
+<li><p>Explain why accuracy can hide failure on a rare class.</p></li>
+<li><p>Choose a threshold on validation data and evaluate the frozen decision rule on test data.</p></li>
+</ul>
+<p>This chapter assumes basic familiarity with NumPy, pandas, and fitting a scikit-learn model. Read the explanations first, then experiment with the examples.</p>
+<blockquote>
+<div><p><strong>Running this notebook:</strong> All code runs in order using synthetic data; no dataset downloads or accounts are needed. Saved outputs let you read the examples without running them. To rerun, use a Python 3 environment with <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, and <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> installed.</p>
+</div></blockquote>
+</section>
+<section id="setup">
+<h2><span class="section-number">5.6.2. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
+<p>Run this cell first. We fix random seeds so that the examples are reproducible. The two datasets are fictional: one predicts a delivery time in minutes, and the other flags transactions for review. They illustrate evaluation ideas, rather than performance on a real service.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">KFold</span><span class="p">,</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span><span class="p">,</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.dummy</span><span class="w"> </span><span class="kn">import</span> <span class="n">DummyRegressor</span><span class="p">,</span> <span class="n">DummyClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span><span class="p">,</span>
+    <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span>
+    <span class="n">balanced_accuracy_score</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">,</span>
+    <span class="n">roc_auc_score</span><span class="p">,</span> <span class="n">average_precision_score</span><span class="p">,</span> <span class="n">RocCurveDisplay</span><span class="p">,</span>
+    <span class="n">PrecisionRecallDisplay</span><span class="p">,</span> <span class="n">log_loss</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">'figure.dpi'</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span> <span class="s1">'axes.grid'</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">'grid.alpha'</span><span class="p">:</span> <span class="mf">.2</span><span class="p">,</span>
+                     <span class="s1">'axes.spines.top'</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">'axes.spines.right'</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Ready!'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ready!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="part-1-train-validation-and-test-sets">
+<h2><span class="section-number">5.6.3. </span>Part 1: Train, Validation, and Test Sets<a class="headerlink" href="#part-1-train-validation-and-test-sets" title="Permalink to this heading">#</a></h2>
+<section id="three-sets-three-jobs">
+<h3><span class="section-number">5.6.3.1. </span>1.1 Three Sets, Three Jobs<a class="headerlink" href="#three-sets-three-jobs" title="Permalink to this heading">#</a></h3>
+<p>Imagine preparing for an exam. Practice questions help you learn; a practice exam helps you decide what to study next; the final exam measures what you can do after preparation is finished. Evaluation data play similar roles.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Set</p></th>
+<th class="head"><p>Main question</p></th>
+<th class="head"><p>What can we do with it?</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Training</strong></p></td>
+<td><p>What patterns can the model learn?</p></td>
+<td><p>Fit model parameters and preprocessing</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Validation</strong></p></td>
+<td><p>Which approach should we choose?</p></td>
+<td><p>Compare models, hyperparameters, features, and thresholds</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Test</strong></p></td>
+<td><p>How well does the finished approach generalize?</p></td>
+<td><p>Report final performance after choices are fixed</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Generalization</strong> means making useful predictions on new examples from the population we care about. Training performance alone cannot establish this: the model already saw those examples and their labels.</p>
+<p>A 60% / 20% / 20% split is a convenient teaching example, not a universal rule. Small datasets may need cross-validation; very large datasets may need a much smaller test fraction. Each evaluation set still needs enough relevant examples to make its scores informative.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="s1">'#4776b4'</span><span class="p">,</span> <span class="s1">'Training: fit</span><span class="se">\n</span><span class="s1">60%'</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">'#e4a044'</span><span class="p">,</span> <span class="s1">'Validation: choose</span><span class="se">\n</span><span class="s1">20%'</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">'#579a78'</span><span class="p">,</span> <span class="s1">'Test: report</span><span class="se">\n</span><span class="s1">20%'</span><span class="p">)]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">.65</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="n">size</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'white'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">'Percentage of examples'</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Keep the final exam separate'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/b55ea83b81c7a9e5f1eebae3e0c73e9531e3926c787fbf61414cf5bd49da0ce6.png" src="../../_images/b55ea83b81c7a9e5f1eebae3e0c73e9531e3926c787fbf61414cf5bd49da0ce6.png" />
+</div>
+</div>
+</section>
+<section id="a-reproducible-three-way-split">
+<h3><span class="section-number">5.6.3.2. </span>1.2 A Reproducible Three-Way Split<a class="headerlink" href="#a-reproducible-three-way-split" title="Permalink to this heading">#</a></h3>
+<p>We will use delivery time as our regression target. Each row describes a separate fictional delivery, with distance and the number of stops as features. The random noise represents things our features cannot explain.</p>
+<p>First we hold out 20% for testing. Then we take 25% of the remaining 80% for validation: <span class="math notranslate nohighlight">\(0.25 \times 0.80 = 0.20\)</span>. This leaves 60% for training. All features and their matching targets must be split together.</p>
+<p>The test arrays will be created now, but we will leave them alone until Part 6. Merely naming a set “test” does not protect it: it stays a test set only while it does not influence our choices.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_reg</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'distance_km'</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">600</span><span class="p">),</span>
+                      <span class="s1">'stops'</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">600</span><span class="p">)})</span>
+<span class="n">y_reg</span> <span class="o">=</span> <span class="mi">8</span> <span class="o">+</span> <span class="mf">2.2</span> <span class="o">*</span> <span class="n">X_reg</span><span class="p">[</span><span class="s1">'distance_km'</span><span class="p">]</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">X_reg</span><span class="p">[</span><span class="s1">'stops'</span><span class="p">]</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+<span class="n">Xr_dev</span><span class="p">,</span> <span class="n">Xr_test</span><span class="p">,</span> <span class="n">yr_dev</span><span class="p">,</span> <span class="n">yr_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X_reg</span><span class="p">,</span> <span class="n">y_reg</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">.20</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">Xr_train</span><span class="p">,</span> <span class="n">Xr_val</span><span class="p">,</span> <span class="n">yr_train</span><span class="p">,</span> <span class="n">yr_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">Xr_dev</span><span class="p">,</span> <span class="n">yr_dev</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'set'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Training'</span><span class="p">,</span> <span class="s1">'Validation'</span><span class="p">,</span> <span class="s1">'Test'</span><span class="p">],</span>
+                      <span class="s1">'rows'</span><span class="p">:</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">yr_train</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">yr_val</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">yr_test</span><span class="p">)]}))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>set</th>
+      <th>rows</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Training</td>
+      <td>360</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Validation</td>
+      <td>120</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Test</td>
+      <td>120</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="data-leakage-accidentally-seeing-the-answers">
+<h3><span class="section-number">5.6.3.3. </span>1.3 Data Leakage: Accidentally Seeing the Answers<a class="headerlink" href="#data-leakage-accidentally-seeing-the-answers" title="Permalink to this heading">#</a></h3>
+<p><strong>Data leakage</strong> occurs when information unavailable at prediction time influences training or selection. It makes evaluation look easier than the real task.</p>
+<p>Examples include scaling the entire dataset before splitting, selecting features using all labels, putting copies of one record in different sets, or predicting delivery time using a feature recorded only after arrival. Repeatedly checking test scores while choosing a model also turns the test set into a validation set.</p>
+<p>Use a <strong>pipeline</strong> to learn preprocessing only from training data. The scaler’s means and standard deviations come from <code class="docutils literal notranslate"><span class="pre">fit</span></code>; validation and test data receive the already learned transformation. Pipelines also keep this boundary intact inside cross-validation.</p>
+<p>Random splitting assumes rows are sufficiently independent and representative. For forecasting, train on the past and evaluate on later periods. For repeated observations from the same person or account, keep each group together when the goal is prediction for new groups. Stratification alone does not solve time or group leakage.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reg_model</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LinearRegression</span><span class="p">())</span>
+<span class="n">reg_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xr_train</span><span class="p">,</span> <span class="n">yr_train</span><span class="p">)</span>
+<span class="n">r_val_pred</span> <span class="o">=</span> <span class="n">reg_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xr_val</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'The scaler and regression were fitted on training rows only.'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The scaler and regression were fitted on training rows only.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="cross-validation-rotate-the-practice-exam">
+<h3><span class="section-number">5.6.3.4. </span>1.4 Cross-Validation: Rotate the Practice Exam<a class="headerlink" href="#cross-validation-rotate-the-practice-exam" title="Permalink to this heading">#</a></h3>
+<p>One validation split can be lucky or unlucky. In <strong>K-fold cross-validation</strong>, divide the available training data into K folds. Fit on K−1 folds, score on the remaining fold, and rotate until every fold has been held out once. Every fit starts fresh, including its preprocessing.</p>
+<p>Here we use five folds inside our training set as a demonstration. We summarize the mean and variation across folds. For classification, stratified folds often help keep class proportions similar. For time series or grouped rows, use an appropriate time or group splitter instead.</p>
+<p>Cross-validation can replace a single validation split when selecting hyperparameters. It does <strong>not</strong> make it acceptable to tune on the final test set. Fold-to-fold standard deviation describes variation across these folds; it is not automatically a confidence interval for future performance. Extensive searching can also overfit cross-validation results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">folds</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">cv_mae</span> <span class="o">=</span> <span class="o">-</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">reg_model</span><span class="p">,</span> <span class="n">Xr_train</span><span class="p">,</span> <span class="n">yr_train</span><span class="p">,</span>
+                          <span class="n">cv</span><span class="o">=</span><span class="n">folds</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">'neg_mean_absolute_error'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Fold MAEs:'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">cv_mae</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Mean MAE: </span><span class="si">{</span><span class="n">cv_mae</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> minutes; fold SD: </span><span class="si">{</span><span class="n">cv_mae</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="c1"># scikit-learn negates error scorers so that higher scores are always better.</span>
+<span class="c1"># Negate them again to read ordinary, positive errors.</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fold MAEs: [4.88 5.05 4.92 4.98 4.54]
+Mean MAE: 4.88 minutes; fold SD: 0.18
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-2-regression-metrics">
+<h2><span class="section-number">5.6.4. </span>Part 2: Regression Metrics<a class="headerlink" href="#part-2-regression-metrics" title="Permalink to this heading">#</a></h2>
+<section id="what-does-an-error-mean">
+<h3><span class="section-number">5.6.4.1. </span>2.1 What Does an Error Mean?<a class="headerlink" href="#what-does-an-error-mean" title="Permalink to this heading">#</a></h3>
+<p>For regression, both the true answer <span class="math notranslate nohighlight">\(y_i\)</span> and prediction <span class="math notranslate nohighlight">\(\hat y_i\)</span> are numbers. Define a <strong>residual</strong> as <span class="math notranslate nohighlight">\(e_i=y_i-\hat y_i\)</span>. Positive residuals mean underprediction; negative residuals mean overprediction. We need a way to summarize errors without letting positive and negative values cancel.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Formula</p></th>
+<th class="head"><p>Units</p></th>
+<th class="head"><p>Direction</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>MAE</strong></p></td>
+<td><p>$\frac{1}{n}\sum_i</p></td>
+<td><p>y_i-\hat y_i</p></td>
+<td><p>$</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>MSE</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{1}{n}\sum_i (y_i-\hat y_i)^2\)</span></p></td>
+<td><p>Squared target units</p></td>
+<td><p>Lower is better</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>RMSE</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sqrt{\mathrm{MSE}}\)</span></p></td>
+<td><p>Target units</p></td>
+<td><p>Lower is better</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong><span class="math notranslate nohighlight">\(R^2\)</span></strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(1-\frac{\sum_i(y_i-\hat y_i)^2}{\sum_i(y_i-\bar y)^2}\)</span></p></td>
+<td><p>Unitless</p></td>
+<td><p>Higher is better</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>MAE</strong> gives every extra minute the same additional penalty. <strong>MSE</strong> and <strong>RMSE</strong> emphasize large errors through squaring. RMSE returns to minutes, which makes it easier to communicate than minutes squared. None of these tells us whether errors are mostly early or late; inspect residuals too.</p>
+</section>
+<section id="a-small-worked-example">
+<h3><span class="section-number">5.6.4.2. </span>2.2 A Small Worked Example<a class="headerlink" href="#a-small-worked-example" title="Permalink to this heading">#</a></h3>
+<p>Suppose the true delivery times are <code class="docutils literal notranslate"><span class="pre">[10,</span> <span class="pre">20,</span> <span class="pre">30]</span></code> minutes, and predictions are <code class="docutils literal notranslate"><span class="pre">[12,</span> <span class="pre">18,</span> <span class="pre">36]</span></code>. The residuals are <code class="docutils literal notranslate"><span class="pre">[-2,</span> <span class="pre">2,</span> <span class="pre">-6]</span></code>.</p>
+<ul class="simple">
+<li><p>MAE = <span class="math notranslate nohighlight">\((2+2+6)/3 \approx 3.33\)</span> minutes.</p></li>
+<li><p>MSE = <span class="math notranslate nohighlight">\((4+4+36)/3 \approx 14.67\)</span> minutes squared.</p></li>
+<li><p>RMSE = <span class="math notranslate nohighlight">\(\sqrt{14.67} \approx 3.83\)</span> minutes.</p></li>
+</ul>
+<p>The six-minute mistake contributes most of the squared error. This matters if a few very late deliveries are much more harmful than many small mistakes. A metric is a choice about what kinds of errors deserve emphasis, so choose it before comparing models.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">actual</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span>
+<span class="n">predicted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">36</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'MAE:  </span><span class="si">{</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span><span class="w"> </span><span class="n">predicted</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> minutes'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'MSE:  </span><span class="si">{</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span><span class="w"> </span><span class="n">predicted</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> minutes squared'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'RMSE: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span><span class="w"> </span><span class="n">predicted</span><span class="p">))</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> minutes'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MAE:  3.33 minutes
+MSE:  14.67 minutes squared
+RMSE: 3.83 minutes
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="how-should-we-read-r-2">
+<h3><span class="section-number">5.6.4.3. </span>2.3 How Should We Read <span class="math notranslate nohighlight">\(R^2\)</span>?<a class="headerlink" href="#how-should-we-read-r-2" title="Permalink to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(R^2\)</span> compares squared prediction error with the error from predicting the <strong>mean of the evaluated targets</strong>. For a nonconstant target, 1 means perfect predictions, 0 means the same squared error as that mean, and a negative value means worse. It is not a percentage of predictions that were correct, and it can be negative on new data.</p>
+<p>In a real workflow, our usable baseline must be learned without the evaluation labels. <code class="docutils literal notranslate"><span class="pre">DummyRegressor(strategy=&quot;mean&quot;)</span></code> predicts the <strong>training</strong> mean. Its validation <span class="math notranslate nohighlight">\(R^2\)</span> need not be exactly zero because the training and validation means differ.</p>
+<p>Compare models on the same rows and target. An MAE of 5 means something different for five-minute trips than for cross-country shipping. Even <span class="math notranslate nohighlight">\(R^2\)</span> depends on the evaluated population: a narrow range of target values can make an otherwise useful prediction task look difficult by this metric.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reg_baseline</span> <span class="o">=</span> <span class="n">DummyRegressor</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">'mean'</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xr_train</span><span class="p">,</span> <span class="n">yr_train</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">regression_scores</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pred</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">'MAE (min)'</span><span class="p">:</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pred</span><span class="p">),</span>
+            <span class="s1">'RMSE (min)'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pred</span><span class="p">)),</span>
+            <span class="s1">'R²'</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pred</span><span class="p">)}</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">'Training-mean baseline'</span><span class="p">:</span> <span class="n">regression_scores</span><span class="p">(</span><span class="n">yr_val</span><span class="p">,</span> <span class="n">reg_baseline</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xr_val</span><span class="p">)),</span>
+    <span class="s1">'Linear regression'</span><span class="p">:</span> <span class="n">regression_scores</span><span class="p">(</span><span class="n">yr_val</span><span class="p">,</span> <span class="n">r_val_pred</span><span class="p">)</span>
+<span class="p">})</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>MAE (min)</th>
+      <th>RMSE (min)</th>
+      <th>R²</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Training-mean baseline</th>
+      <td>15.284</td>
+      <td>18.008</td>
+      <td>-0.001</td>
+    </tr>
+    <tr>
+      <th>Linear regression</th>
+      <td>4.625</td>
+      <td>5.787</td>
+      <td>0.897</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="look-beyond-a-single-score">
+<h3><span class="section-number">5.6.4.4. </span>2.4 Look Beyond a Single Score<a class="headerlink" href="#look-beyond-a-single-score" title="Permalink to this heading">#</a></h3>
+<p>A summary score compresses many predictions into one number. Plot actual versus predicted values and residuals to see what it hides. Predictions close to the diagonal are accurate. In a residual plot, a curved trend may suggest a missing nonlinear relationship; a widening spread may suggest errors grow with the target or prediction.</p>
+<p>Our fictional data were generated with a linear relationship, so a linear model has a suitable form. Real data are less cooperative. Check errors in meaningful slices, such as long versus short deliveries, while remembering that small slices have less stable estimates. Finding a problem on validation data can guide revisions; finding it on test data calls for a new development cycle and fresh evaluation data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">yr_val</span><span class="p">,</span> <span class="n">r_val_pred</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.6</span><span class="p">)</span>
+<span class="n">limits</span> <span class="o">=</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">yr_val</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">r_val_pred</span><span class="o">.</span><span class="n">min</span><span class="p">()),</span> <span class="nb">max</span><span class="p">(</span><span class="n">yr_val</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">r_val_pred</span><span class="o">.</span><span class="n">max</span><span class="p">())]</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">limits</span><span class="p">,</span> <span class="n">limits</span><span class="p">,</span> <span class="s1">'--'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'black'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">'Actual minutes'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">'Predicted minutes'</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Validation predictions'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">r_val_pred</span><span class="p">,</span> <span class="n">yr_val</span> <span class="o">-</span> <span class="n">r_val_pred</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.6</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">'Predicted minutes'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">'Actual − predicted minutes'</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Validation residuals'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/65828523a5f95abb488327dee99893622e594c68641f1239b9aef186c323db63.png" src="../../_images/65828523a5f95abb488327dee99893622e594c68641f1239b9aef186c323db63.png" />
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-3-classification-metrics">
+<h2><span class="section-number">5.6.5. </span>Part 3: Classification Metrics<a class="headerlink" href="#part-3-classification-metrics" title="Permalink to this heading">#</a></h2>
+<section id="start-by-naming-the-positive-class">
+<h3><span class="section-number">5.6.5.1. </span>3.1 Start by Naming the Positive Class<a class="headerlink" href="#start-by-naming-the-positive-class" title="Permalink to this heading">#</a></h3>
+<p>For binary classification, choose which label is <strong>positive</strong>. Positive means “the class we are focusing on,” not necessarily a desirable outcome. In our transaction example, <code class="docutils literal notranslate"><span class="pre">1</span></code> means a transaction truly needs review, and <code class="docutils literal notranslate"><span class="pre">0</span></code> means it does not. The data contain roughly 10% positives.</p>
+<p>A probability and a class prediction answer different questions. <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> returns estimated class probabilities; a decision rule turns them into labels. We will begin with the common threshold of 0.50 and later choose a threshold using validation data.</p>
+<p>We stratify both splits to preserve approximately the same class proportions. This reduces the chance that a random split accidentally contains very few positives. It does not create additional examples or guarantee that the data represent future transactions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_cls</span><span class="p">,</span> <span class="n">y_cls</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mf">.90</span><span class="p">,</span> <span class="mf">.10</span><span class="p">],</span> <span class="n">class_sep</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">flip_y</span><span class="o">=</span><span class="mf">.01</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">Xc_dev</span><span class="p">,</span> <span class="n">Xc_test</span><span class="p">,</span> <span class="n">yc_dev</span><span class="p">,</span> <span class="n">yc_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X_cls</span><span class="p">,</span> <span class="n">y_cls</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">.20</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y_cls</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">Xc_train</span><span class="p">,</span> <span class="n">Xc_val</span><span class="p">,</span> <span class="n">yc_train</span><span class="p">,</span> <span class="n">yc_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">Xc_dev</span><span class="p">,</span> <span class="n">yc_dev</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">.25</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">yc_dev</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">classifier</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">))</span>
+<span class="n">classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xc_train</span><span class="p">,</span> <span class="n">yc_train</span><span class="p">)</span>
+<span class="c1"># Explicitly locate the column for class 1.</span>
+<span class="n">pos_column</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">classifier</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">p_val</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xc_val</span><span class="p">)[:,</span> <span class="n">pos_column</span><span class="p">]</span>
+<span class="n">y_val_50</span> <span class="o">=</span> <span class="p">(</span><span class="n">p_val</span> <span class="o">&gt;=</span> <span class="mf">.50</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Training positive rate: </span><span class="si">{</span><span class="n">yc_train</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Validation positive rate: </span><span class="si">{</span><span class="n">yc_val</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training positive rate: 10.3%
+Validation positive rate: 10.3%
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-confusion-matrix">
+<h3><span class="section-number">5.6.5.2. </span>3.2 The Confusion Matrix<a class="headerlink" href="#the-confusion-matrix" title="Permalink to this heading">#</a></h3>
+<p>Every binary prediction falls into one of four boxes:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Actual / Predicted</p></th>
+<th class="head"><p>Predicted negative (0)</p></th>
+<th class="head"><p>Predicted positive (1)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Actual negative (0)</strong></p></td>
+<td><p>True negative (TN): correctly leave alone</p></td>
+<td><p>False positive (FP): unnecessary review</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Actual positive (1)</strong></p></td>
+<td><p>False negative (FN): miss a needed review</p></td>
+<td><p>True positive (TP): correctly flag</p></td>
+</tr>
+</tbody>
+</table>
+<p>A false positive consumes review time; a false negative lets a problematic transaction through. Their consequences may differ considerably. A confusion matrix keeps the counts visible before we compress them into percentages.</p>
+<p><strong>Read the axes carefully.</strong> In scikit-learn, rows are actual labels and columns are predictions. We explicitly pass <code class="docutils literal notranslate"><span class="pre">labels=[0,</span> <span class="pre">1]</span></code> so that the order is clear. Some other tools arrange their matrices differently.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cm_val</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">yc_val</span><span class="p">,</span> <span class="n">y_val_50</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">cm_val</span><span class="p">,</span> <span class="n">display_labels</span><span class="o">=</span><span class="p">[</span><span class="s1">'No review (0)'</span><span class="p">,</span> <span class="s1">'Review (1)'</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s1">'Blues'</span><span class="p">,</span> <span class="n">colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Validation confusion matrix: threshold = 0.50'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span> <span class="o">=</span> <span class="n">cm_val</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'TN=</span><span class="si">{</span><span class="n">tn</span><span class="si">}</span><span class="s1">, FP=</span><span class="si">{</span><span class="n">fp</span><span class="si">}</span><span class="s1">, FN=</span><span class="si">{</span><span class="n">fn</span><span class="si">}</span><span class="s1">, TP=</span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/a5fc51982cd67207aa3fd4a330e04f2b250114dacaa8e26a53deaa60011d9a8d.png" src="../../_images/a5fc51982cd67207aa3fd4a330e04f2b250114dacaa8e26a53deaa60011d9a8d.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TN=537, FP=1, FN=43, TP=19
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="accuracy-precision-recall-and-f1">
+<h3><span class="section-number">5.6.5.3. </span>3.3 Accuracy, Precision, Recall, and F1<a class="headerlink" href="#accuracy-precision-recall-and-f1" title="Permalink to this heading">#</a></h3>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Formula</p></th>
+<th class="head"><p>Question it answers</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Accuracy</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\((TP+TN)/(TP+TN+FP+FN)\)</span></p></td>
+<td><p>What fraction of all predictions are correct?</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Precision</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(TP/(TP+FP)\)</span></p></td>
+<td><p>Of the flagged transactions, how many truly need review?</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Recall</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(TP/(TP+FN)\)</span></p></td>
+<td><p>Of all transactions needing review, how many did we flag?</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>F1</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\(2TP/(2TP+FP+FN)\)</span></p></td>
+<td><p>How well do precision and recall combine?</p></td>
+</tr>
+</tbody>
+</table>
+<p>High precision means fewer false alarms relative to the number flagged. High recall means fewer missed positives relative to all positives. <strong>Specificity</strong>, <span class="math notranslate nohighlight">\(TN/(TN+FP)\)</span>, is recall for the negative class.</p>
+<p>F1 is the harmonic mean of precision and recall. It is low if either is low, but ignores true negatives and does not directly encode monetary costs or review capacity. No single metric is best for every task.</p>
+<p>If a model predicts no positives, precision has a zero denominator. In our code, <code class="docutils literal notranslate"><span class="pre">zero_division=0</span></code> reports zero in that case so the tables remain readable; it does not mean the mathematical ratio was defined.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">classification_scores</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pred</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">'Accuracy'</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pred</span><span class="p">),</span>
+            <span class="s1">'Precision'</span><span class="p">:</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+            <span class="s1">'Recall'</span><span class="p">:</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+            <span class="s1">'F1'</span><span class="p">:</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+            <span class="s1">'Balanced accuracy'</span><span class="p">:</span> <span class="n">balanced_accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pred</span><span class="p">)}</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">classification_scores</span><span class="p">(</span><span class="n">yc_val</span><span class="p">,</span> <span class="n">y_val_50</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'Validation at 0.50'</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy             0.927
+Precision            0.950
+Recall               0.306
+F1                   0.463
+Balanced accuracy    0.652
+Name: Validation at 0.50, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="check-your-understanding">
+<h3><span class="section-number">5.6.5.4. </span>3.4 Check Your Understanding<a class="headerlink" href="#check-your-understanding" title="Permalink to this heading">#</a></h3>
+<p>A separate fictional sample contains 100 transactions. Ten truly need review. A model flags eight transactions: six correctly and two incorrectly.</p>
+<p>Before opening the answer, calculate TP, FP, FN, and TN. Then calculate accuracy, precision, recall, and F1. Which number would tell a reviewer how often a flag is useful? Which would tell us how many problematic transactions we caught?</p>
+<details>
+<summary>Worked answer</summary>
+<p>TP = 6, FP = 2, FN = 4, TN = 88. Accuracy = 94%; precision = 6/8 = 75%; recall = 6/10 = 60%; F1 = 12/18 ≈ 66.7%. Precision describes the usefulness of a flag, while recall describes coverage of actual positives. Both are needed to understand the tradeoff.</p>
+</details></section>
+</section>
+<hr class="docutils" />
+<section id="part-4-class-imbalance">
+<h2><span class="section-number">5.6.6. </span>Part 4: Class Imbalance<a class="headerlink" href="#part-4-class-imbalance" title="Permalink to this heading">#</a></h2>
+<section id="the-accuracy-trap">
+<h3><span class="section-number">5.6.6.1. </span>4.1 The Accuracy Trap<a class="headerlink" href="#the-accuracy-trap" title="Permalink to this heading">#</a></h3>
+<p>Suppose just 1% of transactions need review. Predicting “no review” for every row achieves <strong>99% accuracy</strong>, while catching none of the positives. The high score comes from the class proportions, not useful detection.</p>
+<p>Always compare with a simple baseline on the same evaluation rows. <code class="docutils literal notranslate"><span class="pre">DummyClassifier(strategy=&quot;most_frequent&quot;)</span></code> learns the majority label from training data and always predicts it. Beating that baseline on accuracy is useful context, but it is not enough: inspect positive-class recall and precision as well.</p>
+<p><strong>Balanced accuracy</strong> averages recall across classes. In a binary problem it is <span class="math notranslate nohighlight">\((\text{recall}+\text{specificity})/2\)</span>. A majority-only classifier gets 0.50 when both classes are present, regardless of their proportions. This gives both classes equal influence, but still does not describe a particular organization’s costs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cls_baseline</span> <span class="o">=</span> <span class="n">DummyClassifier</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">'most_frequent'</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xc_train</span><span class="p">,</span> <span class="n">yc_train</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">'Majority baseline'</span><span class="p">:</span> <span class="n">classification_scores</span><span class="p">(</span><span class="n">yc_val</span><span class="p">,</span> <span class="n">cls_baseline</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xc_val</span><span class="p">)),</span>
+    <span class="s1">'Logistic regression at 0.50'</span><span class="p">:</span> <span class="n">classification_scores</span><span class="p">(</span><span class="n">yc_val</span><span class="p">,</span> <span class="n">y_val_50</span><span class="p">)</span>
+<span class="p">})</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Accuracy</th>
+      <th>Precision</th>
+      <th>Recall</th>
+      <th>F1</th>
+      <th>Balanced accuracy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Majority baseline</th>
+      <td>0.897</td>
+      <td>0.00</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.500</td>
+    </tr>
+    <tr>
+      <th>Logistic regression at 0.50</th>
+      <td>0.927</td>
+      <td>0.95</td>
+      <td>0.306</td>
+      <td>0.463</td>
+      <td>0.652</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="ranking-quality-roc-auc-and-average-precision">
+<h3><span class="section-number">5.6.6.2. </span>4.2 Ranking Quality: ROC-AUC and Average Precision<a class="headerlink" href="#ranking-quality-roc-auc-and-average-precision" title="Permalink to this heading">#</a></h3>
+<p>Sometimes we want to know whether positive examples receive higher scores than negative examples, before choosing a threshold.</p>
+<p><strong>ROC curves</strong> plot true positive rate (recall) against false positive rate, <span class="math notranslate nohighlight">\(FP/(FP+TN)\)</span>, as the threshold changes. ROC-AUC summarizes the curve. A score of 1 indicates perfect ranking; 0.50 corresponds to random ranking in expectation. A high ROC-AUC does not guarantee high precision at the operating threshold. When negatives are numerous, even a small false positive rate can produce many false alarms.</p>
+<p><strong>Precision–recall curves</strong> show precision versus recall. They focus more directly on detecting the positive class. <strong>Average precision (AP)</strong> summarizes precision at increases in recall; it is not simply the trapezoidal area under the curve. The positive fraction is a useful no-skill precision reference, and AP for uninformative scores is around this level, with finite-sample variation.</p>
+<p>Compute these metrics from probabilities or decision scores, not thresholded labels. AP depends on class prevalence, so comparisons across datasets with different positive rates require care.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">RocCurveDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span><span class="n">yc_val</span><span class="p">,</span> <span class="n">p_val</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">'Logistic regression'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">'k--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Random ranking reference'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">PrecisionRecallDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span><span class="n">yc_val</span><span class="p">,</span> <span class="n">p_val</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">'Logistic regression'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">yc_val</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Positive fraction'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Validation ROC curve'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Validation precision–recall curve'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'ROC-AUC: </span><span class="si">{</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">yc_val</span><span class="p">,</span><span class="w"> </span><span class="n">p_val</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Average precision: </span><span class="si">{</span><span class="n">average_precision_score</span><span class="p">(</span><span class="n">yc_val</span><span class="p">,</span><span class="w"> </span><span class="n">p_val</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/fd66786ec2d62a35a1abf9721712761aa09617083a1b857909308875f99fadc7.png" src="../../_images/fd66786ec2d62a35a1abf9721712761aa09617083a1b857909308875f99fadc7.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ROC-AUC: 0.787
+Average precision: 0.547
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="what-can-we-do-about-imbalance">
+<h3><span class="section-number">5.6.6.3. </span>4.3 What Can We Do About Imbalance?<a class="headerlink" href="#what-can-we-do-about-imbalance" title="Permalink to this heading">#</a></h3>
+<p>Start by making sure the evaluation matches the problem: define the positive class, inspect prevalence, use meaningful metrics, and keep evaluation data representative. Changing the model is a separate step.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Approach</p></th>
+<th class="head"><p>What changes?</p></th>
+<th class="head"><p>Important limitation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Class weights</strong></p></td>
+<td><p>Training penalizes errors on selected classes more heavily</p></td>
+<td><p>May change probability calibration and increase false alarms</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resampling</strong></p></td>
+<td><p>Training sees more minority or fewer majority examples</p></td>
+<td><p>Must happen only within training data or each training fold</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Threshold adjustment</strong></p></td>
+<td><p>The same scores lead to different decisions</p></td>
+<td><p>Trades off errors; does not improve the underlying ranking</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Better data/features</strong></p></td>
+<td><p>The model has more useful information</p></td>
+<td><p>New features must be available at prediction time</p></td>
+</tr>
+</tbody>
+</table>
+<p>Do not oversample before splitting: duplicate or closely related examples could appear in training and evaluation. Do not “balance” the test set merely to improve a score; precision should be assessed under the intended class mix.</p>
+<p>For multiclass tasks, report per-class results. <strong>Macro</strong> averaging weights classes equally; <strong>weighted</strong> averaging weights them by their support and can hide weak minority performance. Our examples use binary metrics with <code class="docutils literal notranslate"><span class="pre">1</span></code> as the positive class.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-5-probabilities-thresholds-and-decisions">
+<h2><span class="section-number">5.6.7. </span>Part 5: Probabilities, Thresholds, and Decisions<a class="headerlink" href="#part-5-probabilities-thresholds-and-decisions" title="Permalink to this heading">#</a></h2>
+<section id="a-threshold-is-a-choice">
+<h3><span class="section-number">5.6.7.1. </span>5.1 A Threshold Is a Choice<a class="headerlink" href="#a-threshold-is-a-choice" title="Permalink to this heading">#</a></h3>
+<p>A classifier might estimate a 0.30 probability that a transaction needs review. Whether we flag it depends on our decision rule:</p>
+<div class="math notranslate nohighlight">
+\[\hat y = 1 \quad \text{if} \quad p(y=1\mid X) \ge t.\]</div>
+<p>At <span class="math notranslate nohighlight">\(t=0.50\)</span> it is negative; at <span class="math notranslate nohighlight">\(t=0.20\)</span> it is positive. The fitted model and probability have not changed.</p>
+<p>Lowering the threshold flags at least as many examples, so recall cannot decrease on a fixed dataset. False positives cannot decrease either. Precision often falls as more weak candidates are admitted, but it need not change monotonically in a finite sample.</p>
+<p>Choose the metric, constraint, or cost rule before searching thresholds. A team with limited review capacity may prefer precision at a feasible workload; another may prioritize recall. <strong>0.50 is a common default, not a universal optimum.</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">threshold_scores</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">(</span><span class="n">probabilities</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">'Threshold'</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">threshold</span><span class="p">),</span> <span class="o">**</span><span class="n">classification_scores</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">labels</span><span class="p">),</span>
+            <span class="s1">'Flagged'</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">labels</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span> <span class="s1">'FP'</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">fp</span><span class="p">),</span> <span class="s1">'FN'</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">fn</span><span class="p">)}</span>
+<span class="n">comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">threshold_scores</span><span class="p">(</span><span class="n">yc_val</span><span class="p">,</span> <span class="n">p_val</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">.10</span><span class="p">,</span> <span class="mf">.25</span><span class="p">,</span> <span class="mf">.50</span><span class="p">,</span> <span class="mf">.75</span><span class="p">]])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">comparison</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Threshold</th>
+      <th>Accuracy</th>
+      <th>Precision</th>
+      <th>Recall</th>
+      <th>F1</th>
+      <th>Balanced accuracy</th>
+      <th>Flagged</th>
+      <th>FP</th>
+      <th>FN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.10</td>
+      <td>0.757</td>
+      <td>0.241</td>
+      <td>0.629</td>
+      <td>0.348</td>
+      <td>0.700</td>
+      <td>162</td>
+      <td>123</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.25</td>
+      <td>0.912</td>
+      <td>0.600</td>
+      <td>0.435</td>
+      <td>0.505</td>
+      <td>0.701</td>
+      <td>45</td>
+      <td>18</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.50</td>
+      <td>0.927</td>
+      <td>0.950</td>
+      <td>0.306</td>
+      <td>0.463</td>
+      <td>0.652</td>
+      <td>20</td>
+      <td>1</td>
+      <td>43</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.75</td>
+      <td>0.907</td>
+      <td>1.000</td>
+      <td>0.097</td>
+      <td>0.176</td>
+      <td>0.548</td>
+      <td>6</td>
+      <td>0</td>
+      <td>56</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="choose-on-validation-data">
+<h3><span class="section-number">5.6.7.2. </span>5.2 Choose on Validation Data<a class="headerlink" href="#choose-on-validation-data" title="Permalink to this heading">#</a></h3>
+<p>For this teaching example, decide in advance that each missed positive costs <strong>5 units</strong> and each unnecessary review costs <strong>1 unit</strong>. Correct predictions cost zero. These are fictional costs chosen to illustrate the calculation, not a policy recommendation.</p>
+<div class="math notranslate nohighlight">
+\[\text{Validation cost} = 5\times FN + 1\times FP.\]</div>
+<p>We will search a predeclared grid from 0 to 1 in steps of 0.01, choose the threshold with the lowest validation cost, and break ties by choosing the higher threshold to reduce workload. The chosen value is best only among these grid values on this validation sample.</p>
+<p>The validation minimum is optimistic because we used these rows to make a choice. We need an untouched test set to assess that choice. With few positives, threshold estimates can be unstable; cross-validation within development data can help, but does not remove the need for honest final evaluation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">FN_COST</span><span class="p">,</span> <span class="n">FP_COST</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span>
+<span class="n">threshold_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+<span class="n">threshold_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span>
+    <span class="n">threshold_scores</span><span class="p">(</span><span class="n">yc_val</span><span class="p">,</span> <span class="n">p_val</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">threshold_grid</span><span class="p">])</span>
+<span class="n">threshold_table</span><span class="p">[</span><span class="s1">'Cost'</span><span class="p">]</span> <span class="o">=</span> <span class="n">FN_COST</span> <span class="o">*</span> <span class="n">threshold_table</span><span class="p">[</span><span class="s1">'FN'</span><span class="p">]</span> <span class="o">+</span> <span class="n">FP_COST</span> <span class="o">*</span> <span class="n">threshold_table</span><span class="p">[</span><span class="s1">'FP'</span><span class="p">]</span>
+<span class="n">best_row</span> <span class="o">=</span> <span class="n">threshold_table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">'Cost'</span><span class="p">,</span> <span class="s1">'Threshold'</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">chosen_threshold</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">best_row</span><span class="p">[</span><span class="s1">'Threshold'</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Chosen validation threshold: </span><span class="si">{</span><span class="n">chosen_threshold</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">best_row</span><span class="p">[[</span><span class="s1">'Threshold'</span><span class="p">,</span> <span class="s1">'Precision'</span><span class="p">,</span> <span class="s1">'Recall'</span><span class="p">,</span> <span class="s1">'Flagged'</span><span class="p">,</span> <span class="s1">'FP'</span><span class="p">,</span> <span class="s1">'FN'</span><span class="p">,</span> <span class="s1">'Cost'</span><span class="p">]]</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">'Chosen rule'</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">threshold_table</span><span class="p">[</span><span class="s1">'Threshold'</span><span class="p">],</span> <span class="n">threshold_table</span><span class="p">[</span><span class="s1">'Precision'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Precision'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">threshold_table</span><span class="p">[</span><span class="s1">'Threshold'</span><span class="p">],</span> <span class="n">threshold_table</span><span class="p">[</span><span class="s1">'Recall'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Recall'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">'Threshold'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">'Score'</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Validation tradeoff'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">threshold_table</span><span class="p">[</span><span class="s1">'Threshold'</span><span class="p">],</span> <span class="n">threshold_table</span><span class="p">[</span><span class="s1">'Cost'</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">'Threshold'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">'Total fictional cost'</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Choose before testing'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">chosen_threshold</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Chosen validation threshold: 0.24
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Chosen rule</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Threshold</th>
+      <td>0.240000</td>
+    </tr>
+    <tr>
+      <th>Precision</th>
+      <td>0.580000</td>
+    </tr>
+    <tr>
+      <th>Recall</th>
+      <td>0.467742</td>
+    </tr>
+    <tr>
+      <th>Flagged</th>
+      <td>50.000000</td>
+    </tr>
+    <tr>
+      <th>FP</th>
+      <td>21.000000</td>
+    </tr>
+    <tr>
+      <th>FN</th>
+      <td>33.000000</td>
+    </tr>
+    <tr>
+      <th>Cost</th>
+      <td>186.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="../../_images/d8d8431fa222f1594414297a5949c1a4663dcf945208d687f1642d0e43b54d87.png" src="../../_images/d8d8431fa222f1594414297a5949c1a4663dcf945208d687f1642d0e43b54d87.png" />
+</div>
+</div>
+</section>
+<section id="good-ranking-does-not-guarantee-good-probabilities">
+<h3><span class="section-number">5.6.7.3. </span>5.3 Good Ranking Does Not Guarantee Good Probabilities<a class="headerlink" href="#good-ranking-does-not-guarantee-good-probabilities" title="Permalink to this heading">#</a></h3>
+<p>A model’s score of 0.80 should not automatically be read as an 80% real-world risk. A model is <strong>calibrated</strong> if, among examples given probabilities near 0.80, approximately 80% are positive. A model can rank examples well while being overconfident or underconfident.</p>
+<p><strong>Log loss</strong> evaluates probability predictions, penalizing confident incorrect predictions strongly. Lower is better. It measures more than calibration alone, so a single log-loss number cannot establish that probabilities are calibrated. Calibration curves provide another useful check.</p>
+<p>If probabilities were calibrated and the only consequences were the two constant error costs above, the theoretical threshold would be <span class="math notranslate nohighlight">\(C_{FP}/(C_{FP}+C_{FN})=1/6\)</span>. Our empirical validation choice can differ because probabilities are imperfect, the sample is finite, and the grid is discrete. We do not replace the validation choice after seeing test results.</p>
+<p>Any fitted calibration method must also respect data boundaries. Fit it using held-out development predictions or suitable cross-validation, never on the final test set.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Validation log loss: </span><span class="si">{</span><span class="n">log_loss</span><span class="p">(</span><span class="n">yc_val</span><span class="p">,</span><span class="w"> </span><span class="n">p_val</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Cost-based threshold under calibrated probabilities: </span><span class="si">{</span><span class="n">FP_COST</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">FP_COST</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">FN_COST</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Validation log loss: 0.256
+Cost-based threshold under calibrated probabilities: 0.167
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-6-putting-it-together">
+<h2><span class="section-number">5.6.8. </span>Part 6: Putting It Together<a class="headerlink" href="#part-6-putting-it-together" title="Permalink to this heading">#</a></h2>
+<section id="freeze-the-decisions-then-open-the-test-set">
+<h3><span class="section-number">5.6.8.1. </span>6.1 Freeze the Decisions, Then Open the Test Set<a class="headerlink" href="#freeze-the-decisions-then-open-the-test-set" title="Permalink to this heading">#</a></h3>
+<p>We have now fixed the features, preprocessing, model types, and classification threshold. For clarity, we keep the models fitted on training data; we do not refit before this demonstration’s final evaluation. That keeps the selected threshold attached to the same fitted classifier that produced the validation scores.</p>
+<p>In another workflow, one might refit on all development data, but that can change the score distribution and requires a deliberate threshold-selection procedure. It should be planned before the test is opened.</p>
+<p>The following cell is the first place we predict or score on test data. We report the predefined primary metrics, baseline context, and the chosen threshold. We also show 0.50 as a prespecified reference, not as another threshold to select using the test set. If the reference happens to perform better, report that result honestly and leave the chosen rule unchanged.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r_test_pred</span> <span class="o">=</span> <span class="n">reg_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xr_test</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">'Training-mean baseline'</span><span class="p">:</span> <span class="n">regression_scores</span><span class="p">(</span><span class="n">yr_test</span><span class="p">,</span> <span class="n">reg_baseline</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xr_test</span><span class="p">)),</span>
+    <span class="s1">'Linear regression'</span><span class="p">:</span> <span class="n">regression_scores</span><span class="p">(</span><span class="n">yr_test</span><span class="p">,</span> <span class="n">r_test_pred</span><span class="p">)</span>
+<span class="p">})</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">p_test</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xc_test</span><span class="p">)[:,</span> <span class="n">pos_column</span><span class="p">]</span>
+<span class="n">final_rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">threshold</span> <span class="ow">in</span> <span class="p">[(</span><span class="s1">'Prespecified reference'</span><span class="p">,</span> <span class="mf">.50</span><span class="p">),</span> <span class="p">(</span><span class="s1">'Validation-selected rule'</span><span class="p">,</span> <span class="n">chosen_threshold</span><span class="p">)]:</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">threshold_scores</span><span class="p">(</span><span class="n">yc_test</span><span class="p">,</span> <span class="n">p_test</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+    <span class="n">row</span><span class="p">[</span><span class="s1">'Rule'</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span>
+    <span class="n">row</span><span class="p">[</span><span class="s1">'Cost per transaction'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">FN_COST</span> <span class="o">*</span> <span class="n">row</span><span class="p">[</span><span class="s1">'FN'</span><span class="p">]</span> <span class="o">+</span> <span class="n">FP_COST</span> <span class="o">*</span> <span class="n">row</span><span class="p">[</span><span class="s1">'FP'</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">yc_test</span><span class="p">)</span>
+    <span class="n">final_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">final_rows</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">'Rule'</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Test ROC-AUC: </span><span class="si">{</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">yc_test</span><span class="p">,</span><span class="w"> </span><span class="n">p_test</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Test average precision: </span><span class="si">{</span><span class="n">average_precision_score</span><span class="p">(</span><span class="n">yc_test</span><span class="p">,</span><span class="w"> </span><span class="n">p_test</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Evaluation complete. Do not tune the rule using these test results.'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>MAE (min)</th>
+      <th>RMSE (min)</th>
+      <th>R²</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Training-mean baseline</th>
+      <td>14.177</td>
+      <td>17.422</td>
+      <td>-0.013</td>
+    </tr>
+    <tr>
+      <th>Linear regression</th>
+      <td>4.756</td>
+      <td>6.360</td>
+      <td>0.865</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Threshold</th>
+      <th>Accuracy</th>
+      <th>Precision</th>
+      <th>Recall</th>
+      <th>F1</th>
+      <th>Balanced accuracy</th>
+      <th>Flagged</th>
+      <th>FP</th>
+      <th>FN</th>
+      <th>Cost per transaction</th>
+    </tr>
+    <tr>
+      <th>Rule</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Prespecified reference</th>
+      <td>0.50</td>
+      <td>0.928</td>
+      <td>1.00</td>
+      <td>0.306</td>
+      <td>0.469</td>
+      <td>0.653</td>
+      <td>19</td>
+      <td>0</td>
+      <td>43</td>
+      <td>0.358</td>
+    </tr>
+    <tr>
+      <th>Validation-selected rule</th>
+      <td>0.24</td>
+      <td>0.910</td>
+      <td>0.58</td>
+      <td>0.468</td>
+      <td>0.518</td>
+      <td>0.714</td>
+      <td>50</td>
+      <td>21</td>
+      <td>33</td>
+      <td>0.310</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test ROC-AUC: 0.786
+Test average precision: 0.565
+Evaluation complete. Do not tune the rule using these test results.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="what-should-we-report">
+<h3><span class="section-number">5.6.8.2. </span>6.2 What Should We Report?<a class="headerlink" href="#what-should-we-report" title="Permalink to this heading">#</a></h3>
+<p>A useful evaluation report says what was predicted, which population the rows represent, how the data were split, which metric drove selection, and how the final rule performed. Include counts and class prevalence alongside percentages so readers can judge how much evidence supports them.</p>
+<p>An observed score is an estimate, not a promise. A test set with a small number of positives can produce a noisy recall estimate. A random seed makes an experiment reproducible; it does not make the result certain. Confidence intervals or repeated development evaluations can provide more context when decisions require it.</p>
+<p>A held-out test set also cannot establish performance after the world changes. Review policies, class prevalence, and feature distributions can shift. Once a model is used, monitor meaningful outcomes and revisit evaluation with fresh labeled data.</p>
+<p>For this notebook, the correct conclusion is limited: these methods work on two synthetic examples. The datasets do not establish usefulness for an actual delivery company or review team.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="practice-explain-the-evaluation">
+<h2><span class="section-number">5.6.9. </span>Practice: Explain the Evaluation<a class="headerlink" href="#practice-explain-the-evaluation" title="Permalink to this heading">#</a></h2>
+<p>Try answering these questions before expanding the notes. The code experiments use validation data; keep the completed test evaluation fixed.</p>
+<ol class="arabic simple">
+<li><p>A model has much lower training MAE than validation MAE. What might explain the gap, and what would you check next?</p></li>
+<li><p>Two models have the same MAE, but one has much higher RMSE. What does that suggest about its errors?</p></li>
+<li><p>A model gets 98% accuracy when 2% of examples are positive. What baseline and additional metrics do you need?</p></li>
+<li><p>A reviewer can inspect only 20 transactions per day. Why might maximizing F1 be insufficient?</p></li>
+<li><p>Try changing <code class="docutils literal notranslate"><span class="pre">FN_COST</span></code> to 10 in a <strong>copy of the validation threshold-search cell</strong>. Does the chosen threshold change? Why should this experiment not lead to revising the reported test rule?</p></li>
+<li><p>Why is fitting a scaler on all rows before cross-validation a form of leakage, even though the scaler does not use labels?</p></li>
+</ol>
+<details>
+<summary>Discussion notes</summary>
+<ol class="arabic simple">
+<li><p>Overfitting is one possibility; also check distribution differences, leakage, and whether the sample is representative. Compare with simpler models using development data.</p></li>
+<li><p>Its mistakes are likely more uneven, with larger errors receiving extra weight under squaring. Inspect the residual distribution.</p></li>
+<li><p>An always-negative baseline also gets 98% accuracy. Inspect the confusion matrix, positive recall and precision, balanced accuracy, and precision–recall behavior.</p></li>
+<li><p>F1 does not enforce a workload limit. Examine the number flagged and precision/recall at feasible operating points; a top-k policy is another possible decision rule.</p></li>
+<li><p>Higher missed-positive cost can favor a lower threshold, although the selected grid value need not change. A new policy needs a new evaluation plan, not repeated tuning against this test set.</p></li>
+<li><p>Held-out feature values influence the learned means and variances. Fit the scaler inside each training fold using a pipeline.</p></li>
+</ol>
+</details></section>
+<hr class="docutils" />
+<section id="chapter-summary">
+<h2><span class="section-number">5.6.10. </span>Chapter Summary<a class="headerlink" href="#chapter-summary" title="Permalink to this heading">#</a></h2>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Idea</p></th>
+<th class="head"><p>Takeaway</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Train / validation / test</strong></p></td>
+<td><p>Learn on training data, choose on validation data, report on untouched test data</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Leakage</strong></p></td>
+<td><p>Keep preprocessing, feature selection, and resampling inside the training boundary</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Regression</strong></p></td>
+<td><p>MAE measures typical absolute error; RMSE emphasizes larger mistakes; <span class="math notranslate nohighlight">\(R^2\)</span> compares squared error with a mean reference</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Classification</strong></p></td>
+<td><p>Confusion counts explain accuracy, precision, recall, and F1</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Imbalance</strong></p></td>
+<td><p>High accuracy can hide complete failure on the positive class; compare with baselines</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Ranking</strong></p></td>
+<td><p>ROC-AUC and AP describe score ordering across thresholds, with different perspectives</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Thresholds</strong></p></td>
+<td><p>Choose a decision rule using development data and the actual goal or costs</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Final evaluation</strong></p></td>
+<td><p>Report the frozen rule honestly and explain the limits of the evidence</p></td>
+</tr>
+</tbody>
+</table>
+<p>A useful model evaluation connects three things: <strong>an honest data split, a metric that reflects the task, and a decision rule that fits the consequences.</strong></p>
+<section id="references-and-further-reading">
+<h3><span class="section-number">5.6.10.1. </span>References and Further Reading<a class="headerlink" href="#references-and-further-reading" title="Permalink to this heading">#</a></h3>
+<p>This chapter follows the welcoming, section-based lesson format of the <a class="reference external" href="https://github.com/dssdecal/updatedtextbook">DSS DeCal updated textbook</a>, particularly its ML Foundations, Supervised Learning, and ML &amp; Modeling II notebooks. Explanations and examples here are newly written.</p>
+<p>For implementation details, consult the scikit-learn guides on <a class="reference external" href="https://scikit-learn.org/stable/modules/cross_validation.html">cross-validation</a>, <a class="reference external" href="https://scikit-learn.org/stable/modules/model_evaluation.html">metrics and scoring</a>, <a class="reference external" href="https://scikit-learn.org/stable/modules/classification_threshold.html">decision threshold tuning</a>, and <a class="reference external" href="https://scikit-learn.org/stable/common_pitfalls.html#data-leakage">data leakage</a>.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/fa26"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="supervised-learning.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">5.5. </span>Week 5: Supervised Learning — Linear Regression, Logistic Regression, and Decision Trees</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="unsupervised-learning.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5.7. </span>Week 7: Unsupervised Learning — K-Means, Dimensionality Reduction, and PCA</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-will-cover">5.6.1. What We Will Cover</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">5.6.2. Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-train-validation-and-test-sets">5.6.3. Part 1: Train, Validation, and Test Sets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#three-sets-three-jobs">5.6.3.1. 1.1 Three Sets, Three Jobs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-reproducible-three-way-split">5.6.3.2. 1.2 A Reproducible Three-Way Split</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-leakage-accidentally-seeing-the-answers">5.6.3.3. 1.3 Data Leakage: Accidentally Seeing the Answers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation-rotate-the-practice-exam">5.6.3.4. 1.4 Cross-Validation: Rotate the Practice Exam</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-regression-metrics">5.6.4. Part 2: Regression Metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-an-error-mean">5.6.4.1. 2.1 What Does an Error Mean?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-small-worked-example">5.6.4.2. 2.2 A Small Worked Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-should-we-read-r-2">5.6.4.3. 2.3 How Should We Read <span class="math notranslate nohighlight">\(R^2\)</span>?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#look-beyond-a-single-score">5.6.4.4. 2.4 Look Beyond a Single Score</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-classification-metrics">5.6.5. Part 3: Classification Metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#start-by-naming-the-positive-class">5.6.5.1. 3.1 Start by Naming the Positive Class</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-confusion-matrix">5.6.5.2. 3.2 The Confusion Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-precision-recall-and-f1">5.6.5.3. 3.3 Accuracy, Precision, Recall, and F1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-your-understanding">5.6.5.4. 3.4 Check Your Understanding</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-class-imbalance">5.6.6. Part 4: Class Imbalance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-accuracy-trap">5.6.6.1. 4.1 The Accuracy Trap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ranking-quality-roc-auc-and-average-precision">5.6.6.2. 4.2 Ranking Quality: ROC-AUC and Average Precision</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-can-we-do-about-imbalance">5.6.6.3. 4.3 What Can We Do About Imbalance?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-probabilities-thresholds-and-decisions">5.6.7. Part 5: Probabilities, Thresholds, and Decisions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-threshold-is-a-choice">5.6.7.1. 5.1 A Threshold Is a Choice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choose-on-validation-data">5.6.7.2. 5.2 Choose on Validation Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#good-ranking-does-not-guarantee-good-probabilities">5.6.7.3. 5.3 Good Ranking Does Not Guarantee Good Probabilities</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-6-putting-it-together">5.6.8. Part 6: Putting It Together</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#freeze-the-decisions-then-open-the-test-set">5.6.8.1. 6.1 Freeze the Decisions, Then Open the Test Set</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-should-we-report">5.6.8.2. 6.2 What Should We Report?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practice-explain-the-evaluation">5.6.9. Practice: Explain the Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chapter-summary">5.6.10. Chapter Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references-and-further-reading">5.6.10.1. References and Further Reading</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brandon Concepcion
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

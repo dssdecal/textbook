@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -168,12 +167,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -219,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -428,8 +439,8 @@ document.write(`
 <p>We will now begin looking at sex ratios in 2019. First, let’s look at all the age groups together. Remember that this means looking at the rows where the “age” is coded 999. The table <code class="docutils literal notranslate"><span class="pre">all_ages</span></code> contains this information. There are three rows: one for the total population, one for males, and one for females.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_pop_2019</span> <span class="o">=</span> <span class="n">us_pop</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;2014&#39;</span><span class="p">)</span>
-<span class="n">all_ages</span> <span class="o">=</span> <span class="n">us_pop_2019</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;AGE&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="mi">999</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_pop_2019</span> <span class="o">=</span> <span class="n">us_pop</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'2014'</span><span class="p">)</span>
+<span class="n">all_ages</span> <span class="o">=</span> <span class="n">us_pop_2019</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'AGE'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="mi">999</span><span class="p">))</span>
 <span class="n">all_ages</span>
 </pre></div>
 </div>
@@ -460,10 +471,10 @@ document.write(`
 <p>For comparability with other quantities, we will need to convert these counts to percents out of the total population. Let’s access the total for 2019 and name it. Then, we’ll show a population table with a proportion column. Consistent with our earlier observation that there were more females than males, 50.75% of the population in 2019 was female and about 49.25% was male.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pop_2019</span> <span class="o">=</span> <span class="n">all_ages</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;2019&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pop_2019</span> <span class="o">=</span> <span class="n">all_ages</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'2019'</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">all_ages</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
-    <span class="s1">&#39;Proportion&#39;</span><span class="p">,</span> <span class="n">all_ages</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;2019&#39;</span><span class="p">)</span><span class="o">/</span><span class="n">pop_2019</span>
-<span class="p">)</span><span class="o">.</span><span class="n">set_format</span><span class="p">(</span><span class="s1">&#39;Proportion&#39;</span><span class="p">,</span> <span class="n">PercentFormatter</span><span class="p">)</span>
+    <span class="s1">'Proportion'</span><span class="p">,</span> <span class="n">all_ages</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'2019'</span><span class="p">)</span><span class="o">/</span><span class="n">pop_2019</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_format</span><span class="p">(</span><span class="s1">'Proportion'</span><span class="p">,</span> <span class="n">PercentFormatter</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -493,7 +504,7 @@ document.write(`
 <p>When we look at infants, however, the opposite is true. Let’s define infants to be babies who have not yet completed one year, represented in the rows corresponding to <code class="docutils literal notranslate"><span class="pre">AGE</span></code> 0. Here are their numbers in the population. You can see that male infants outnumbered female infants.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">infants</span> <span class="o">=</span> <span class="n">us_pop_2019</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;AGE&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">infants</span> <span class="o">=</span> <span class="n">us_pop_2019</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'AGE'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
 <span class="n">infants</span>
 </pre></div>
 </div>
@@ -521,10 +532,10 @@ document.write(`
 <p>As before, we can convert these counts to percents out of the total numbers of infants. The resulting table shows that in 2019, just over 51% of infants in the U.S. were male.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">infants_2019</span> <span class="o">=</span> <span class="n">infants</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;2019&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">infants_2019</span> <span class="o">=</span> <span class="n">infants</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'2019'</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">infants</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
-    <span class="s1">&#39;Proportion&#39;</span><span class="p">,</span> <span class="n">infants</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;2019&#39;</span><span class="p">)</span><span class="o">/</span><span class="n">infants_2019</span>
-<span class="p">)</span><span class="o">.</span><span class="n">set_format</span><span class="p">(</span><span class="s1">&#39;Proportion&#39;</span><span class="p">,</span> <span class="n">PercentFormatter</span><span class="p">)</span>
+    <span class="s1">'Proportion'</span><span class="p">,</span> <span class="n">infants</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'2019'</span><span class="p">)</span><span class="o">/</span><span class="n">infants_2019</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_format</span><span class="p">(</span><span class="s1">'Proportion'</span><span class="p">,</span> <span class="n">PercentFormatter</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -557,8 +568,8 @@ document.write(`
 <p>The tables <code class="docutils literal notranslate"><span class="pre">females</span></code> and <code class="docutils literal notranslate"><span class="pre">males</span></code> contain the data for each the two sex codes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">females_all_rows</span> <span class="o">=</span> <span class="n">us_pop_2019</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;SEX&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
-<span class="n">females</span> <span class="o">=</span> <span class="n">females_all_rows</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;AGE&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">not_equal_to</span><span class="p">(</span><span class="mi">999</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">females_all_rows</span> <span class="o">=</span> <span class="n">us_pop_2019</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'SEX'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">females</span> <span class="o">=</span> <span class="n">females_all_rows</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'AGE'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">not_equal_to</span><span class="p">(</span><span class="mi">999</span><span class="p">))</span>
 <span class="n">females</span>
 </pre></div>
 </div>
@@ -607,8 +618,8 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">males_all_rows</span> <span class="o">=</span> <span class="n">us_pop_2019</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;SEX&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">males</span> <span class="o">=</span> <span class="n">males_all_rows</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;AGE&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">not_equal_to</span><span class="p">(</span><span class="mi">999</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">males_all_rows</span> <span class="o">=</span> <span class="n">us_pop_2019</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'SEX'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">males</span> <span class="o">=</span> <span class="n">males_all_rows</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'AGE'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">not_equal_to</span><span class="p">(</span><span class="mi">999</span><span class="p">))</span>
 <span class="n">males</span>
 </pre></div>
 </div>
@@ -658,7 +669,7 @@ document.write(`
 <p>The plan now is to compare the number of females and the number of males at each age, for each of the two years. Array and Table methods give us straightforward ways to do this. Both these tables have one row for each age.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">males</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;AGE&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">males</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'AGE'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -677,7 +688,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">females</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;AGE&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">females</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'AGE'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -699,8 +710,8 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratios</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;AGE&#39;</span><span class="p">,</span> <span class="n">females</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;AGE&#39;</span><span class="p">),</span>
-    <span class="s1">&#39;2019 F:M RATIO&#39;</span><span class="p">,</span> <span class="n">females</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;2019&#39;</span><span class="p">)</span><span class="o">/</span><span class="n">males</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;2019&#39;</span><span class="p">)</span>
+    <span class="s1">'AGE'</span><span class="p">,</span> <span class="n">females</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'AGE'</span><span class="p">),</span>
+    <span class="s1">'2019 F:M RATIO'</span><span class="p">,</span> <span class="n">females</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'2019'</span><span class="p">)</span><span class="o">/</span><span class="n">males</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'2019'</span><span class="p">)</span>
 <span class="p">)</span>
 <span class="n">ratios</span>
 </pre></div>
@@ -753,7 +764,7 @@ document.write(`
 <p>Something quite different happens when we examine the other end of the age range. Here are the Female:Male ratios for people aged more than 75.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratios</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;AGE&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">above</span><span class="p">(</span><span class="mi">75</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratios</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'AGE'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">above</span><span class="p">(</span><span class="mi">75</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -851,7 +862,7 @@ document.write(`
 <p>If you are wondering how many people there were at these advanced ages, you can use Python to find out:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">males</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;AGE&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">contained_in</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="mi">99</span><span class="p">)))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">males</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'AGE'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">contained_in</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="mi">99</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -877,7 +888,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">females</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;AGE&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">contained_in</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="mi">99</span><span class="p">)))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">females</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'AGE'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">contained_in</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mi">93</span><span class="p">,</span> <span class="mi">99</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -906,7 +917,7 @@ document.write(`
 <p>That females outnumber males in the U.S. is partly due to the marked imbalance in favor of women among senior citizens.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratios</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;AGE&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ratios</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">'AGE'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

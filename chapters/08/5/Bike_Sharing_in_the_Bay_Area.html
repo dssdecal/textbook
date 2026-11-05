@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -168,12 +167,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../02/7/dictionaries.html">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -219,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -368,7 +379,7 @@ document.write(`
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trips</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">&#39;trip.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trips</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">'trip.csv'</span><span class="p">)</span>
 <span class="n">trips</span>
 </pre></div>
 </div>
@@ -419,8 +430,8 @@ document.write(`
 <p>The histogram below shows that most of the trips took around 10 minutes (600 seconds) or so. Very few took near 30 minutes (1800 seconds), possibly because people try to return the bikes before the cutoff time so as not to have to pay.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">commute</span> <span class="o">=</span> <span class="n">trips</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;Duration&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">below</span><span class="p">(</span><span class="mi">1800</span><span class="p">))</span>
-<span class="n">commute</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;Duration&#39;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;Second&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">commute</span> <span class="o">=</span> <span class="n">trips</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'Duration'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">below</span><span class="p">(</span><span class="mi">1800</span><span class="p">))</span>
+<span class="n">commute</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Duration'</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'Second'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -431,7 +442,7 @@ document.write(`
 <p>We can get more detail by specifying a larger number of bins. But the overall shape doesn’t change much.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">commute</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">&#39;Duration&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;Second&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">commute</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Duration'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'Second'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -444,7 +455,7 @@ document.write(`
 <p>We can use <code class="docutils literal notranslate"><span class="pre">group</span></code> to identify the most highly used Start Station:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">starts</span> <span class="o">=</span> <span class="n">commute</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;Start Station&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">starts</span> <span class="o">=</span> <span class="n">commute</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Start Station'</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'count'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">starts</span>
 </pre></div>
 </div>
@@ -495,7 +506,7 @@ document.write(`
 <p>The <code class="docutils literal notranslate"><span class="pre">group</span></code> method can also be used to classify the rentals by both Start Station and End Station.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">commute</span><span class="o">.</span><span class="n">group</span><span class="p">([</span><span class="s1">&#39;Start Station&#39;</span><span class="p">,</span> <span class="s1">&#39;End Station&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">commute</span><span class="o">.</span><span class="n">group</span><span class="p">([</span><span class="s1">'Start Station'</span><span class="p">,</span> <span class="s1">'End Station'</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -546,7 +557,7 @@ document.write(`
 <p>There is a train station as well as a Bay Area Rapid Transit (BART) station near Beale at Market, explaining the high number of trips that start and end there.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">commute</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">&#39;Start Station&#39;</span><span class="p">,</span> <span class="s1">&#39;End Station&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">commute</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">'Start Station'</span><span class="p">,</span> <span class="s1">'End Station'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -595,7 +606,7 @@ document.write(`
 <p>We can also use <code class="docutils literal notranslate"><span class="pre">pivot</span></code> to find the shortest time of the rides between Start and End Stations. Here <code class="docutils literal notranslate"><span class="pre">pivot</span></code> has been given <code class="docutils literal notranslate"><span class="pre">Duration</span></code> as the optional <code class="docutils literal notranslate"><span class="pre">values</span></code> argument, and <code class="docutils literal notranslate"><span class="pre">min</span></code> as the function which to perform on the values in each cell.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">commute</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">&#39;Start Station&#39;</span><span class="p">,</span> <span class="s1">&#39;End Station&#39;</span><span class="p">,</span> <span class="s1">&#39;Duration&#39;</span><span class="p">,</span> <span class="nb">min</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">commute</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">'Start Station'</span><span class="p">,</span> <span class="s1">'End Station'</span><span class="p">,</span> <span class="s1">'Duration'</span><span class="p">,</span> <span class="nb">min</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -648,7 +659,7 @@ document.write(`
 <p>The table <code class="docutils literal notranslate"><span class="pre">stations</span></code> contains geographical information about each bike station, including latitude, longitude, and a “landmark” which is the name of the city where the station is located.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stations</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">&#39;station.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stations</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">path_data</span> <span class="o">+</span> <span class="s1">'station.csv'</span><span class="p">)</span>
 <span class="n">stations</span>
 </pre></div>
 </div>
@@ -698,7 +709,7 @@ document.write(`
 <p>We can draw a map of where the stations are located, using <code class="docutils literal notranslate"><span class="pre">Marker.map_table</span></code>. The function operates on a table, whose columns are (in order) latitude, longitude, and an optional identifier for each point.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Marker</span><span class="o">.</span><span class="n">map_table</span><span class="p">(</span><span class="n">stations</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;long&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">relabel</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;labels&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Marker</span><span class="o">.</span><span class="n">map_table</span><span class="p">(</span><span class="n">stations</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'lat'</span><span class="p">,</span> <span class="s1">'long'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">)</span><span class="o">.</span><span class="n">relabel</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'labels'</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -709,9 +720,9 @@ document.write(`
 <p>You can also represent points on a map by colored circles. Here is such a map of the San Francisco bike stations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sf</span> <span class="o">=</span> <span class="n">stations</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">&#39;landmark&#39;</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">&#39;San Francisco&#39;</span><span class="p">))</span>
-<span class="n">sf_map_data</span> <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;long&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">relabel</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;labels&#39;</span><span class="p">)</span>
-<span class="n">Circle</span><span class="o">.</span><span class="n">map_table</span><span class="p">(</span><span class="n">sf_map_data</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sf</span> <span class="o">=</span> <span class="n">stations</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'landmark'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">'San Francisco'</span><span class="p">))</span>
+<span class="n">sf_map_data</span> <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'lat'</span><span class="p">,</span> <span class="s1">'long'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">)</span><span class="o">.</span><span class="n">relabel</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'labels'</span><span class="p">)</span>
+<span class="n">Circle</span><span class="o">.</span><span class="n">map_table</span><span class="p">(</span><span class="n">sf_map_data</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'green'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -724,7 +735,7 @@ document.write(`
 <p>The bike stations are located in five different cities in the Bay Area. To distinguish the points by using a different color for each city, let’s start by using group to identify all the cities and assign each one a color.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span> <span class="o">=</span> <span class="n">stations</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;landmark&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="s1">&#39;landmark&#39;</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cities</span> <span class="o">=</span> <span class="n">stations</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'landmark'</span><span class="p">)</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="s1">'landmark'</span><span class="p">,</span> <span class="s1">'city'</span><span class="p">)</span>
 <span class="n">cities</span>
 </pre></div>
 </div>
@@ -757,7 +768,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="n">cities</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="n">cities</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'color'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'blue'</span><span class="p">,</span> <span class="s1">'red'</span><span class="p">,</span> <span class="s1">'green'</span><span class="p">,</span> <span class="s1">'orange'</span><span class="p">,</span> <span class="s1">'purple'</span><span class="p">))</span>
 <span class="n">colors</span>
 </pre></div>
 </div>
@@ -791,8 +802,8 @@ document.write(`
 <p>Now we can join <code class="docutils literal notranslate"><span class="pre">stations</span></code> and <code class="docutils literal notranslate"><span class="pre">colors</span></code> by <code class="docutils literal notranslate"><span class="pre">landmark</span></code>, and then select the columns we need to draw a map.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">joined</span> <span class="o">=</span> <span class="n">stations</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;landmark&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="s1">&#39;city&#39;</span><span class="p">)</span>
-<span class="n">colored</span> <span class="o">=</span> <span class="n">joined</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;long&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">relabel</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">joined</span> <span class="o">=</span> <span class="n">stations</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">'landmark'</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="s1">'city'</span><span class="p">)</span>
+<span class="n">colored</span> <span class="o">=</span> <span class="n">joined</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'lat'</span><span class="p">,</span> <span class="s1">'long'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'color'</span><span class="p">)</span><span class="o">.</span><span class="n">relabel</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'labels'</span><span class="p">)</span>
 <span class="n">Marker</span><span class="o">.</span><span class="n">map_table</span><span class="p">(</span><span class="n">colored</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -804,7 +815,7 @@ document.write(`
 <p>To see where most of the bike rentals originate, let’s identify the start stations:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">starts</span> <span class="o">=</span> <span class="n">commute</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;Start Station&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">starts</span> <span class="o">=</span> <span class="n">commute</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Start Station'</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'count'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">starts</span>
 </pre></div>
 </div>
@@ -854,7 +865,7 @@ document.write(`
 <p>We can include the geographical data needed to map these stations, by first joining <code class="docutils literal notranslate"><span class="pre">starts</span></code> with <code class="docutils literal notranslate"><span class="pre">stations</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_starts</span> <span class="o">=</span> <span class="n">stations</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">starts</span><span class="p">,</span> <span class="s1">&#39;Start Station&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">station_starts</span> <span class="o">=</span> <span class="n">stations</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="n">starts</span><span class="p">,</span> <span class="s1">'Start Station'</span><span class="p">)</span>
 <span class="n">station_starts</span>
 </pre></div>
 </div>
@@ -904,12 +915,12 @@ document.write(`
 <p>Now we extract just the data needed for drawing our map, adding a color and an area to each station. The area is 0.3 times the count of the number of rentals starting at each station, where the constant 0.3 was chosen so that the circles would appear at an appropriate scale on the map.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">starts_map_data</span> <span class="o">=</span> <span class="n">station_starts</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;long&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">&#39;colors&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;areas&#39;</span><span class="p">,</span> <span class="n">station_starts</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.3</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">starts_map_data</span> <span class="o">=</span> <span class="n">station_starts</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'lat'</span><span class="p">,</span> <span class="s1">'long'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">)</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+    <span class="s1">'colors'</span><span class="p">,</span> <span class="s1">'blue'</span><span class="p">,</span>
+    <span class="s1">'areas'</span><span class="p">,</span> <span class="n">station_starts</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'count'</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.3</span>
 <span class="p">)</span>
 <span class="n">starts_map_data</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">Circle</span><span class="o">.</span><span class="n">map_table</span><span class="p">(</span><span class="n">starts_map_data</span><span class="o">.</span><span class="n">relabel</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;labels&#39;</span><span class="p">))</span>
+<span class="n">Circle</span><span class="o">.</span><span class="n">map_table</span><span class="p">(</span><span class="n">starts_map_data</span><span class="o">.</span><span class="n">relabel</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'labels'</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>

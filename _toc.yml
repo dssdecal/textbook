@@ -34,12 +34,33 @@ sections:
   - file: chapters/02/7/dictionaries
     title: Dictionaries
 - file: chapters/03/sequences
-  title: Dataframes
+  title: DataFrames
   sections:
   - file: chapters/03/1/tabular
     title: Tabular Data
+  - file: chapters/03/2/pandas-cleaning-eda
+    title: Pandas, Data Cleaning, and EDA (Week 2)
 - file: chapters/07/machine_learning
   title: Machine Learning
   sections:
   - file: chapters/07/1/introductions
     title: Introduction to Models
+- file: chapters/fa26/index
+  title: Fall 2026 Readings
+  sections:
+  - file: chapters/fa26/python-basics
+    title: Python Basics
+  - file: chapters/fa26/pandas-cleaning-and-eda
+    title: Week 2 · Pandas, Data Cleaning, and EDA
+  - file: chapters/fa26/visualization-and-features
+    title: Week 3 · Data Visualization and Feature Engineering
+  - file: chapters/fa26/ml-foundations
+    title: Week 4 · Machine Learning Foundations
+  - file: chapters/fa26/supervised-learning
+    title: Week 5 · Supervised Learning
+  - file: chapters/fa26/model-evaluation
+    title: Week 6 · Model Evaluation
+  - file: chapters/fa26/unsupervised-learning
+    title: Week 7 · Unsupervised Learning
+  - file: chapters/fa26/modern-machine-learning
+    title: Week 8 · Modern Machine Learning

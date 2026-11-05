@@ -1,0 +1,1101 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>5.3. Week 3: Data Visualization, Feature Engineering, and Selection &#8212; Introduction to Real World Data Science</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/fa26/visualization-and-features';</script>
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5.4. Week 4: Introduction to Machine Learning" href="ml-foundations.html" />
+    <link rel="prev" title="5.2. Week 2: Pandas, Data Cleaning, and Introductory EDA" href="pandas-cleaning-and-eda.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/favicon.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/favicon.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01/what-is-data-science.html">1. What is a Data Science</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../01/1/intro.html">1.1. Introduction</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../01/1/1/computational-tools.html">1.1.1. Computational Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../01/1/2/statistical-techniques.html">1.1.2. Statistical Techniques</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../01/2/why-data-science.html">1.2. Why Data Science?</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02/intro_python.html">2. Introduction to Python</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02/1/expressions.html">2.1. Simple Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/2/variables.html">2.2. Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/3/call_expressions.html">2.3. Call Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/4/data_types.html">2.4. Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/5/comparisons.html">2.5. Comparison Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/6/lists.html">2.6. Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/7/dictionaries.html">2.7. Dictionaries</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">5. Fall 2026 Readings</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/dssdecal/textbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/fa26/visualization-and-features.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Week 3: Data Visualization, Feature Engineering, and Selection</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">5.3.1. Data Visualization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-need-to-visualize-data">5.3.1.1. Why do we need to visualize data?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-types-of-visualizations">5.3.1.2. Common Types of Visualizations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histograms">5.3.1.3. Histograms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bar-plots">5.3.1.4. Bar Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot">5.3.1.5. Scatter Plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#line-plots">5.3.1.6. Line Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#count-plots-and-box-plots">5.3.1.7. Count Plots and Box Plots</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">5.3.2. Feature Engineering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-feature-engineering">5.3.2.1. What is Feature Engineering?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-feature-engineering-important">5.3.2.2. Why is Feature Engineering Important?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-categorical-variables">5.3.2.3. Encoding Categorical Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-hot-encoding-vs-ordinal-encoding">5.3.2.4. One-hot Encoding vs Ordinal Encoding</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinal-encoding">5.3.2.4.1. Ordinal Encoding</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#one-hot-encoding">5.3.2.4.2. One-hot Encoding</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-feature-selection">5.3.2.5. What is Feature Selection?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#choose-inputs-available-at-prediction-time">5.3.2.5.1. Choose inputs available at prediction time</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">5.3.3. Recap</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="week-3-data-visualization-feature-engineering-and-selection">
+<h1><span class="section-number">5.3. </span>Week 3: Data Visualization, Feature Engineering, and Selection<a class="headerlink" href="#week-3-data-visualization-feature-engineering-and-selection" title="Permalink to this heading">#</a></h1>
+<p><strong>September 28 · Gina and Samarth</strong></p>
+<p>In <a class="reference internal" href="pandas-cleaning-and-eda.html"><span class="doc std std-doc">Week 2</span></a>, we introduced pandas, cleaning, and exploratory data analysis. This week uses charts to explore patterns, then introduces features, encoding, and input selection. These are complete worked examples; practice the ideas in Lab 02.</p>
+<ol class="arabic simple">
+<li><p>Visualize numerical distributions, categories, and relationships.</p></li>
+<li><p>Create features and encode categorical variables.</p></li>
+<li><p>Select inputs that are available at prediction time.</p></li>
+</ol>
+<p>For later modeling work, see <a class="reference internal" href="unsupervised-learning.html"><span class="doc std std-doc">Week 7</span></a> for feature scaling and the difference between feature selection and extraction.</p>
+<section id="data-visualization">
+<h2><span class="section-number">5.3.1. </span>Data Visualization<a class="headerlink" href="#data-visualization" title="Permalink to this heading">#</a></h2>
+<section id="why-do-we-need-to-visualize-data">
+<h3><span class="section-number">5.3.1.1. </span>Why do we need to visualize data?<a class="headerlink" href="#why-do-we-need-to-visualize-data" title="Permalink to this heading">#</a></h3>
+<p>EDA makes heavy use of visualizations, which have a key role in both <em>uncovering</em> useful observations and later <em>communicating</em> those findings to others.</p>
+<p>Consider the following image as an example for why EDA and data visualization are necessary.</p>
+<p><img alt="Plots with identical summary statistics and different shapes" src="../../_images/same-summary-statistics.png" /></p>
+<p>All visualizations have the same summary statistics (mean, SD, etc.), but they clearly convey very different information! Using visualizations and EDA can reveal details from data that cannot be understood from numerical values alone.</p>
+</section>
+<section id="common-types-of-visualizations">
+<h3><span class="section-number">5.3.1.2. </span>Common Types of Visualizations<a class="headerlink" href="#common-types-of-visualizations" title="Permalink to this heading">#</a></h3>
+<p>Visualizations are plotted using Matplotlib and Seaborn. Matplotlib lets you customize your plots with greater detail, but Seaborn allows you to easily make more visually appealing plots.</p>
+<p>Matplotlib is usually imported as <code class="docutils literal notranslate"><span class="pre">plt</span></code>, while Seaborn is usually imported as <code class="docutils literal notranslate"><span class="pre">sns</span></code>.</p>
+<p>I’m creating a <code class="docutils literal notranslate"><span class="pre">tas</span></code> dataframe that will be used for the demos in the code cell below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="n">raw_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"Student ID"</span><span class="p">:</span>    <span class="p">[</span><span class="mi">101</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">109</span><span class="p">,</span> <span class="mi">102</span><span class="p">],</span>
+    <span class="s2">"Name"</span><span class="p">:</span>      <span class="p">[</span><span class="s2">"Gina"</span><span class="p">,</span> <span class="s2">"Iana"</span><span class="p">,</span> <span class="s2">"Kabilan"</span><span class="p">,</span> <span class="s2">"Nathan"</span><span class="p">,</span> <span class="s2">"Earn"</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"Sameer"</span><span class="p">,</span> <span class="s2">"Sarah"</span><span class="p">,</span> <span class="s2">"Wayland"</span><span class="p">,</span> <span class="s2">"Iana"</span><span class="p">],</span>
+    <span class="s2">"Major"</span><span class="p">:</span>         <span class="p">[</span><span class="s2">"Math"</span><span class="p">,</span> <span class="s2">"DS"</span><span class="p">,</span> <span class="s2">"Math"</span><span class="p">,</span> <span class="s2">"DS"</span><span class="p">,</span> <span class="s2">"Business"</span><span class="p">,</span> <span class="s2">"DS"</span><span class="p">,</span> <span class="s2">"economics"</span><span class="p">,</span> <span class="s2">"CS"</span><span class="p">,</span> <span class="s2">"DS"</span><span class="p">,</span> <span class="s2">"Biology"</span><span class="p">],</span>
+    <span class="s2">"GPA"</span><span class="p">:</span>           <span class="p">[</span><span class="mf">3.8</span><span class="p">,</span> <span class="mf">3.7</span><span class="p">,</span> <span class="mf">3.9</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">,</span> <span class="mf">3.7</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">],</span>
+    <span class="s2">"Year"</span><span class="p">:</span>          <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="s2">"scholarship"</span><span class="p">:</span>   <span class="p">[</span><span class="s2">"yes"</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">,</span> <span class="s2">"yes"</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">,</span> <span class="s2">"yes"</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">,</span> <span class="s2">"yes"</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"no"</span><span class="p">],</span>
+    <span class="s2">"Extra Column"</span><span class="p">:</span>  <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
+<span class="p">}</span>
+<span class="n">tas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
+<span class="n">tas</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matplotlib is building the font cache; this may take a moment.
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Student ID</th>
+      <th>Name</th>
+      <th>Major</th>
+      <th>GPA</th>
+      <th>Year</th>
+      <th>scholarship</th>
+      <th>Extra Column</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>101</td>
+      <td>Gina</td>
+      <td>Math</td>
+      <td>3.8</td>
+      <td>2</td>
+      <td>yes</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>102</td>
+      <td>Iana</td>
+      <td>DS</td>
+      <td>3.7</td>
+      <td>3</td>
+      <td>no</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>103</td>
+      <td>Kabilan</td>
+      <td>Math</td>
+      <td>3.9</td>
+      <td>1</td>
+      <td>yes</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>104</td>
+      <td>Nathan</td>
+      <td>DS</td>
+      <td>3.0</td>
+      <td>4</td>
+      <td>no</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>105</td>
+      <td>Earn</td>
+      <td>Business</td>
+      <td>3.6</td>
+      <td>2</td>
+      <td>yes</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>106</td>
+      <td>NaN</td>
+      <td>DS</td>
+      <td>3.2</td>
+      <td>3</td>
+      <td>no</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>107</td>
+      <td>Sameer</td>
+      <td>economics</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>yes</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>108</td>
+      <td>Sarah</td>
+      <td>CS</td>
+      <td>3.1</td>
+      <td>3</td>
+      <td>no</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>109</td>
+      <td>Wayland</td>
+      <td>DS</td>
+      <td>3.7</td>
+      <td>4</td>
+      <td>NaN</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>102</td>
+      <td>Iana</td>
+      <td>Biology</td>
+      <td>3.5</td>
+      <td>3</td>
+      <td>no</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="histograms">
+<h3><span class="section-number">5.3.1.3. </span>Histograms<a class="headerlink" href="#histograms" title="Permalink to this heading">#</a></h3>
+<p>Histograms visualize the distribution of a single <em>quantitative</em> variable.</p>
+<p>To plot a histogram in Matplotlib, use the structure <code class="docutils literal notranslate"><span class="pre">plt.hist(x)</span></code> where <code class="docutils literal notranslate"><span class="pre">x</span></code> is a series. There are many other optional arguments you can pass into the <code class="docutils literal notranslate"><span class="pre">plt.hist()</span></code> function, and you can read more about them <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.hist.html">here</a> in the matplotlib documentation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">tas</span><span class="p">[</span><span class="s1">'GPA'</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Add labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"GPA"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Count"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"GPA Among DSS Decal TAs and Tutors"</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/0d42d02a2a3c121f2aae8270af14b5d77d71daa97c7241f0006cef7bc2d57b46.png" src="../../_images/0d42d02a2a3c121f2aae8270af14b5d77d71daa97c7241f0006cef7bc2d57b46.png" />
+</div>
+</div>
+</section>
+<section id="bar-plots">
+<h3><span class="section-number">5.3.1.4. </span>Bar Plots<a class="headerlink" href="#bar-plots" title="Permalink to this heading">#</a></h3>
+<p>A bar plot visualizes the distribution of a qualitative (categorical) variable. The length of a bar plot encodes the frequency of a category.</p>
+<p>To plot bar plots in Matplotlib, use the structure <code class="docutils literal notranslate"><span class="pre">plt.bar(x,</span> <span class="pre">height)</span></code> where <code class="docutils literal notranslate"><span class="pre">x</span></code> is an array / series / index of the category labels and <code class="docutils literal notranslate"><span class="pre">height</span></code> is an array / series / index of the height for each bar (usually counts).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">tas</span><span class="p">[</span><span class="s1">'Major'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+
+<span class="c1"># Add labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Major"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Count"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Majors Among DSS Decal TAs and Tutors"</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/d6b4930dd2a21315d59a28d6240e07fc81eab59a5f48cb518e94841ca085e2b5.png" src="../../_images/d6b4930dd2a21315d59a28d6240e07fc81eab59a5f48cb518e94841ca085e2b5.png" />
+</div>
+</div>
+</section>
+<section id="scatter-plot">
+<h3><span class="section-number">5.3.1.5. </span>Scatter Plot<a class="headerlink" href="#scatter-plot" title="Permalink to this heading">#</a></h3>
+<p>Scatter plots visualize the relationship between pairs of quantitative variables. They indicate the strength, or correlation, of the relationship between variables.</p>
+<p>To plot scatterplots in Matplotlib, use the structure <code class="docutils literal notranslate"><span class="pre">plt.scatter(x,</span> <span class="pre">y)</span></code> where <code class="docutils literal notranslate"><span class="pre">x</span></code> is an array / series / index of the x-axis variable and <code class="docutils literal notranslate"><span class="pre">y</span></code> is an array / series / index of y-axis variable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">year</span> <span class="o">=</span> <span class="n">tas</span><span class="p">[</span><span class="s1">'Year'</span><span class="p">]</span>
+<span class="n">gpa</span> <span class="o">=</span> <span class="n">tas</span><span class="p">[</span><span class="s1">'GPA'</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">gpa</span><span class="p">);</span>
+
+<span class="c1"># Add labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"GPA"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Relationship Between DSS Decal TAs' Year and GPA"</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/6b5a68e9dd71bdebabc76566a28eced6a9689741b93399cee6578f50bf1da82b.png" src="../../_images/6b5a68e9dd71bdebabc76566a28eced6a9689741b93399cee6578f50bf1da82b.png" />
+</div>
+</div>
+</section>
+<section id="line-plots">
+<h3><span class="section-number">5.3.1.6. </span>Line Plots<a class="headerlink" href="#line-plots" title="Permalink to this heading">#</a></h3>
+<p>Line plots visualize how a single <em>quantitative</em> variable changes over time.</p>
+<p>To plot line plots in Matplotlib, use the structure <code class="docutils literal notranslate"><span class="pre">plt.plot(x,</span> <span class="pre">y)</span></code> where <code class="docutils literal notranslate"><span class="pre">x</span></code> is an array / series / index of the x-axis variable and <code class="docutils literal notranslate"><span class="pre">y</span></code> is an array / series / index of y-axis variable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">raw_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"Semester"</span><span class="p">:</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+    <span class="s2">"GPA"</span><span class="p">:</span>           <span class="p">[</span><span class="mf">4.00</span><span class="p">,</span> <span class="mf">3.98</span><span class="p">,</span> <span class="mf">3.85</span><span class="p">,</span> <span class="mf">3.86</span><span class="p">,</span> <span class="mf">3.89</span><span class="p">,</span> <span class="mf">3.91</span><span class="p">],</span>
+<span class="p">}</span>
+<span class="n">gpa_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gpa_df</span><span class="p">[</span><span class="s1">'Semester'</span><span class="p">],</span> <span class="n">gpa_df</span><span class="p">[</span><span class="s1">'GPA'</span><span class="p">]);</span>
+
+<span class="c1"># Add labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Semester"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"GPA"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"GPA over the semesters"</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/f5f8a7584168a95d2a2495a43636b9cd87b216930e7aa584db5d6ac2c59a6d02.png" src="../../_images/f5f8a7584168a95d2a2495a43636b9cd87b216930e7aa584db5d6ac2c59a6d02.png" />
+</div>
+</div>
+</section>
+<section id="count-plots-and-box-plots">
+<h3><span class="section-number">5.3.1.7. </span>Count Plots and Box Plots<a class="headerlink" href="#count-plots-and-box-plots" title="Permalink to this heading">#</a></h3>
+<p>A Seaborn count plot counts rows in each category, like the bar chart above. A box plot compares a numerical distribution across categories: the central line is the median and the box spans the middle half of the observations. Points beyond the whiskers are not automatically errors.</p>
+<p>These small example tables are for demonstration. Counts describe the observed rows, not the popularity of a major, and a scatterplot alone cannot establish cause and effect.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">tas</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"Major"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Rows by major in the example data"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Major"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Number of rows"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">tas</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">"Major"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">"GPA"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"GPA distributions by major in the example data"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Major"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"GPA"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/f4701736d45be34d05ef9b80f830536c364b3d15eaeea9e08d251b5324660d7d.png" src="../../_images/f4701736d45be34d05ef9b80f830536c364b3d15eaeea9e08d251b5324660d7d.png" />
+<img alt="../../_images/e4ab9e5edf419fc1ca23cdb4390a687e671689277f638ccaa0c5a667983920bd.png" src="../../_images/e4ab9e5edf419fc1ca23cdb4390a687e671689277f638ccaa0c5a667983920bd.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="feature-engineering">
+<h2><span class="section-number">5.3.2. </span>Feature Engineering<a class="headerlink" href="#feature-engineering" title="Permalink to this heading">#</a></h2>
+<section id="what-is-feature-engineering">
+<h3><span class="section-number">5.3.2.1. </span>What is Feature Engineering?<a class="headerlink" href="#what-is-feature-engineering" title="Permalink to this heading">#</a></h3>
+<p>Feature engineering is the process of transforming raw data into meaningful inputs (called features) that machine learning models can use more effectively. Instead of feeding a model the dataset exactly as it was collected, we often modify existing variables, combine multiple variables, or create entirely new ones that better capture patterns in the data.</p>
+<p>For example, a dataset might contain a person’s date of birth, but a model may learn more effectively from a derived feature like age. Similarly, combining variables such as price and quantity into a new feature like total spending can help a model capture relationships that are not immediately visible in the original data.</p>
+<p>Feature engineering plays an important role in both model performance and interpretability. Well-designed features help models detect meaningful patterns more easily, which can improve predictive accuracy. At the same time, features that represent clear real-world concepts make it easier for humans to understand how and why a model arrives at its predictions.</p>
+<p>Because of this, feature engineering is often one of the most impactful steps in the data science workflow. In many cases, improving the features used by a model can lead to larger performance gains than simply switching to a more complex algorithm.</p>
+</section>
+<section id="why-is-feature-engineering-important">
+<h3><span class="section-number">5.3.2.2. </span>Why is Feature Engineering Important?<a class="headerlink" href="#why-is-feature-engineering-important" title="Permalink to this heading">#</a></h3>
+<p>Machine learning models do not learn directly from raw data, but rather they learn from the features we provide. The quality and structure of these features strongly influence how well a model can detect patterns and make predictions.</p>
+<p>If the features capture the important relationships in the data, even relatively simple models can perform well. However, if the features are poorly constructed or fail to represent meaningful information, even advanced models may struggle to learn useful patterns.</p>
+<p>This idea is often summarized by the principle “Garbage In, Garbage Out” (GIGO). A model’s prediction is only as good as the data we put inside of it, so the feature engineering phase is critical to creating a good model.</p>
+<p>By carefully designing and transforming features, we make it easier for models to understand the underlying structure of the data. As a result, good feature engineering can lead to more accurate models, faster training, and more interpretable predictions.</p>
+</section>
+<section id="encoding-categorical-variables">
+<h3><span class="section-number">5.3.2.3. </span>Encoding Categorical Variables<a class="headerlink" href="#encoding-categorical-variables" title="Permalink to this heading">#</a></h3>
+<p>Variables in a dataset generally fall into two categories: quantitative and categorical. Quantitative variables represent numerical values that have meaningful magnitudes, such as age, income, or temperature. Categorical variables represent discrete groups or labels, such as color, country, or type of product.</p>
+<p>Most machine learning models require numerical inputs, which means categorical variables must be converted into numbers before a model can use them. This process is called encoding.</p>
+<p>It is important that the encoding method preserves the meaning of the categories without introducing misleading relationships. For example, assigning numbers like 1, 2, and 3 to categories such as red, blue, and green might incorrectly suggest an ordering between them. Instead, techniques like one-hot encoding create separate binary columns for each category, allowing models to represent categories without implying a numerical relationship.</p>
+</section>
+<section id="one-hot-encoding-vs-ordinal-encoding">
+<h3><span class="section-number">5.3.2.4. </span>One-hot Encoding vs Ordinal Encoding<a class="headerlink" href="#one-hot-encoding-vs-ordinal-encoding" title="Permalink to this heading">#</a></h3>
+<p>Two common methods for converting categorical variables into numerical form are one-hot encoding and ordinal encoding. Each method is appropriate for different types of categorical data.</p>
+<section id="ordinal-encoding">
+<h4><span class="section-number">5.3.2.4.1. </span>Ordinal Encoding<a class="headerlink" href="#ordinal-encoding" title="Permalink to this heading">#</a></h4>
+<p>Ordinal encoding assigns an integer value to each category. This method is appropriate when the categories have a natural order.</p>
+<p>For example, education levels such as High School, Bachelor’s, and Master’s have an inherent ranking. Encoding them as 0, 1, 2 preserves this ordering.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"education"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"High School"</span><span class="p">,</span> <span class="s2">"Bachelors"</span><span class="p">,</span> <span class="s2">"Masters"</span><span class="p">,</span> <span class="s2">"Bachelors"</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"High School"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">"Bachelors"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"Masters"</span><span class="p">:</span> <span class="mi">2</span>
+<span class="p">}</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s2">"education_encoded"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"education"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">mapping</span><span class="p">)</span>
+
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>education</th>
+      <th>education_encoded</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>High School</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Bachelors</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Masters</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Bachelors</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Here, the model can learn from the fact that Master’s &gt; Bachelor’s &gt; High School.</p>
+<p>However, ordinal encoding should not be used when categories have no meaningful order.</p>
+</section>
+<section id="one-hot-encoding">
+<h4><span class="section-number">5.3.2.4.2. </span>One-hot Encoding<a class="headerlink" href="#one-hot-encoding" title="Permalink to this heading">#</a></h4>
+<p>One-hot encoding creates a separate binary column for each category. A value of 1 indicates the presence of that category, while 0 indicates absence.</p>
+<p>This method is appropriate for nominal categorical variables, where categories do not have an inherent order (e.g., colors or product types).</p>
+<p>Here’s an example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"color"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"red"</span><span class="p">,</span> <span class="s2">"blue"</span><span class="p">,</span> <span class="s2">"green"</span><span class="p">,</span> <span class="s2">"blue"</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">df_encoded</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"color"</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">df_encoded</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>color_blue</th>
+      <th>color_green</th>
+      <th>color_red</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>This produces columns like:</p>
+<p>color_blue,           color_green, and           color_red</p>
+<p>Each row will have a 1 in the column corresponding to its category.</p>
+</section>
+</section>
+<section id="what-is-feature-selection">
+<h3><span class="section-number">5.3.2.5. </span>What is Feature Selection?<a class="headerlink" href="#what-is-feature-selection" title="Permalink to this heading">#</a></h3>
+<p>Feature selection is the process of identifying and selecting the most relevant features in a dataset to use when training a machine learning model. Instead of using every available variable, feature selection focuses on keeping the features that provide useful information while removing those that are irrelevant, redundant, or noisy.</p>
+<p>Feature selection is important because unnecessary features can make models more complex, harder to interpret, and more prone to overfitting. By reducing the number of features, we can simplify the model, improve interpretability, and sometimes even improve predictive performance. Additionally, using fewer features can reduce computational cost and make models faster to train.</p>
+<section id="choose-inputs-available-at-prediction-time">
+<h4><span class="section-number">5.3.2.5.1. </span>Choose inputs available at prediction time<a class="headerlink" href="#choose-inputs-available-at-prediction-time" title="Permalink to this heading">#</a></h4>
+<p>First specify what you want to predict (the <strong>target</strong>) and when you will make that prediction. Keep the target out of the input table. Avoid information that will only become available after the outcome: this is <strong>data leakage</strong>.</p>
+<p>For example, to predict a delivery’s duration when an order is placed, distance and whether it is a weekend may be available. The actual arrival time is not. This small example creates a Boolean feature and selects inputs without training a model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">deliveries</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"distance_km"</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span>
+    <span class="s2">"day"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Monday"</span><span class="p">,</span> <span class="s2">"Saturday"</span><span class="p">,</span> <span class="s2">"Sunday"</span><span class="p">,</span> <span class="s2">"Tuesday"</span><span class="p">],</span>
+    <span class="s2">"duration_minutes"</span><span class="p">:</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">45</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="n">deliveries</span><span class="p">[</span><span class="s2">"weekend"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deliveries</span><span class="p">[</span><span class="s2">"day"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">"Saturday"</span><span class="p">,</span> <span class="s2">"Sunday"</span><span class="p">])</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">deliveries</span><span class="p">[[</span><span class="s2">"distance_km"</span><span class="p">,</span> <span class="s2">"weekend"</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">deliveries</span><span class="p">[</span><span class="s2">"duration_minutes"</span><span class="p">]</span>
+<span class="n">X</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>distance_km</th>
+      <th>weekend</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.5</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.0</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2.0</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6.0</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+<section id="recap">
+<h2><span class="section-number">5.3.3. </span>Recap<a class="headerlink" href="#recap" title="Permalink to this heading">#</a></h2>
+<p>Use a histogram for a numerical distribution, a count plot for category frequencies, a scatterplot for two numerical variables, and a box plot to compare distributions across groups. Label axes and distinguish observed associations from causal claims.</p>
+<p>Feature engineering creates or transforms inputs; feature selection chooses which to keep. One-hot encoding represents unordered categories without implying a rank. Keep the target separate and use only information available at prediction time.</p>
+<p>Continue with <a class="reference internal" href="unsupervised-learning.html"><span class="doc std std-doc">Week 7</span></a> for feature scaling and dimensionality reduction.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters/fa26"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="pandas-cleaning-and-eda.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">5.2. </span>Week 2: Pandas, Data Cleaning, and Introductory EDA</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ml-foundations.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5.4. </span>Week 4: Introduction to Machine Learning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-visualization">5.3.1. Data Visualization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-need-to-visualize-data">5.3.1.1. Why do we need to visualize data?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-types-of-visualizations">5.3.1.2. Common Types of Visualizations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histograms">5.3.1.3. Histograms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bar-plots">5.3.1.4. Bar Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot">5.3.1.5. Scatter Plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#line-plots">5.3.1.6. Line Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#count-plots-and-box-plots">5.3.1.7. Count Plots and Box Plots</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">5.3.2. Feature Engineering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-feature-engineering">5.3.2.1. What is Feature Engineering?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-feature-engineering-important">5.3.2.2. Why is Feature Engineering Important?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-categorical-variables">5.3.2.3. Encoding Categorical Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-hot-encoding-vs-ordinal-encoding">5.3.2.4. One-hot Encoding vs Ordinal Encoding</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinal-encoding">5.3.2.4.1. Ordinal Encoding</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#one-hot-encoding">5.3.2.4.2. One-hot Encoding</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-feature-selection">5.3.2.5. What is Feature Selection?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#choose-inputs-available-at-prediction-time">5.3.2.5.1. Choose inputs available at prediction time</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">5.3.3. Recap</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Brandon Concepcion
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

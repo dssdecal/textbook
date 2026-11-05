@@ -35,7 +35,6 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/book.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -66,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="3. Sequences" href="../../03/sequences.html" />
+    <link rel="next" title="3. DataFrames and Working with Data" href="../../03/sequences.html" />
     <link rel="prev" title="2.6. Lists" href="../6/lists.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -170,12 +169,24 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">2.7. Dictionaries</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. Dataframes</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03/sequences.html">3. DataFrames</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../03/1/tabular.html">3.1. Tabular Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03/2/pandas-cleaning-eda.html">3.2. Pandas, Data Cleaning, and EDA (Week 2)</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../07/machine_learning.html">4. Machine Learning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../07/1/introductions.html">4.4. Introduction to Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../fa26/index.html">5. Fall 2026 Readings</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/python-basics.html">5.1. Python Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/pandas-cleaning-and-eda.html">5.2. Week 2 · Pandas, Data Cleaning, and EDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/visualization-and-features.html">5.3. Week 3 · Data Visualization and Feature Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/ml-foundations.html">5.4. Week 4 · Machine Learning Foundations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/supervised-learning.html">5.5. Week 5 · Supervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/model-evaluation.html">5.6. Week 6 · Model Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/unsupervised-learning.html">5.7. Week 7 · Unsupervised Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../fa26/modern-machine-learning.html">5.8. Week 8 · Modern Machine Learning</a></li>
 </ul>
 </li>
 </ul>
@@ -221,7 +232,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/DSS-Data198/textbook" target="_blank"
+<a href="https://github.com/dssdecal/textbook" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -379,8 +390,8 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creating a dictionary</span>
 <span class="n">student_info</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Brandon&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Brandon"</span><span class="p">,</span>
+    <span class="s2">"age"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
 <span class="p">}</span>
 
 <span class="n">student_info</span>
@@ -388,7 +399,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;name&#39;: &#39;Brandon&#39;, &#39;age&#39;: 20}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'name': 'Brandon', 'age': 20}
 </pre></div>
 </div>
 </div>
@@ -399,8 +410,8 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Accessing a value</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">student_info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>  <span class="c1"># Output: Brandon</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">student_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">))</span>  <span class="c1"># Same Output: Brandon</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">student_info</span><span class="p">[</span><span class="s2">"name"</span><span class="p">])</span>  <span class="c1"># Output: Brandon</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">student_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"name"</span><span class="p">))</span>  <span class="c1"># Same Output: Brandon</span>
 </pre></div>
 </div>
 </div>
@@ -426,14 +437,14 @@ The key <code class="docutils literal notranslate"><span class="pre">&quot;age&q
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creating a dictionary</span>
 <span class="n">student_info</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Brandon&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Lynn&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
-    <span class="s2">&quot;major&quot;</span><span class="p">:</span> <span class="s2">&quot;Data Science&quot;</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Brandon"</span><span class="p">,</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Lynn"</span><span class="p">,</span>
+    <span class="s2">"age"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="s2">"major"</span><span class="p">:</span> <span class="s2">"Data Science"</span>
 <span class="p">}</span>
 
 <span class="c1"># Accessing a value</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">student_info</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>  <span class="c1"># Output: Lynn</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">student_info</span><span class="p">[</span><span class="s2">"name"</span><span class="p">])</span>  <span class="c1"># Output: Lynn</span>
 </pre></div>
 </div>
 </div>
@@ -453,14 +464,14 @@ The key <code class="docutils literal notranslate"><span class="pre">&quot;age&q
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dictionary mapping course codes to course titles</span>
 <span class="n">courses</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;DATA C8&quot;</span><span class="p">:</span> <span class="s2">&quot;Foundations of Data Science&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;DATA C100&quot;</span><span class="p">:</span> <span class="s2">&quot;Principles and Techniques of Data Science&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;DATA C101&quot;</span><span class="p">:</span> <span class="s2">&quot;Data Engineering&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;DATA C140&quot;</span><span class="p">:</span> <span class="s2">&quot;Probability for Data Science&quot;</span>
+    <span class="s2">"DATA C8"</span><span class="p">:</span> <span class="s2">"Foundations of Data Science"</span><span class="p">,</span>
+    <span class="s2">"DATA C100"</span><span class="p">:</span> <span class="s2">"Principles and Techniques of Data Science"</span><span class="p">,</span>
+    <span class="s2">"DATA C101"</span><span class="p">:</span> <span class="s2">"Data Engineering"</span><span class="p">,</span>
+    <span class="s2">"DATA C140"</span><span class="p">:</span> <span class="s2">"Probability for Data Science"</span>
 <span class="p">}</span>
 
 <span class="c1"># Access the title of Data 8</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Course Title for DATA 8: </span><span class="si">{</span><span class="n">courses</span><span class="p">[</span><span class="s1">&#39;DATA C8&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Course Title for DATA 8: </span><span class="si">{</span><span class="n">courses</span><span class="p">[</span><span class="s1">'DATA C8'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -474,7 +485,7 @@ The key <code class="docutils literal notranslate"><span class="pre">&quot;age&q
 <p>To do this, we simply provide the key (the course code) and its corresponding value (the course title). For example, here’s how we can add DATA C102, which stands for “Data, Inference, and Decisions”:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">courses</span><span class="p">[</span><span class="s2">&quot;DATA C102&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Data, Inference, and Decisions&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">courses</span><span class="p">[</span><span class="s2">"DATA C102"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Data, Inference, and Decisions"</span>
 </pre></div>
 </div>
 </div>
@@ -483,9 +494,9 @@ The key <code class="docutils literal notranslate"><span class="pre">&quot;age&q
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Adding new courses to the dictionary</span>
-<span class="n">courses</span><span class="p">[</span><span class="s2">&quot;DATA C88C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Computational Structures in Data Science&quot;</span>
-<span class="n">courses</span><span class="p">[</span><span class="s2">&quot;DATA C104&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Human Contexts and Ethics of Data&quot;</span>
-<span class="n">courses</span><span class="p">[</span><span class="s2">&quot;DATA 144&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Data Mining&quot;</span>
+<span class="n">courses</span><span class="p">[</span><span class="s2">"DATA C88C"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Computational Structures in Data Science"</span>
+<span class="n">courses</span><span class="p">[</span><span class="s2">"DATA C104"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Human Contexts and Ethics of Data"</span>
+<span class="n">courses</span><span class="p">[</span><span class="s2">"DATA 144"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Data Mining"</span>
 
 <span class="c1"># Print the updated dictionary</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">courses</span><span class="p">)</span>
@@ -493,7 +504,7 @@ The key <code class="docutils literal notranslate"><span class="pre">&quot;age&q
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;DATA C8&#39;: &#39;Foundations of Data Science&#39;, &#39;DATA C100&#39;: &#39;Principles and Techniques of Data Science&#39;, &#39;DATA C101&#39;: &#39;Data Engineering&#39;, &#39;DATA C140&#39;: &#39;Probability for Data Science&#39;, &#39;DATA C102&#39;: &#39;Data, Inference, and Decisions&#39;, &#39;DATA C88C&#39;: &#39;Computational Structures in Data Science&#39;, &#39;DATA C104&#39;: &#39;Human Contexts and Ethics of Data&#39;, &#39;DATA 144&#39;: &#39;Data Mining&#39;}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'DATA C8': 'Foundations of Data Science', 'DATA C100': 'Principles and Techniques of Data Science', 'DATA C101': 'Data Engineering', 'DATA C140': 'Probability for Data Science', 'DATA C102': 'Data, Inference, and Decisions', 'DATA C88C': 'Computational Structures in Data Science', 'DATA C104': 'Human Contexts and Ethics of Data', 'DATA 144': 'Data Mining'}
 </pre></div>
 </div>
 </div>
@@ -511,7 +522,7 @@ The key <code class="docutils literal notranslate"><span class="pre">&quot;age&q
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;DATA C8&#39;, &#39;DATA C100&#39;, &#39;DATA C101&#39;, &#39;DATA C140&#39;, &#39;DATA C102&#39;, &#39;DATA C88C&#39;, &#39;DATA C104&#39;, &#39;DATA 144&#39;])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys(['DATA C8', 'DATA C100', 'DATA C101', 'DATA C140', 'DATA C102', 'DATA C88C', 'DATA C104', 'DATA 144'])
 </pre></div>
 </div>
 </div>
@@ -527,7 +538,7 @@ The key <code class="docutils literal notranslate"><span class="pre">&quot;age&q
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;DATA C8&#39;, &#39;DATA C100&#39;, &#39;DATA C101&#39;, &#39;DATA C140&#39;, &#39;DATA C102&#39;, &#39;DATA C88C&#39;, &#39;DATA C104&#39;, &#39;DATA 144&#39;]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>['DATA C8', 'DATA C100', 'DATA C101', 'DATA C140', 'DATA C102', 'DATA C88C', 'DATA C104', 'DATA 144']
 </pre></div>
 </div>
 </div>
@@ -544,7 +555,7 @@ The key <code class="docutils literal notranslate"><span class="pre">&quot;age&q
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_values([&#39;Foundations of Data Science&#39;, &#39;Principles and Techniques of Data Science&#39;, &#39;Data Engineering&#39;, &#39;Probability for Data Science&#39;, &#39;Data, Inference, and Decisions&#39;, &#39;Computational Structures in Data Science&#39;, &#39;Human Contexts and Ethics of Data&#39;, &#39;Data Mining&#39;])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_values(['Foundations of Data Science', 'Principles and Techniques of Data Science', 'Data Engineering', 'Probability for Data Science', 'Data, Inference, and Decisions', 'Computational Structures in Data Science', 'Human Contexts and Ethics of Data', 'Data Mining'])
 </pre></div>
 </div>
 </div>
@@ -561,7 +572,7 @@ The key <code class="docutils literal notranslate"><span class="pre">&quot;age&q
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_items([(&#39;DATA C8&#39;, &#39;Foundations of Data Science&#39;), (&#39;DATA C100&#39;, &#39;Principles and Techniques of Data Science&#39;), (&#39;DATA C101&#39;, &#39;Data Engineering&#39;), (&#39;DATA C140&#39;, &#39;Probability for Data Science&#39;), (&#39;DATA C102&#39;, &#39;Data, Inference, and Decisions&#39;), (&#39;DATA C88C&#39;, &#39;Computational Structures in Data Science&#39;), (&#39;DATA C104&#39;, &#39;Human Contexts and Ethics of Data&#39;), (&#39;DATA 144&#39;, &#39;Data Mining&#39;)])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_items([('DATA C8', 'Foundations of Data Science'), ('DATA C100', 'Principles and Techniques of Data Science'), ('DATA C101', 'Data Engineering'), ('DATA C140', 'Probability for Data Science'), ('DATA C102', 'Data, Inference, and Decisions'), ('DATA C88C', 'Computational Structures in Data Science'), ('DATA C104', 'Human Contexts and Ethics of Data'), ('DATA 144', 'Data Mining')])
 </pre></div>
 </div>
 </div>
@@ -572,7 +583,7 @@ The key <code class="docutils literal notranslate"><span class="pre">&quot;age&q
 <p>Oops! It seems we made a mistake in the course title for DATA 144. We listed it as “Data Mining” when in reality, it should be “Data Mining and Analytics.” No worries—Python dictionaries make it easy to fix errors like this. We can update the value of this specific key by simply reassigning it with the correct value.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The old title: &quot;</span> <span class="o">+</span> <span class="n">courses</span><span class="p">[</span><span class="s2">&quot;DATA 144&quot;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"The old title: "</span> <span class="o">+</span> <span class="n">courses</span><span class="p">[</span><span class="s2">"DATA 144"</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -585,9 +596,9 @@ The key <code class="docutils literal notranslate"><span class="pre">&quot;age&q
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Correct the course title for Data 144</span>
-<span class="n">courses</span><span class="p">[</span><span class="s2">&quot;DATA 144&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Data Mining and Analytics&quot;</span> <span class="c1">#Reassignment</span>
+<span class="n">courses</span><span class="p">[</span><span class="s2">"DATA 144"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Data Mining and Analytics"</span> <span class="c1">#Reassignment</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The new title: &quot;</span> <span class="o">+</span> <span class="n">courses</span><span class="p">[</span><span class="s2">&quot;DATA 144&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"The new title: "</span> <span class="o">+</span> <span class="n">courses</span><span class="p">[</span><span class="s2">"DATA 144"</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -603,14 +614,14 @@ The key <code class="docutils literal notranslate"><span class="pre">&quot;age&q
 <p>Following historical trends, DATA 144 is not usually offered in Spring semesters. How could we go about deleting it from our dictionary in this case? Well, we can make use of <code class="docutils literal notranslate"><span class="pre">del</span></code>!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">courses</span><span class="p">[</span><span class="s2">&quot;DATA 144&quot;</span><span class="p">]</span> <span class="c1">#Delete the pair of (&quot;DATA 144&quot;, &quot;Data Mining and Analytics&quot;)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">courses</span><span class="p">[</span><span class="s2">"DATA 144"</span><span class="p">]</span> <span class="c1">#Delete the pair of ("DATA 144", "Data Mining and Analytics")</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">courses</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;DATA C8&#39;, &#39;Foundations of Data Science&#39;), (&#39;DATA C100&#39;, &#39;Principles and Techniques of Data Science&#39;), (&#39;DATA C101&#39;, &#39;Data Engineering&#39;), (&#39;DATA C140&#39;, &#39;Probability for Data Science&#39;), (&#39;DATA C102&#39;, &#39;Data, Inference, and Decisions&#39;), (&#39;DATA C88C&#39;, &#39;Computational Structures in Data Science&#39;), (&#39;DATA C104&#39;, &#39;Human Contexts and Ethics of Data&#39;)]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[('DATA C8', 'Foundations of Data Science'), ('DATA C100', 'Principles and Techniques of Data Science'), ('DATA C101', 'Data Engineering'), ('DATA C140', 'Probability for Data Science'), ('DATA C102', 'Data, Inference, and Decisions'), ('DATA C88C', 'Computational Structures in Data Science'), ('DATA C104', 'Human Contexts and Ethics of Data')]
 </pre></div>
 </div>
 </div>
@@ -625,15 +636,15 @@ The key <code class="docutils literal notranslate"><span class="pre">&quot;age&q
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dictionary with course codes as keys and enrollment numbers as values</span>
 <span class="n">course_enrollment</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;DATA C8&quot;</span><span class="p">:</span> <span class="mi">1200</span><span class="p">,</span>
-    <span class="s2">&quot;DATA C100&quot;</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span>
-    <span class="s2">&quot;DATA C101&quot;</span><span class="p">:</span> <span class="mi">450</span><span class="p">,</span>
-    <span class="s2">&quot;DATA C140&quot;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
-    <span class="s2">&quot;DATA 144&quot;</span><span class="p">:</span> <span class="mi">300</span>
+    <span class="s2">"DATA C8"</span><span class="p">:</span> <span class="mi">1200</span><span class="p">,</span>
+    <span class="s2">"DATA C100"</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span>
+    <span class="s2">"DATA C101"</span><span class="p">:</span> <span class="mi">450</span><span class="p">,</span>
+    <span class="s2">"DATA C140"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+    <span class="s2">"DATA 144"</span><span class="p">:</span> <span class="mi">300</span>
 <span class="p">}</span>
 
 
-<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">course_enrollment</span><span class="p">[</span><span class="s1">&#39;DATA C140&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; students enrolled in DATA C140&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">course_enrollment</span><span class="p">[</span><span class="s1">'DATA C140'</span><span class="p">])</span> <span class="o">+</span> <span class="s2">" students enrolled in DATA C140"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -650,19 +661,19 @@ The key <code class="docutils literal notranslate"><span class="pre">&quot;age&q
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dictionary mapping course codes to a list of instructors</span>
 <span class="n">instructors</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;DATA C8&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;John DeNero&quot;</span><span class="p">,</span> <span class="s2">&quot;Swupnil Sahai&quot;</span><span class="p">],</span>
-    <span class="s2">&quot;DATA C100&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Narges Narouzi&quot;</span><span class="p">,</span> <span class="s2">&quot;Joseph E. Gonzalez&quot;</span><span class="p">],</span>
-    <span class="s2">&quot;DATA C101&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Lisa Yan&quot;</span><span class="p">,</span> <span class="s2">&quot;Michael Ball&quot;</span><span class="p">],</span>
-    <span class="s2">&quot;DATA C140&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Ani Adhikari&quot;</span><span class="p">]</span>
+    <span class="s2">"DATA C8"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"John DeNero"</span><span class="p">,</span> <span class="s2">"Swupnil Sahai"</span><span class="p">],</span>
+    <span class="s2">"DATA C100"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Narges Narouzi"</span><span class="p">,</span> <span class="s2">"Joseph E. Gonzalez"</span><span class="p">],</span>
+    <span class="s2">"DATA C101"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Lisa Yan"</span><span class="p">,</span> <span class="s2">"Michael Ball"</span><span class="p">],</span>
+    <span class="s2">"DATA C140"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Ani Adhikari"</span><span class="p">]</span>
 <span class="p">}</span>
 
 <span class="c1"># Access instructors for Data C100</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Instructors for DATA C100: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">instructors</span><span class="p">[</span><span class="s1">&#39;DATA C100&#39;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Instructors for DATA C100: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">instructors</span><span class="p">[</span><span class="s1">'DATA C100'</span><span class="p">]))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Instructors for DATA C100: [&#39;Narges Narouzi&#39;, &#39;Joseph E. Gonzalez&#39;]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Instructors for DATA C100: ['Narges Narouzi', 'Joseph E. Gonzalez']
 </pre></div>
 </div>
 </div>
@@ -675,31 +686,31 @@ The key <code class="docutils literal notranslate"><span class="pre">&quot;age&q
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dictionary mapping course codes to detailed course information</span>
 <span class="n">course_details</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;DATA C8&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Foundations of Data Science&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;instructors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;John DeNero&quot;</span><span class="p">,</span> <span class="s2">&quot;Swupnil Sahai&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="mi">4</span>
+    <span class="s2">"DATA C8"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Foundations of Data Science"</span><span class="p">,</span>
+        <span class="s2">"instructors"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"John DeNero"</span><span class="p">,</span> <span class="s2">"Swupnil Sahai"</span><span class="p">],</span>
+        <span class="s2">"units"</span><span class="p">:</span> <span class="mi">4</span>
     <span class="p">},</span>
-    <span class="s2">&quot;DATA C100&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Principles and Techniques of Data Science&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;instructors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Narges Narouzi&quot;</span><span class="p">,</span> <span class="s2">&quot;Joseph E. Gonzalez&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="mi">4</span>
+    <span class="s2">"DATA C100"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Principles and Techniques of Data Science"</span><span class="p">,</span>
+        <span class="s2">"instructors"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Narges Narouzi"</span><span class="p">,</span> <span class="s2">"Joseph E. Gonzalez"</span><span class="p">],</span>
+        <span class="s2">"units"</span><span class="p">:</span> <span class="mi">4</span>
     <span class="p">},</span>
-    <span class="s2">&quot;DATA 144&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Data Engineering&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;instructors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Zachary Pardos&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="mi">3</span>
+    <span class="s2">"DATA 144"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Data Engineering"</span><span class="p">,</span>
+        <span class="s2">"instructors"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Zachary Pardos"</span><span class="p">],</span>
+        <span class="s2">"units"</span><span class="p">:</span> <span class="mi">3</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="c1"># Access detailed information for Data 140</span>
-<span class="n">data_144_info</span> <span class="o">=</span> <span class="n">course_details</span><span class="p">[</span><span class="s2">&quot;DATA 144&quot;</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The value for the DATA 144 key: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">data_144_info</span><span class="p">))</span>
+<span class="n">data_144_info</span> <span class="o">=</span> <span class="n">course_details</span><span class="p">[</span><span class="s2">"DATA 144"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"The value for the DATA 144 key: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">data_144_info</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The value for the DATA 144 key: {&#39;title&#39;: &#39;Data Engineering&#39;, &#39;instructors&#39;: [&#39;Zachary Pardos&#39;], &#39;units&#39;: 3}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The value for the DATA 144 key: {'title': 'Data Engineering', 'instructors': ['Zachary Pardos'], 'units': 3}
 </pre></div>
 </div>
 </div>
@@ -757,7 +768,7 @@ The key <code class="docutils literal notranslate"><span class="pre">&quot;age&q
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">3. </span>Sequences</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>DataFrames and Working with Data</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
