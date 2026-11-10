@@ -4,7 +4,7 @@ Jupyter Book source and previously published HTML for the Data Science Society a
 
 ## Fall 2026 readings
 
-The eight course notebooks from the adjacent `updatedtextbook` repository are in [chapters/fa26](chapters/fa26/index.md). The supplemental Week 2 study-space example and its CSV are in [chapters/03/2](chapters/03/2/pandas-cleaning-eda.ipynb).
+The Fall 2026 course notebooks are in [chapters/fa26](chapters/fa26/index.md). The supplemental Week 2 study-space example and its CSV are in [chapters/03/2](chapters/03/2/pandas-cleaning-eda.ipynb).
 
 ## Build and preview locally
 

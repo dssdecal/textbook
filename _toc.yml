@@ -64,3 +64,5 @@ sections:
     title: Week 7 · Unsupervised Learning
   - file: chapters/fa26/modern-machine-learning
     title: Week 8 · Modern Machine Learning
+  - file: chapters/fa26/generative-ai-for-data-science
+    title: Week 9 · Generative AI for Data Science

@@ -5,3 +5,4 @@ pydata-sphinx-theme==0.13.3
 numpy
 datascience
 pandas>=2.2,<4
+scikit-learn>=1.4,<2
